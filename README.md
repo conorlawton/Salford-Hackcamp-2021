@@ -1,3 +1,7 @@
-Salford Hackcamp 2021! hello
+### Salford Hackcamp 2021!
 
-My name is Bunnd'd
+MySQL Server authentication details\
+IP: 51.9.137.248\
+Port: 3306\
+Username: hackcamp\
+Password: tFvKItsfJEbUxPKH
