@@ -4,15 +4,15 @@
 	
 	if ($url[0] == '/') {
 		
-		// If the user token isn't set reroute to the login page
+		// If the user token isn't set re-route to the login page
 		if (isset($_SESSION["user"])) {
 			
-			require_once __DIR__.'/Controllers/IndexController.php';
-			require_once __DIR__ . '/Views/IndexView.phtml';
+			require_once __DIR__ . '/Controllers/index_controller.php';
+			require_once __DIR__ . '/Views/index_view.phtml';
 			
 			$user = $_SESSION["user"];
 			
-			$index_controller = new IndexController($user);
+			$index_controller = new indexcontroller($user);
 			
 			print $index_controller->view();
 		} else {
