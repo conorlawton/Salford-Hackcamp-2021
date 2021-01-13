@@ -1,6 +1,6 @@
 <?php
 	
-	require_once "../Models/UserModel.php";
+	require_once "../Models/user_model.php";
 	
 	class IndexController
 	{
@@ -11,6 +11,6 @@
 		}
 		
 		function view() {
-		
+			require_once __DIR__."/../Views/index_view.phtml";
 		}
 	}
