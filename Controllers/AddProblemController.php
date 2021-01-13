@@ -1,5 +1,5 @@
 <?php
-	require_once 'Models/DatabaseModel.php';
+	require_once __DIR__ . "/../Models/DatabaseModel.php";
 	
 	$view = new stdClass();
 	$view->pageTitle = '';
@@ -10,5 +10,5 @@
 		$problem_data_set->add_problem($_POST['Urgency'], $_POST['Description'], $_POST['Categorisation_id'], $_POST['Staff_id'], $_POST['User_id']);
 	}
 	
-	require_once 'Views/add_problem.phtml';
+	require_once __DIR__ . "/../Views/AddProblem.phtml";
 
