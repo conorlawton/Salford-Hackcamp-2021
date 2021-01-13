@@ -1,0 +1,16 @@
+<?php
+?>
+
+<form action="<?php echo __DIR__."/../Controllers/login_controller.php" ?>" method="POST">
+	<div>
+		<label for="form-name">Email</label>
+		<input type="email" name="email" id="form-name" required>
+	</div>
+	<div>
+		<label for="form-password">Password</label>
+		<input type="password" name="password" id="form-password" required>
+	</div>
+	<div>
+		<button type="submit">Login</button>
+	</div>
+</form>
