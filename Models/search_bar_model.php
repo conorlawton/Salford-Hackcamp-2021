@@ -16,13 +16,15 @@ global $searchLine;
 switch($searchRequest)
 {
 
-    // Search by Customer
+    // Search for specific Customer and their associated queries.
     case "1":
 
         if ($searchResolvedStatus != "1")
         {
 
-            $sqlQuery = '';
+            $sqlQuery = 'SELECT * 
+                         FROM salfordhackcamp2020.customers
+                         WHERE firstName LIKE "%' . $searchLine . '%"';
 
             break;
 
@@ -30,13 +32,15 @@ switch($searchRequest)
         else
         {
 
-            $sqlQuery = '';
+            $sqlQuery = 'SELECT * 
+                         FROM salfordhackcamp2020.customers
+                         WHERE firstName LIKE "%' . $searchLine . '%"';
 
             break;
 
         }
 
-    // Search by Problem
+    // Search for queries based on their description.
     case "2":
 
         if ($searchResolvedStatus != "1")
@@ -56,7 +60,7 @@ switch($searchRequest)
 
         }
 
-    // Search by Category
+    // Search for all queries in a specific Category.
     case "3":
 
         if ($searchResolvedStatus != "1")
@@ -76,7 +80,7 @@ switch($searchRequest)
 
         }
 
-    // Search by Staff
+    // Search for all queries associated with a specific member of Staff.
     case "4":
 
         if ($searchResolvedStatus != "1")
