@@ -1,6 +1,6 @@
 <?php
 	
-	$url = isset($_SERVER['PATH_INFO']) ? explode('/', ltrim($_SERVER['PATH_INFO']), '/') : '/';
+	$url = isset($_SERVER['PATH_INFO']) ? explode('/', ltrim($_SERVER['PATH_INFO'])) : '/';
 	
 	// If the user token isn't set re-route to the login page,
 	// Since this is a staff only page we don't need to create a "home page" for anyone else.
@@ -15,7 +15,7 @@
 			
 			$index_controller = new indexcontroller($user);
 			
-			print $index_controller->view();
+			$index_controller->view();
 			
 		} else {
 			$requested_controller = $url[0];
@@ -28,6 +28,7 @@
 			
 			} else {
 				header('HTTP/1.1 404 Not Found');
+				require_once "404.php";
 				die('404 - The file \'' . $controller_path . '\' does not exist');
 			}
 		}
@@ -35,5 +36,6 @@
 		require_once __DIR__."/Controllers/login_controller.php";
 		
 		$login_controller = new LoginController();
+		$login_controller->view();
 	}
 	
