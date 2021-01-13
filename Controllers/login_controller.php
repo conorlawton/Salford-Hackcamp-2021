@@ -1,6 +1,6 @@
 <?php
 
-	require_once __DIR__."/../Models/database_model.php";
+	require_once __DIR__ . "/../Models/DatabaseModel.php";
 	
 	class LoginController {
 		
