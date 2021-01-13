@@ -1,16 +1,33 @@
 <?php
+require_once ("Templates/head.phtml")
 ?>
 
-<form action="<?php echo __DIR__."/../Controllers/login_controller.php" ?>" method="POST">
-	<div>
-		<label for="form-name">Email</label>
-		<input type="email" name="email" id="form-name" required>
-	</div>
-	<div>
-		<label for="form-password">Password</label>
-		<input type="password" name="password" id="form-password" required>
-	</div>
-	<div>
-		<button type="submit">Login</button>
-	</div>
-</form>
+<div class="container border border-2 rounded col-4 mt-5">
+    <div class = "d-flex justify-content-center mb-2" >
+    <h1 class="h3 mt-5 fw-normal">Sign in</h1>
+    </div>
+        <div class = "d-flex justify-content-center mb-5">
+
+
+            <div class="">
+                <form class = "row row-cols-lg-auto g-3 align-items-center form-horizontal" action="<?php echo __DIR__."/../Controllers/login_controller.php" ?>" method="POST">
+                    <div class="col-12">
+                        <label for="form-name"></label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="form-name" placeholder="Email">
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="input-group">
+                            <label for="form-password"></label>
+                            <input type="password" class="form-control" id="form-password" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </form>
+            </div>
+    </div>
+</div>
