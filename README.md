@@ -12,6 +12,6 @@
 - Feature: Create this branch based on the dev branch, push your commits for your features here, and merge into dev once tested.
 
 #### To implement a new feature:
-- Create a new branch "feature-your-feature-name-here" derived from the dev branch
-- Push all commits to that branch, and make merge it into dev
-- Then make a pull request to merge dev into master
+1. Create a new branch "feature-your-feature-name-here" derived from the dev branch
+2. Push all commits to that branch, and make merge it into dev
+3. Then make a pull request to merge dev into master
