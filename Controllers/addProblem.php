@@ -1,5 +1,5 @@
 <?php
-require_once('Models/Database.php');
+require_once('Models/database_model.php');
 
 $view = new stdClass();
 $view->pageTitle = '';

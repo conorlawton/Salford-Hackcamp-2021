@@ -1,9 +1,9 @@
 <?php
 	
-	class DatabaseModel {
+	class database_model {
 		protected static $_dbInstance = null;
 		protected $_dbHandle;
-		
+
 		public static function getInstance() {
 			$db_host = "51.9.137.248";
 			$db_username = "hackcamp";

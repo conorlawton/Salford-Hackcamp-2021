@@ -1,6 +1,6 @@
 <?php
 
-require_once('Models/Database.php');
+require_once('Models/database_model.php.php');
 require_once('Models/problemData.php');
 
 class problemDataSet {
