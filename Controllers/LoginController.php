@@ -1,6 +1,6 @@
 <?php
 	
-	require_once __DIR__ . "/../Models/database_model.php";
+	require_once __DIR__ . "/../Models/DatabaseModel.php";
 	
 	class LoginController
 	{
@@ -14,7 +14,7 @@
 		
 		function view()
 		{
-			require_once __DIR__ . "/../Views/login_view.phtml";
+			require_once __DIR__ . "/../Views/LoginView.phtml";
 		}
 		
 		static function login_user($_email, $_password): ?UserModel
@@ -39,7 +39,7 @@
 			
 			if (password_verify($_password, $password)) {
 				$_SESSION["logged-in"] = true;
-				return new UserModel();
+				return new UserModel($id, $name, $email);
 			} else {
 				$_SESSION["login-message"] = "Username or password is incorrect.";
 				return null;
@@ -55,7 +55,6 @@
 		}
 	}
 	
-	session_start();
 	if (isset($_POST["submit"])) {
 		$email = $_POST["email"];
 		$password = $_POST["password"];
