@@ -1,5 +1,6 @@
 <?php
-	
+	require_once __DIR__ . "/Templates/head.phtml";
+	require_once __DIR__ . "/Templates/header.phtml";
 ?>
 
 <!DOCTYPE html>
@@ -9,6 +10,8 @@
 	<title>title</title>
 </head>
 <body>
-
+<form action="Login" method="post">
+	<button type="submit" name="logout">Logout</button>
+</form>
 </body>
 </html>
