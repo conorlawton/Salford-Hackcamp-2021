@@ -7,7 +7,7 @@
 - Password: tFvKItsfJEbUxPKH
 
 #### Branches
-- Main: Highly stable production ready branch.
+- Master: Highly stable production ready branch.
 - Dev: Branch which serves as "in development", this is the branch you merge feature branches into.
 - Feature: Create this branch based on the dev branch, push your commits for your features here, and merge into dev once tested.
 
