@@ -3,8 +3,8 @@
 	class DatabaseModel {
 		protected static $_dbInstance = null;
 		protected $_dbHandle;
-		
-		public static function getInstance() {
+
+		public static function getInstance(): DatabaseModel {
 			$db_host = "51.9.137.248";
 			$db_username = "hackcamp";
 			$db_password = "tFvKItsfJEbUxPKH";
