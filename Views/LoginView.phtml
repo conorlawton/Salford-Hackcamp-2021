@@ -1,0 +1,35 @@
+<?php
+	require_once __DIR__ . "/Templates/head.phtml";
+	require_once __DIR__ . "/Templates/header.phtml";
+?>
+
+<div class="container shadow rounded col-4 mt-5 p-1">
+	<div class="w-100 text-center">
+		<h1 class="h3 my-3 fw-normal">Sign in</h1>
+	</div>
+	<form class="w-100 col container" action="login" method="POST">
+		<div class="row mb-2 g-2">
+			<div class="form-floating col-6">
+				<input type="email" name="email" class="form-control" id="form-name" placeholder="name@example.com" autocomplete="email" required>
+				<label for="form-name">Email</label>
+			</div>
+			<div class="form-floating col-6">
+				<input type="password" name="password" class="form-control" id="form-password" placeholder="password" autocomplete="password" required>
+				<label for="form-password">Password</label>
+			</div>
+		</div>
+		<div class="row mb-2 g-2">
+			<div class="col text-center">
+				<button type="submit" class="btn btn-primary">Login</button>
+			</div>
+		</div>
+		<div class="row g-2">
+			<p class="text-center text-danger align-bottom mb-0 mt-1">
+				<?php
+					echo !empty($_SESSION["login-message"]) ? $_SESSION["login-message"] : "";
+					unset($_SESSION["login-message"]);
+				?>
+			</p>
+		</div>
+	</form>
+</div>
