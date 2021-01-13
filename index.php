@@ -9,7 +9,6 @@
 		if ($url[0] == '/') {
 			
 			require_once __DIR__ . '/Controllers/index_controller.php';
-			require_once __DIR__ . '/Views/index_view.phtml';
 			
 			$user = $_SESSION["user"];
 			
