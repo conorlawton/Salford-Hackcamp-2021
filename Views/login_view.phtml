@@ -1,7 +1,4 @@
-<?php
-?>
-
-<form action="<?php echo __DIR__."/../Controllers/login_controller.php" ?>" method="POST">
+<form action="/login" method="POST">
 	<div>
 		<label for="form-name">Email</label>
 		<input type="email" name="email" id="form-name" required>
@@ -11,6 +8,13 @@
 		<input type="password" name="password" id="form-password" required>
 	</div>
 	<div>
-		<button type="submit">Login</button>
+		<input type="submit" name="submit" />
 	</div>
 </form>
+
+<?php
+	if (isset($_SESSION["login-message"])) {
+		echo $_SESSION["login-message"];
+	}
+?>
+
