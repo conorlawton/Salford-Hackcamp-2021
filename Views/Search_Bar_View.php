@@ -23,7 +23,7 @@
 
                 <!--Radio Button - Category-->
                 <input id="Radio_Category" type="radio" name="searchRadio" value="3">
-6                <label for="Radio_Category">Category</label>
+                <label for="Radio_Category">Category</label>
 
                 <!--Radio Button - Staff-->
                 <input id="Radio_Staff" type="radio" name="searchRadio" value="4">

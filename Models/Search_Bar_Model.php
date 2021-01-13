@@ -1,5 +1,10 @@
 <?php
 
+// Grab the database basic model.
+require_once("database_model.php");
+// Initialise a database basic model object.
+$database = DatabaseModel::getInstance();
+
 // Global Variable Calls
 global $searchResolvedStatus;
 global $searchRequest;
@@ -92,5 +97,10 @@ switch($searchRequest)
         }
 
 }
+
+// Database handling
+$statement = $database->getDBConnection()->prepare($sqlQuery);
+
+$database->__destruct();
 
 ?>
