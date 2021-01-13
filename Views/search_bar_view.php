@@ -1,6 +1,8 @@
 <div id="searchSection">
 
-    <form action="../Controllers/Search_Bar_Controller.php" method="POST">
+    <!--<?php //require_once ('../Controllers/search_bar_controller.php');?>-->
+
+    <form action="search_bar" method="POST">
 
         <!--Search Bar-->
         <div class="input-group input-group-lg" id="searchBar">
@@ -10,7 +12,7 @@
 
         <div id="filters">
 
-            <p>Search By:</p>
+            <p>Search For:</p>
 
             <div id="radioButtons">
                 <!--Radio Button - Customer-->
