@@ -1,8 +1,9 @@
 <?php
 	
-	require_once "../Models/user_model.php";
+	require_once __DIR__."/../Models/user_model.php";
+	require_once __DIR__."/../Core/controller_base.php";
 	
-	class IndexController
+	class IndexController extends ControllerBase
 	{
 		private $user;
 		
@@ -10,7 +11,7 @@
 			$this->user = $user;
 		}
 		
-		function view() {
+		function view(): void {
 			require_once __DIR__."/../Views/index_view.phtml";
 		}
 	}
