@@ -1,5 +1,12 @@
 <?php
 	
+	// Check if the request URI matches a file ending in any of:
+	if (preg_match('/\.(?:php|png|jpg|jpeg|gif|ico|css|js)\??.*$/',
+		$_SERVER["REQUEST_URI"]))
+	{
+		return false; // serve the requested resource as-is.
+	}
+	
 	require_once __DIR__ . "/Controllers/IndexController.php";
 	require_once __DIR__ . "/Core/ControllerBase.php";
 	
@@ -45,11 +52,17 @@
 				// Get the controller name.
 				$controller_name = ucfirst($requested_controller) . "Controller";
 				
-				// Construct a new controller of that type.
-				$controller = new $controller_name();
 				
-				// Serve the controller's view.
-				$controller->view();
+				switch ($controller_name) {
+					case "AddProblemController":
+						$controller = new $controller_name($user);
+						$controller->view();
+						break;
+					case "AssetsController":
+						$controller = new $controller_name($request_parameters[0]);
+						$controller->view();
+						break;
+				}
 				
 				// Die.
 				die();

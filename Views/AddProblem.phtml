@@ -1,17 +1,8 @@
-<?php require 'Templates/header.phtml' ?>
-	<!doctype html>
-	<html lang="en">
-	<body>
-
-	<form action="AddProblem" method="post"> <!-- This creates 3 text boxes as 3 parameters are needed in the method -->
-		<input type="text" name="Urgency" placeholder="Urgency">
-		<input type="text" name="Description" placeholder="Description">
-		<input type="text" name="Categorisation_id" placeholder="Categorisation_id">
-		<input type="text" name="Staff_id" placeholder="Staff_id">
-		<input type="text" name="User_id" placeholder="User_id">
-		<input type="submit" name="Add" value="Add">
-	</form>
-
-	</body>
-	</html>
-<?php require 'Templates/footer.phtml' ?>
+<form action="AddProblem" method="post"> <!-- This creates 3 text boxes as 3 parameters are needed in the method -->
+	<input type="text" name="Urgency" placeholder="Urgency">
+	<input type="text" name="Description" placeholder="Description">
+	<input type="text" name="Categorisation_id" placeholder="Categorisation_id">
+	<input type="text" name="Staff_id" placeholder="Staff_id">
+	<input type="text" name="User_id" placeholder="User_id">
+	<input type="submit" name="Add" value="Add">
+</form>
