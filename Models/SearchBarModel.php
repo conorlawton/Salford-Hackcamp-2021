@@ -4,7 +4,7 @@
 	require_once __DIR__ . "/../Core/ViewBase.php";
     require_once __DIR__ . "/../Models/SearchQueryModel.php";
 	
-	class SearchBarController extends ControllerBase
+	class SearchBarModel extends ControllerBase
 	{
 		
 		function __construct()
@@ -90,11 +90,16 @@
 			$queryPostController = new QueryPostController($searchQueryModel->getDataset(), $searchRequest);
             $queryPostController->queryPostController();
 
+            $view = new stdClass();
+            $view->dataset = $searchQueryModel->getDataset();
+
+
+
 		}
 		
 	}
 	
-	$searchBar = new searchBarController();
+	$searchBar = new SearchBarModel();
 	$searchBar->searchBarInput();
 	
 	/*
