@@ -5,7 +5,7 @@
     <form class="w-100 col container"action="AddProblem" method="post">
         <div class="row mb-2 g-2">
             <div class="form-floating col-sm-4">
-                <select class="form-select pb-2"  id="floatingSelect" required>
+                <select class="form-select pb-2"  name="urgency" id="floatingSelect" required>
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
                     <option value="High">High</option>
@@ -13,7 +13,7 @@
                 <label for="floatingUrgency">Problem Urgency</label>
             </div>
             <div class="form-floating col-sm-4">
-                <select class="form-select pb-2" id="floatingSelect" required>
+                <select class="form-select pb-2" name="categorisation_id" id="floatingSelect" required>
                     <option value="1">Password Queries</option>
                     <option value="2">Login Issues</option>
                     <option value="3">Process Queries</option>
@@ -33,7 +33,7 @@
         </div>
         <div class="row mb-2 g-2">
             <div class="form-floating col">
-                <textarea class="form-control" id="descriptionTextArea" rows="3" style="height: 5em;" required></textarea>
+                <textarea class="form-control" name="description" id="descriptionTextArea" rows="3" style="height: 5em;" required></textarea>
                 <label for="descriptionTextArea" class="form-label">Problem Description</label>
             </div>
         </div>

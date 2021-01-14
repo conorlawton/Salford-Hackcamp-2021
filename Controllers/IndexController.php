@@ -3,6 +3,7 @@
 	require_once __DIR__ . "/../Models/UserModel.php";
 	require_once __DIR__ . "/../Core/ControllerBase.php";
 	require_once __DIR__ . "/../Core/ViewBase.php";
+	require_once __DIR__ . "/../Models/ProblemModel.php";
 	
 	class IndexController extends ControllerBase
 	{
@@ -12,6 +13,7 @@
 		{
 			$this->user = $user;
 			$this->view = new ViewBase("Home", "/Views/IndexView.phtml");
+			$this->view->problemDataSet = ProblemModel::fetchActiveProblems();
 		}
 		
 		function view(): void

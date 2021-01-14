@@ -1,0 +1,13 @@
+<div class="container border border-2 rounded col-4 mt-5">
+	<div class="justify-content-left mb-5">
+		<?php /** @var ProblemModel $active_problems */
+			foreach ($view->problemDataSet as $active_problems)
+			{
+				echo '<p class="fw-bolder fs-3">Category: ' . $active_problems->getCategory() . '</p>
+        <p>Urgency: ' . $active_problems->getUrgency() . '</p>
+        <p>Description: ' . $active_problems->getDescription() . '</p>
+        <p>Resolved: ' . $active_problems->getResolved() . '</p>
+        <p>Created by: ' . $active_problems->getStaffUploader() . '</p>';
+			} ?>
+	</div>
+</div>
