@@ -17,13 +17,12 @@
 		function get(): void {
 			$this->view->view();
 		}
-	}
-	
-	// Page logic here
-	
-	if (isset($_POST['submitBTN']))
-	{
-		ProblemModel::add_problem($_POST['urgency'], $_POST['description'], $_POST['categorisation_id'], $_SESSION['user']->id, $_POST['CustomerID']);
+		
+		function post(): void
+		{
+			ProblemModel::add_problem($_POST['urgency'], $_POST['description'], $_POST['categorisation_id'], $_SESSION['user']->id, $_POST['CustomerID']);
+			header("Location: /AddProblem");
+		}
 	}
 	
 

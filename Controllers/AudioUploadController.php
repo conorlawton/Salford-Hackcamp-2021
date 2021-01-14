@@ -9,7 +9,7 @@
 			$this->view = new ViewBase("", "/Views/UploadAudioView.phtml");
 		}
 		
-		function view(): void {
+		function get(): void {
 			$this->view->view();
 		}
 		
@@ -42,5 +42,5 @@
 				$_SESSION["file-upload-message"] = "File successfully updated.";
 			}
 		}
-			}
+	}
 	
