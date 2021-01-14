@@ -4,7 +4,7 @@
 	if (preg_match('/\.(?:php|png|jpg|jpeg|gif|ico|css|js)\??.*$/',
 		$_SERVER["REQUEST_URI"]))
 	{
-		return false; // serve the requested resource as-is.
+		return false; // Serve the requested resource as-is.
 	}
 	
 	require_once __DIR__ . "/Controllers/IndexController.php";
@@ -12,6 +12,7 @@
 	
 	// First break the url request down and split it by "/"
 	$url = isset($_SERVER["PATH_INFO"]) ? explode("/", ltrim($_SERVER["PATH_INFO"], "/")) : "/";
+	
 	
 	// Begin the session in the router so that it doesn't need to start anywhere else.
 	session_start();
@@ -40,26 +41,32 @@
 			
 			// Get the path to the controller file.
 			$controller_path = __DIR__ . "/Controllers/" . $requested_controller . "Controller.php";
+			
 			// Check if the controller exists, otherwise serve a 404.
 			if (file_exists($controller_path))
 			{
-				// Perform some magic.
-				/** @noinspection PhpIncludeInspection */
+				// Perform some magic
 				
-				// Require the controller given the requested page's controller.
+				// Require the controller given the requested page's controller..
+				/** @noinspection PhpIncludeInspection */
 				require_once $controller_path;
 				
 				// Get the controller name.
 				$controller_name = ucfirst($requested_controller) . "Controller";
 				
 				
-				switch ($controller_name) {
+				switch ($controller_name)
+				{
 					case "AddProblemController":
 						$controller = new $controller_name($user);
 						$controller->view();
 						break;
 					case "AssetsController":
 						$controller = new $controller_name($request_parameters[0]);
+						$controller->view();
+						break;
+					default:
+						$controller = new $controller_name();
 						$controller->view();
 						break;
 				}
