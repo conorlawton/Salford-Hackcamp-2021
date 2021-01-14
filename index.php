@@ -13,9 +13,10 @@
 	// First break the url request down and split it by "/"
 	$url = isset($_SERVER["PATH_INFO"]) ? explode("/", ltrim($_SERVER["PATH_INFO"], "/")) : "/";
 	
-	
 	// Begin the session in the router so that it doesn't need to start anywhere else.
 	session_start();
+	
+	$request_action = strtolower($_SERVER['REQUEST_METHOD']);
 	
 	// If the user token isn't set re-route to the login page,
 	// Since this is a staff only page we don't need to create a "home page" for anyone else.
@@ -28,13 +29,13 @@
 		{
 			// Create the IndexController, give it the user and serve the page via view().
 			$index_controller = new IndexController($user);
-			$index_controller->view();
+			$index_controller->$request_action();
 		}
 		else
 		{
 			// Get the page the user wants to access.
 			$requested_controller = $url[0];
-			$request_action = isset($url[1]) ? $url[1] : "";
+			
 			
 			// Get the rest of the url parts.
 			$request_parameters = array_slice($url, 2);
@@ -54,22 +55,17 @@
 				// Get the controller name.
 				$controller_name = ucfirst($requested_controller) . "Controller";
 				
-				
 				switch ($controller_name)
 				{
 					case "AddProblemController":
 						$controller = new $controller_name($user);
-						$controller->view();
-						break;
-					case "AssetsController":
-						$controller = new $controller_name($request_parameters[0]);
-						$controller->view();
 						break;
 					default:
 						$controller = new $controller_name();
-						$controller->view();
 						break;
 				}
+				
+				$controller->$request_action();
 				
 				// Die.
 				die();
@@ -77,9 +73,9 @@
 			else
 			{
 				// Send a 404 header and serve the 404 page.
-                require_once __DIR__ . "/Controllers/Error404Controller.php";
-                $error_controller = new Error404Controller();
-                $error_controller->view();
+				require_once __DIR__ . "/Controllers/Error404Controller.php";
+				$error_controller = new Error404Controller();
+				$error_controller->$request_action();
 			}
 		}
 	}
@@ -89,6 +85,6 @@
 		require_once __DIR__ . "/Controllers/LoginController.php";
 		
 		$login_controller = new LoginController();
-		$login_controller->view();
+		$login_controller->$request_action();
 	}
 	
