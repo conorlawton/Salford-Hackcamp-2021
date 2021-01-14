@@ -55,23 +55,6 @@ class QueryPostController
                     //include __DIR__ . '/../Views/SearchResultsViews/CustomerResultView.php';
 
                     // Here the raw HTML output is assembled with the database retrieved data into a lot item, ready for display.
-                    echo
-                        '
-                    <div id="Query_Post_ID">
-                    
-                        <div id="main_info">
-                    
-                            <h1 id="id">' . $row->getID() . '</h1>
-                    
-                            <p id="urgency">First Names: ' . $row->getFirstName(). '</p>
-                            <p id="description">Surname: ' . $row->getLastName() . '</p>
-                            <p id="resolved">Email: ' . $row->getEmail() . '</p>
-                            <p id="resolved">Phone Number: ' . $row->getPhoneNumber() . '</p>
-                    
-                        </div>
-                    
-                    </div>
-                    ';
 
                 }
 

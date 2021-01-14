@@ -56,7 +56,7 @@ class SearchQueryModel
 
         }
 
-        if($nameArray[1])
+        if(!($nameArray[1] === null))
         {
 
             $chopLastName = $nameArray[1];
