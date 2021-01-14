@@ -1,6 +1,7 @@
 <?php
 	require_once __DIR__ . "/../Models/DatabaseModel.php";
 	require_once __DIR__ . "/../Models/UserModel.php";
+    require_once __DIR__ . "/../Models/ProblemModel.php";
 	
 	class AddProblemController extends ControllerBase
 	{
@@ -18,9 +19,9 @@
 	
 	// Page logic here
 	
-	if (isset($_POST['Add']))
+	if (isset($_POST['submitBTN']))
 	{
-		ProblemModel::add_problem($_POST['Urgency'], $_POST['Description'], $_POST['Categorisation_id'], $_SESSION['user']->id, $_POST['CustomerID']);
+		ProblemModel::add_problem($_POST['urgency'], $_POST['description'], $_POST['categorisation_id'], $_SESSION['user']->id, $_POST['CustomerID']);
 	}
 	
 
