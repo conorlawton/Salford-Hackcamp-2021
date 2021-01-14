@@ -19,11 +19,11 @@
             $this->category = $category;
 		}
 
-		public static function fetchAllProblems()
+		public static function fetchActiveProblems()
         {
             $db = DatabaseModel::getInstance();
 
-            $add_problem = $db->getDBConnection()->prepare("SELECT * FROM problems JOIN categorisation ON problems.categorisation_id = categorisation.id");
+            $add_problem = $db->getDBConnection()->prepare("SELECT * FROM problems JOIN categorisation ON problems.categorisation_id = categorisation.id WHERE resolved = FALSE");
             $add_problem->bind_result($id, $urgency, $description, $resolved, $category_id, $staff_uploader, $customer_id, $placeholder, $category);
             $add_problem->execute();
             $problemSet = [];
