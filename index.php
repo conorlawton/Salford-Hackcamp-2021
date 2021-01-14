@@ -53,7 +53,8 @@
 				$controller_name = ucfirst($requested_controller) . "Controller";
 				
 				
-				switch ($controller_name) {
+				switch ($controller_name)
+				{
 					case "AddProblemController":
 						$controller = new $controller_name($user);
 						$controller->view();
@@ -62,10 +63,10 @@
 						$controller = new $controller_name($request_parameters[0]);
 						$controller->view();
 						break;
-                    case "SearchBarController":
-                        $controller = new $controller_name();
-                        $controller->view();
-                        break;
+					default:
+						$controller = new $controller_name();
+						$controller->view();
+						break;
 				}
 				
 				// Die.

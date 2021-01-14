@@ -42,7 +42,7 @@ switch($searchRequest) {
             $phoneNumber = $row[4];
 
             // View is called.
-            include('../Views/Search_Results_Views/customer_result_view.php');
+            include('../Views/SearchResultsViews/CustomerResultView.php');
 
         }
         break;
@@ -61,7 +61,7 @@ switch($searchRequest) {
             $resolved = $row[3];
 
             // View is called.
-            include('../Views/Search_Results_Views/Problem_Results_View.php');
+            include('../Views/SearchResultsViews/ProblemResultsView.php');
 
         }
         break;
@@ -78,7 +78,7 @@ switch($searchRequest) {
             $category = $row[1];
 
             // View is called.
-            include('../Views/Search_Results_Views/Category_Result_View.php');
+            include('../Views/SearchResultsViews/CategoryResultView.php');
 
         }
         break;
@@ -96,7 +96,7 @@ switch($searchRequest) {
             $email = $row[3];
 
             // View is called.
-            include('../Views/Search_Results_Views/Staff_Result_View.php');
+            include('../Views/SearchResultsViews/StaffResultView.php');
 
         }
         break;

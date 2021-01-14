@@ -1,7 +1,7 @@
 <?php
 
 // Grab the database basic model.
-require_once("database_model.php");
+require_once __DIR__ . "/DatabaseModel.php";
 // Initialise a database basic model object.
 $database = DatabaseModel::getInstance();
 
@@ -22,9 +22,7 @@ switch($searchRequest)
         if ($searchResolvedStatus != "1")
         {
 
-            $sqlQuery = 'SELECT * 
-                         FROM salfordhackcamp2020.customers
-                         WHERE firstName LIKE "%' . $searchLine . '%"';
+            $sqlQuery = 'SELECT * FROM customers WHERE firstName LIKE ?';
 
             break;
 
@@ -32,9 +30,7 @@ switch($searchRequest)
         else
         {
 
-            $sqlQuery = 'SELECT * 
-                         FROM salfordhackcamp2020.customers
-                         WHERE firstName LIKE "%' . $searchLine . '%"';
+            $sqlQuery = 'SELECT * FROM customers WHERE firstName LIKE ?';
 
             break;
 
@@ -103,8 +99,5 @@ switch($searchRequest)
 }
 
 // Database handling
-$statement = $database->getDBConnection()->prepare($sqlQuery);
+// $statement = $database->getDBConnection()->prepare($sqlQuery);
 
-$database->__destruct();
-
-?>
