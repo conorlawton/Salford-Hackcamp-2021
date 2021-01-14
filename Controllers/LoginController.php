@@ -104,7 +104,7 @@
 		}
 		else
 		{
-			header("Location: /Login");
+			header("Location: /login");
 		}
 	}
 	else if (isset($_POST["logout"]))
@@ -116,6 +116,6 @@
 			header("Location: /");
 		}
 		
-		header("Location: /Login");
+		header("Location: /login");
 	}
 	
