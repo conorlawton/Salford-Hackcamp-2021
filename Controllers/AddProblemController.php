@@ -8,7 +8,7 @@
 		
 		function __construct($user) {
 			$this->user = $user;
-			$this->view = new ViewBase("Add Problem", "/Views/AddProblem.phtml");
+			$this->view = new ViewBase("Add Problem", "/Views/AddProblemView.phtml");
 		}
 		
 		function view(): void {
