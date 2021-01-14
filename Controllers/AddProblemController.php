@@ -20,7 +20,7 @@
 	
 	if (isset($_POST['Add']))
 	{
-		ProblemModel::add_problem($_POST['Urgency'], $_POST['Description'], $_POST['Categorisation_id'], $_POST['Staff_id'], $_POST['User_id']);
+		ProblemModel::add_problem($_POST['Urgency'], $_POST['Description'], $_POST['Categorisation_id'], $_SESSION['user']->id, $_POST['CustomerID']);
 	}
 	
 
