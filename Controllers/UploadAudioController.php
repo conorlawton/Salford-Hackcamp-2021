@@ -9,7 +9,7 @@
 			$this->view = new ViewBase("Upload Audio", "/Views/UploadAudioView.phtml");
 		}
 		
-		function view(): void {
+		function get(): void {
 			$this->view->view();
 		}
 	}

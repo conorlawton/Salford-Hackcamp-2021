@@ -16,6 +16,45 @@
 			$this->view->view();
 		}
 		
+		function post(): void
+		{
+			// Check if the user is logging in or out.
+			if (isset($_POST["login"]))
+			{
+				// Get the values from the post form.
+				$email = $_POST["email"];
+				$password = $_POST["password"];
+				
+				// Call the login_user method and get the user result.
+				$user = LoginController::login_user($email, $password);
+				
+				
+				// If we are logged in, reroute the user to the index page,
+				// otherwise take them back to the login page on a failed login.
+				if ($_SESSION["logged-in"])
+				{
+					// Set the user session token to the returned user.
+					$_SESSION["user"] = $user;
+					header("Location: /");
+				}
+				else
+				{
+					header("Location: /login");
+				}
+			}
+			else if (isset($_POST["logout"]))
+			{
+				// If we are logged-in, let them log-out.
+				if ($_SESSION["logged-in"])
+				{
+					LoginController::logout_user();
+					header("Location: /");
+				}
+				
+				header("Location: /login");
+			}
+		}
+		
 		static function login_user($_email, $_password): ?UserModel
 		{
 			// Get the database connection instance.
@@ -81,41 +120,5 @@
 			
 			header("Location: /");
 		}
-	}
-	
-	// Check if the user is logging in or out.
-	if (isset($_POST["login"]))
-	{
-		// Get the values from the post form.
-		$email = $_POST["email"];
-		$password = $_POST["password"];
-		
-		// Call the login_user method and get the user result.
-		$user = LoginController::login_user($email, $password);
-		
-		
-		// If we are logged in, reroute the user to the index page,
-		// otherwise take them back to the login page on a failed login.
-		if ($_SESSION["logged-in"])
-		{
-			// Set the user session token to the returned user.
-			$_SESSION["user"] = $user;
-			header("Location: /");
-		}
-		else
-		{
-			header("Location: /login");
-		}
-	}
-	else if (isset($_POST["logout"]))
-	{
-		// If we are logged-in, let them log-out.
-		if ($_SESSION["logged-in"])
-		{
-			LoginController::logout_user();
-			header("Location: /");
-		}
-		
-		header("Location: /login");
 	}
 	
