@@ -39,4 +39,23 @@
 
     </form>
 
+    <?php foreach ($view->dataset as $lot) {
+        echo
+            '
+<div id="Query_Post_ID">
+
+    <div id="main_info">
+
+        <h1 id="id">' . $lot->getId() . '</h1>
+
+        <p id="urgency">First Names: ' . $lot->getFirstName() . '</p>
+        <p id="description">Surname: ' . $lot->getLastName() . '</p>
+        <p id="resolved">Email: ' . $lot->getEmail() . '</p>
+        <p id="resolved">Phone Number: ' . $lot->getPhoneNumber() . '</p>
+
+    </div>
+
+</div>
+';  } ?>
+
 </div>
