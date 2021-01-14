@@ -14,7 +14,7 @@
 			$this->view = new ViewBase("Add Problem", "/Views/AddProblemView.phtml");
 		}
 		
-		function view(): void {
+		function get(): void {
 			$this->view->view();
 		}
 	}

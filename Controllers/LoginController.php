@@ -12,7 +12,7 @@
 			$this->view = new ViewBase("Login", "/Views/LoginView.phtml");
 		}
 		
-		function view(): void {
+		function get(): void {
 			$this->view->view();
 		}
 		
