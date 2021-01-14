@@ -2,7 +2,7 @@
 
     <!--<?php //require_once ('../Controllers/search_bar_controller.php');?>-->
 
-    <form action="search_bar" method="POST">
+    <form action="SearchBar" method="POST">
 
         <!--Search Bar-->
         <div class="input-group input-group-lg" id="searchBar">

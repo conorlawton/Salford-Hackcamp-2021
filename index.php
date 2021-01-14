@@ -62,6 +62,10 @@
 						$controller = new $controller_name($request_parameters[0]);
 						$controller->view();
 						break;
+                    case "SearchBarController":
+                        $controller = new $controller_name();
+                        $controller->view();
+                        break;
 				}
 				
 				// Die.
