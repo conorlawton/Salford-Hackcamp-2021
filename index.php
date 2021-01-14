@@ -1,4 +1,6 @@
 <?php
+	ini_set('display_error', 1);
+	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	
 	// Check if the request URI matches a file ending in any of:
 	if (preg_match('/\.(?:php|png|jpg|jpeg|gif|ico|css|js)\??.*$/',

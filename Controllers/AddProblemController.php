@@ -20,8 +20,10 @@
 		
 		function post(): void
 		{
+			var_dump($_POST);
 			ProblemModel::add_problem($_POST['urgency'], $_POST['description'], $_POST['categorisation_id'], $_SESSION['user']->id, $_POST['CustomerID']);
-			header("Location: /AddProblem");
+			
+			//header("Location: /AddProblem");
 		}
 	}
 	
