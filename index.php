@@ -77,9 +77,9 @@
 			else
 			{
 				// Send a 404 header and serve the 404 page.
-				header("HTTP/1.1 404 Not Found");
-				require_once __DIR__ . "/404.php";
-				die("404 - The file '" . $controller_path . "' does not exist");
+                require_once __DIR__ . "/Controllers/Error404Controller.php";
+                $error_controller = new Error404Controller();
+                $error_controller->view();
 			}
 		}
 	}
