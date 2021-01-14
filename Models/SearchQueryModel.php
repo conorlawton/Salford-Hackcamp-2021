@@ -2,102 +2,158 @@
 
 // Grab the database basic model.
 require_once __DIR__ . "/DatabaseModel.php";
-// Initialise a database basic model object.
-$database = DatabaseModel::getInstance();
+require_once __DIR__ . "/SearchModel.php";
 
-// Global Variable Calls
-global $searchResolvedStatus;
-global $searchRequest;
-global $searchLine;
-
-// The switch statement initially checks for which radio button filter has been selected,
-// then it decided if the 'resolved' status is true or false,
-// this determines the SQL statement that is chosen.
-switch($searchRequest)
+class SearchQueryModel
 {
 
-    // Search for specific Customer and their associated queries.
-    case "1":
+    // Variable Calls
+    private $searchResolvedStatus;
+    private $searchRequest;
+    private $searchLine;
 
-        if ($searchResolvedStatus != "1")
+    function __construct($resolved, $request, $line)
+    {
+        $this->view = new ViewBase("Home", "/Views/SearchBarView.phtml");
+
+        $this->searchResolvedStatus = $resolved;
+        $this->searchRequest = $request;
+        $this->searchLine = $line;
+
+    }
+
+    function view(): void
+    {
+        $this->view->view();
+    }
+
+    public function searchBarQuery()
+    {
+
+        // Initialise a database basic model object.
+        $database = DatabaseModel::getInstance();
+
+        $nameArray = explode(" ", $this->searchLine);
+
+        if($nameArray[0])
         {
 
-            $sqlQuery = 'SELECT * FROM customers WHERE firstName LIKE ?';
-
-            break;
+            $chopFirstName = $nameArray[0];
 
         }
         else
         {
 
-            $sqlQuery = 'SELECT * FROM customers WHERE firstName LIKE ?';
-
-            break;
+            $chopFirstName = "";
 
         }
 
-    // Search for queries based on their description.
-    case "2":
-
-        if ($searchResolvedStatus != "1")
+        if($nameArray[1])
         {
 
-            $sqlQuery = '';
-
-            break;
+            $chopLastName = $nameArray[1];
 
         }
         else
         {
 
-            $sqlQuery = '';
-
-            break;
+            $chopLastName = "";
 
         }
 
-    // Search for all queries in a specific Category.
-    case "3":
-
-        if ($searchResolvedStatus != "1")
+        // The switch statement initially checks for which radio button filter has been selected,
+        // then it decided if the 'resolved' status is true or false,
+        // this determines the SQL statement that is chosen.
+        switch($this->searchRequest)
         {
 
-            $sqlQuery = '';
+            // Search for specific Customer and their associated queries.
+            case "1":
+            {
 
-            break;
+                $sqlQuery = $database->getDBConnection()->prepare("SELECT * FROM salfordhackcamp2020.customers WHERE firstName LIKE ? AND lastName LIKE ?");
+                $sqlQuery->bind_result($id, $firstName, $lastName, $email, $phoneNumber);
+                $sqlQuery->bind_param("ss", $chopFirstName, $chopLastName);
+                $sqlQuery->execute();
+
+                $dataset = [];
+                while ($sqlQuery->fetch())
+                {
+
+                    array_push($dataset, new SearchModel($id, $firstName, $lastName, $email, $phoneNumber));
+
+                }
+                $sqlQuery->close();
+
+            }
+
+            // Search for queries based on their description.
+            case "2":
+
+                if ($this->searchResolvedStatus != "1")
+                {
+
+                    $sqlQuery = '';
+
+                    break;
+
+                }
+                else
+                {
+
+                    $sqlQuery = '';
+
+                    break;
+
+                }
+
+            // Search for all queries in a specific Category.
+            case "3":
+
+                if ($this->searchResolvedStatus != "1")
+                {
+
+                    $sqlQuery = '';
+
+                    break;
+
+                }
+                else
+                {
+
+                    $sqlQuery = '';
+
+                    break;
+
+                }
+
+            // Search for all queries associated with a specific member of Staff.
+            case "4":
+
+                if ($this->searchResolvedStatus != "1")
+                {
+
+                    $sqlQuery = '';
+
+                    break;
+
+                }
+                else
+                {
+
+                    $sqlQuery = '';
+
+                    break;
+
+                }
 
         }
-        else
-        {
-
-            $sqlQuery = '';
-
-            break;
-
-        }
-
-    // Search for all queries associated with a specific member of Staff.
-    case "4":
-
-        if ($searchResolvedStatus != "1")
-        {
-
-            $sqlQuery = '';
-
-            break;
-
-        }
-        else
-        {
-
-            $sqlQuery = '';
-
-            break;
-
-        }
-
-}
 
 // Database handling
 // $statement = $database->getDBConnection()->prepare($sqlQuery);
+
+    }
+
+}
+
 
