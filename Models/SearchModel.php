@@ -21,7 +21,7 @@ class searchModel
     /**
      * @return mixed
      */
-    public function getId()
+    public function getID()
     {
         return $this->id;
     }
