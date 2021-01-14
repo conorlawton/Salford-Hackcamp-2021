@@ -1,5 +1,29 @@
 <?php
 
+class QueryPostController
+{
+
+    private $dataset;
+
+    private
+
+    function __construct($datasetParam)
+    {
+        $this->view = new ViewBase("Home", "/Views/SearchBarView.phtml");
+
+        $this->dataset = $datasetParam;
+
+    }
+
+    function queryPostController()
+    {
+
+        //
+
+    }
+
+}
+
 global $statement;
 global $searchRequest;
 
