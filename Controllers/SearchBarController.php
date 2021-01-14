@@ -37,6 +37,12 @@
 				$searchLine = $_POST['searchBar'];
 				
 			}
+            else
+            {
+
+                $searchLine = "";
+
+            }
 			
 			// Radio Button Input
 			if (isset($_POST['searchRadio']))
@@ -45,6 +51,12 @@
 				$searchRequest = $_POST['searchRadio'];
 				
 			}
+            else
+            {
+
+                $searchRequest = "1";
+
+            }
 			
 			// Default initialisation.
 			$searchResolvedStatus = 0;
@@ -56,19 +68,28 @@
 				$searchResolvedStatus = $_POST['searchCheckbox'];
 				
 			}
+			else
+            {
+
+                $searchResolvedStatus = "1";
+
+            }
 
 			$searchQueryModel = new SearchQueryModel($searchResolvedStatus, $searchRequest,$searchLine);
             $searchQueryModel->searchBarQuery();
 
 			// The model used with the search bar is called, see the model
 			// for further information.
-			require_once __DIR__ . '/../Models/SearchQueryModel.php';
+			// require_once __DIR__ . '/../Models/SearchQueryModel.php';
 			
 			// ==========(Posting Queries)=====================================|
-			
+
 			// Grabs the controller that packages the search responses ready for viewing by the user.
 			require_once __DIR__ . '/QueryPostController.php';
-			
+
+			$queryPostController = new QueryPostController($searchQueryModel->getDataset(), $searchRequest);
+            $queryPostController->queryPostController();
+
 		}
 		
 	}

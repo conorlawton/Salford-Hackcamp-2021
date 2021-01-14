@@ -1,31 +1,142 @@
 <?php
 
+require_once __DIR__ . '/../Models/SearchModel.php';
+
 class QueryPostController
 {
 
-    private $dataset;
+    private $dataset, $searchRequest;
 
-    private
-
-    function __construct($datasetParam)
+    function __construct($datasetParam, $searchRequestParam)
     {
         $this->view = new ViewBase("Home", "/Views/SearchBarView.phtml");
 
         $this->dataset = $datasetParam;
+        $this->searchRequest = $searchRequestParam;
 
     }
 
     function queryPostController()
     {
 
-        //
+        switch($this->searchRequest) {
+
+            // Customer
+            case "1":
+
+                /*
+                // Here each row is taken in turn as an array, the data extracted,
+                // then the filed data is sent off the view to be displayed to the user.
+                while ($row = $this->dataset->fetch())
+                {
+
+                    echo("TESTING");
+                    $id = $row[0];
+                    $firstName = $row[1];
+                    $lastName = $row[2];
+                    $email = $row[3];
+                    $phoneNumber = $row[4];
+                    echo($row[0]);
+                    // View is called.
+                    include('../Views/SearchResultsViews/CustomerResultView.php');
+
+                }
+                */
+
+                foreach ($this->dataset as $row)
+                {
+
+                    $id = $row->getID();
+                    $firstName = $row->getFirstName();
+                    $lastName = $row->getLastName();
+                    $email = $row->getEmail();
+                    $phoneNumber = $row->getPhoneNumber();
+
+                    //include __DIR__ . '/../Views/SearchResultsViews/CustomerResultView.php';
+
+                    // Here the raw HTML output is assembled with the database retrieved data into a lot item, ready for display.
+                    echo
+                        '
+                    <div id="Query_Post_ID">
+                    
+                        <div id="main_info">
+                    
+                            <h1 id="id">' . $row->getID() . '</h1>
+                    
+                            <p id="urgency">First Names: ' . $row->getFirstName(). '</p>
+                            <p id="description">Surname: ' . $row->getLastName() . '</p>
+                            <p id="resolved">Email: ' . $row->getEmail() . '</p>
+                            <p id="resolved">Phone Number: ' . $row->getPhoneNumber() . '</p>
+                    
+                        </div>
+                    
+                    </div>
+                    ';
+
+                }
+
+
+                break;
+
+            // Problem
+            case "2":
+
+                // Here each row is taken in turn as an array, the data extracted,
+                // then the filed data is sent off the view to be displayed to the user.
+                while ($row = $statement->fetch())
+                {
+
+                    $id = $row[0];
+                    $urgency = $row[1];
+                    $description = $row[2];
+                    $resolved = $row[3];
+
+                    // View is called.
+                    include('../Views/SearchResultsViews/ProblemResultsView.php');
+
+                }
+                break;
+
+            // Category
+            case "3":
+
+                // Here each row is taken in turn as an array, the data extracted,
+                // then the filed data is sent off the view to be displayed to the user.
+                while ($row = $statement->fetch())
+                {
+
+                    $id = $row[0];
+                    $category = $row[1];
+
+                    // View is called.
+                    include('../Views/SearchResultsViews/CategoryResultView.php');
+
+                }
+                break;
+
+            // Staff
+            case "4":
+
+                // Here each row is taken in turn as an array, the data extracted,
+                // then the filed data is sent off the view to be displayed to the user.
+                while ($row = $statement->fetch())
+                {
+
+                    $id = $row[0];
+                    $name = $row[1];
+                    $email = $row[3];
+
+                    // View is called.
+                    include('../Views/SearchResultsViews/StaffResultView.php');
+
+                }
+                break;
+
+        }
 
     }
 
 }
-
-global $statement;
-global $searchRequest;
 
 // Customer
 global $id;
@@ -48,83 +159,5 @@ global $category;
 global $id;
 global $name;
 global $email;
-
-switch($searchRequest) {
-
-        // Customer
-    case "1":
-
-        // Here each row is taken in turn as an array, the data extracted,
-        // then the filed data is sent off the view to be displayed to the user.
-        while ($row = $statement->fetch())
-        {
-
-            $id = $row[0];
-            $firstName = $row[1];
-            $lastName = $row[2];
-            $email = $row[3];
-            $phoneNumber = $row[4];
-
-            // View is called.
-            include('../Views/SearchResultsViews/CustomerResultView.php');
-
-        }
-        break;
-
-        // Problem
-    case "2":
-
-        // Here each row is taken in turn as an array, the data extracted,
-        // then the filed data is sent off the view to be displayed to the user.
-        while ($row = $statement->fetch())
-        {
-
-            $id = $row[0];
-            $urgency = $row[1];
-            $description = $row[2];
-            $resolved = $row[3];
-
-            // View is called.
-            include('../Views/SearchResultsViews/ProblemResultsView.php');
-
-        }
-        break;
-
-        // Category
-    case "3":
-
-        // Here each row is taken in turn as an array, the data extracted,
-        // then the filed data is sent off the view to be displayed to the user.
-        while ($row = $statement->fetch())
-        {
-
-            $id = $row[0];
-            $category = $row[1];
-
-            // View is called.
-            include('../Views/SearchResultsViews/CategoryResultView.php');
-
-        }
-        break;
-
-        // Staff
-    case "4":
-
-        // Here each row is taken in turn as an array, the data extracted,
-        // then the filed data is sent off the view to be displayed to the user.
-        while ($row = $statement->fetch())
-        {
-
-            $id = $row[0];
-            $name = $row[1];
-            $email = $row[3];
-
-            // View is called.
-            include('../Views/SearchResultsViews/StaffResultView.php');
-
-        }
-        break;
-
-}
 
 ?>

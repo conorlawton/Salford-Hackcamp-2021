@@ -11,6 +11,7 @@ class SearchQueryModel
     private $searchResolvedStatus;
     private $searchRequest;
     private $searchLine;
+    private $dataset = [];
 
     function __construct($resolved, $request, $line)
     {
@@ -25,6 +26,13 @@ class SearchQueryModel
     function view(): void
     {
         $this->view->view();
+    }
+
+    public function getDataset()
+    {
+
+        return $this->dataset;
+
     }
 
     public function searchBarQuery()
@@ -76,13 +84,12 @@ class SearchQueryModel
                 $sqlQuery->bind_param("ss", $chopFirstName, $chopLastName);
                 $sqlQuery->execute();
 
-                $dataset = [];
-                while ($sqlQuery->fetch())
-                {
+                while ($sqlQuery->fetch()) {
 
-                    array_push($dataset, new SearchModel($id, $firstName, $lastName, $email, $phoneNumber));
+                    array_push($this->dataset, new SearchModel($id, $firstName, $lastName, $email, $phoneNumber));
 
                 }
+
                 $sqlQuery->close();
 
             }
