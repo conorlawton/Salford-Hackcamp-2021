@@ -1,0 +1,34 @@
+<div class="container shadow rounded col-8 mt-5 p-1">
+	<div class="w-100 text-center">
+		<h1 class="h3 my-3 fw-normal">Sign in</h1>
+	</div>
+	<form class="w-100 col container" action="Login" method="post">
+		<div class="row mb-2 g-2">
+			<div class="form-floating col-sm-6">
+				<input type="email" name="email" class="form-control" id="form-name" placeholder="name@example.com" autocomplete="email" required>
+				<label for="form-name">Email</label>
+			</div>
+			<div class="form-floating col-sm-6">
+				<input type="password" name="password" class="form-control" id="form-password" placeholder="password" autocomplete="password" required>
+				<label for="form-password">Password</label>
+			</div>
+		</div>
+		<div class="row mb-2 g-2">
+			<div class="col-sm text-center">
+				<button type="submit" name="login" class="btn btn-primary">Login</button>
+			</div>
+		</div>
+		<?php if (isset($_SESSION["login-message"])): ?>
+		<div class="row g-2">
+			<div class="col-sm text-center">
+				<p class="text-danger align-bottom mb-0 mt-1">
+					<?php
+						echo $_SESSION["login-message"];
+						unset($_SESSION["login-message"]);
+					?>
+				</p>
+			</div>
+		</div>
+		<?php endif ?>
+	</form>
+</div>
