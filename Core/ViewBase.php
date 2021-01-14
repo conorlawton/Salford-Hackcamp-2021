@@ -12,6 +12,7 @@
 		}
 		
 		public function view() {
+			$view = $this;
 			require_once $_SERVER["DOCUMENT_ROOT"] . "/Views/Main.php";
 		}
 	}
