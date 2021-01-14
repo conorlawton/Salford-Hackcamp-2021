@@ -19,7 +19,7 @@
             $this->category = $category;
 		}
 
-		public static function fetchActiveProblems()
+		public static function fetchActiveProblems() : array
         {
             $db = DatabaseModel::getInstance();
 
