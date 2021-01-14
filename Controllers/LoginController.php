@@ -1,8 +1,10 @@
 <?php
 	
 	require_once __DIR__ . "/../Models/DatabaseModel.php";
+	require_once __DIR__ . "/../Core/ControllerBase.php";
+	require_once __DIR__ . "/../Core/ViewBase.php";
 	
-	class LoginController
+	class LoginController extends ControllerBase
 	{
 		
 		private $_dbHandle;
@@ -10,6 +12,11 @@
 		function __construct()
 		{
 			$this->_dbHandle = DatabaseModel::getInstance();
+			$this->view = new ViewBase("Login", "/Views/LoginView.phtml");
+		}
+		
+		function view(): void {
+			$this->view->view();
 		}
 		
 		static function login_user($_email, $_password): ?UserModel
@@ -76,11 +83,6 @@
 			$_SESSION["user"] = null;
 			
 			header("Location: /");
-		}
-		
-		function view()
-		{
-			require_once __DIR__ . "/../Views/LoginView.phtml";
 		}
 	}
 	
