@@ -8,7 +8,7 @@ class Error404Controller extends ControllerBase
         $this->view = new ViewBase("404","/Views/Error404View.phtml");
     }
 
-    function view(): void
+    function get(): void
     {
         $this->view->view();
     }

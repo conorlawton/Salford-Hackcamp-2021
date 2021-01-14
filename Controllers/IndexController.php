@@ -16,7 +16,7 @@
 			$this->view->problemDataSet = ProblemModel::fetchActiveProblems();
 		}
 		
-		function view(): void
+		function get(): void
 		{
 			$this->view->view();
 		}
