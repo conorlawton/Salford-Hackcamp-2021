@@ -7,11 +7,8 @@
 	class LoginController extends ControllerBase
 	{
 		
-		private $_dbHandle;
-		
 		function __construct()
 		{
-			$this->_dbHandle = DatabaseModel::getInstance();
 			$this->view = new ViewBase("Login", "/Views/LoginView.phtml");
 		}
 		
