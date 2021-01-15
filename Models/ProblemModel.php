@@ -26,14 +26,11 @@
 			$add_problem = $db->getDBConnection()->prepare("SELECT * FROM problems JOIN categorisation ON problems.category_id = categorisation.id WHERE resolved = FALSE");
 			$add_problem->bind_result($id, $urgency, $description, $resolved, $category_id, $staff_uploader, $customer_id, $placeholder, $category);
 			$add_problem->execute();
-			
 			$problemSet = [];
-			
 			while ($add_problem->fetch())
 			{
 				array_push($problemSet, new ProblemModel($id, $urgency, $description, $resolved, $category_id, $staff_uploader, $customer_id, $placeholder, $category));
 			}
-			
 			$add_problem->close();
 			
 			return $problemSet;
@@ -46,25 +43,9 @@
 			$add_problem = $db->getDBConnection()->prepare("INSERT INTO problems (urgency, description, category_id, staff_id, customer_id) VALUES (?,?,?,?,?);");
 			$add_problem->bind_param("ssiii", $urgency, $description, $categorisation_id, $staff_id, $customer_id);
 			$add_problem->execute();
-			
-			$result = $add_problem->fetch();
+			$add_problem->fetch();
 			
 			$add_problem->close();
-		}
-		
-		public static function check_if_exists($id) {
-			
-			$db = DatabaseModel::getInstance();
-			
-			$check_exists = $db->getDBConnection()->prepare("SELECT 1 FROM problems WHERE id = ?;");
-			$check_exists->bind_param("i", $id);
-			$check_exists->execute();
-			
-			$result = $check_exists->fetch();
-			
-			$check_exists->close();
-			
-			return $result;
 		}
 		
 		public function getID()

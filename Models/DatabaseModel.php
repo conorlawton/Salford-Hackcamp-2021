@@ -5,10 +5,10 @@
 		protected $_dbHandle;
 
 		public static function getInstance(): DatabaseModel {
-			$db_host = "51.9.137.248";
-			$db_username = "hackcamp";
-			$db_password = "tFvKItsfJEbUxPKH";
-			$db_name = "salfordhackcamp2020";
+			$db_host = $GLOBALS["db_host"];
+			$db_username = $GLOBALS["db_username"];
+			$db_password = $GLOBALS["db_password"];
+			$db_name = $GLOBALS["db_name"];
 			
 			if (self::$_dbInstance === null) {
 				self::$_dbInstance = new self($db_username, $db_password, $db_host, $db_name);
