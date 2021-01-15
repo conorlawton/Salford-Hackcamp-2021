@@ -1,10 +1,15 @@
 <?php
+	
+	ini_set('display_error', 1);
+	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+	
 	// Check if the request URI matches a file ending in any of:
-	if (preg_match('/\.(?:php|png|jpg|jpeg|gif|ico|css|js)\??.*$/',
+	if (preg_match('/\.(?:php|png|jpg|jpeg|gif|ico|css|js|mp3|ogg|wav)\??.*$/',
 		$_SERVER["REQUEST_URI"]))
 	{
 		return false; // Serve the requested resource as-is.
 	}
+	
 	
 	require_once __DIR__ . "/Controllers/IndexController.php";
 	require_once __DIR__ . "/Core/ControllerBase.php";
@@ -35,7 +40,6 @@
 			// Get the page the user wants to access.
 			$requested_controller = $url[0];
 			
-			
 			// Get the rest of the url parts.
 			$request_parameters = array_slice($url, 2);
 			
@@ -60,14 +64,14 @@
 						$controller = new $controller_name($user);
 						break;
 					default:
-						$controller = new $controller_name();
+						$controller = new $controller_name;
 						break;
 				}
 				
-				$controller->$request_action();
+				//$controller->$request_action();
 				
-				// Die.
-				die();
+				$result = call_user_func(array($controller, $request_action));
+				var_dump($result);
 			}
 			else
 			{
