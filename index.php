@@ -71,7 +71,6 @@
 				//$controller->$request_action();
 				
 				$result = call_user_func(array($controller, $request_action));
-				var_dump($result);
 			}
 			else
 			{

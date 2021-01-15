@@ -1,15 +1,23 @@
-<div id="searchSection">
+<div id="searchSection" class="col-6 container border border-2 rounded mb-5 mt-5">
     <form action="SearchBar" method="GET">
 
-        <!--Search Bar-->
-        <div class="input-group input-group-lg" id="searchBar">
+        <!--Search Bar
+        <div class="input-group input-group-lg" id="searchBar" class = "form-floating mb-3">
+            <label for="searchBar" class=""> Search for</label>
             <input class="input-group-text" id="searchBarProper" type="text" name="searchBar">
-            <input id="searchSubmit" type="submit" name="submitSearchButton">
+
         </div>
+        -->
+        <div class="form-floating col-12 mt-2">
+            <input type="text" name="searchBar" class="form-control" id="searchBarProper" placeholder="Search" required>
+            <label for="form-name">Search</label>
+
+        </div>
+
+
 
         <div id="filters">
 
-            <p>Search For:</p>
 
             <div id="radioButtons">
                 <!--Radio Button - Customer-->
@@ -17,32 +25,34 @@
                 <label for="Radio_Customer">Customer</label>
 
                 <!--Radio Button - Problem-->
-                <input id="Radio_Problem" type="radio" name="searchRadio" value="2">
+                <input id="Radio_Problem" type="radio" name="searchRadio" value="2" disabled>
                 <label for="Radio_Problem">Problem</label>
 
                 <!--Radio Button - Category-->
-                <input id="Radio_Category" type="radio" name="searchRadio" value="3">
+                <input id="Radio_Category" type="radio" name="searchRadio" value="3" disabled>
                 <label for="Radio_Category">Category</label>
 
                 <!--Radio Button - Staff-->
-                <input id="Radio_Staff" type="radio" name="searchRadio" value="4">
+                <input id="Radio_Staff" type="radio" name="searchRadio" value="4" disabled>
                 <label for="Radio_Staff">Colleague</label>
             </div>
 
             <!--Checkbox-->
             <div class="form-check form-switch" id="switch">
-                <input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox" name="searchCheckbox" value="1">
+                <input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox" name="searchCheckbox" value="1" disabled>
                 <label for="Check_If_Resolved">Resolved</label>
             </div>
-
+            <div>
+                <input id="searchSubmit" type="submit" name="submitSearchButton" class="btn btn-outline-danger mb-2">
+            </div>
         </div>
 
     </form>
-
+</div>
     <?php foreach ($view->dataset as $lot) {
         echo
             '
-<div id="Query_Post_ID">
+<div id="Query_Post_ID" class = " col-6 container border border-2 rounded">
 
     <div id="main_info">
 
@@ -58,4 +68,3 @@
 </div>
 ';  } ?>
 
-</div>
