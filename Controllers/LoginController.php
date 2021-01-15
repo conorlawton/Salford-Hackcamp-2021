@@ -61,11 +61,11 @@
 			$db = DatabaseModel::getInstance();
 			
 			// Prepare the SQL query, we want to get a user.
-			$login = $db->getDBConnection()->prepare("SELECT id, name, email, password FROM staff WHERE email = ? LIMIT 1");
+			$login = $db->getDBConnection()->prepare("SELECT id, name, email, password, permissions FROM staff WHERE email = ? LIMIT 1");
 			
 			// Bind the parameters and results of the query to reference variables.
 			$login->bind_param("s", $_email);
-			$login->bind_result($id, $name, $email, $password);
+			$login->bind_result($id, $name, $email, $password, $permissions);
 			
 			// Execute the query.
 			$login->execute();
@@ -100,7 +100,7 @@
 			{
 				// Set whether the user is logged-in to true.
 				$_SESSION["logged-in"] = true;
-				return new UserModel($id, $name, $email);
+				return new UserModel($id, $name, $email, $permissions);
 			}
 			else
 			{
