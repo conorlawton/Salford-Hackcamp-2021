@@ -1,4 +1,15 @@
 <?php
+	// phpinfo();
+	
+	//	error_reporting(-1);
+	//	ini_set('display_errors', 'On');
+	
+	$GLOBALS["db_host"] = "poseidon.salford.ac.uk";
+	$GLOBALS["db_username"] = "hc21-2";
+	$GLOBALS["db_password"] = "9mXhS1VccjTU9uo";
+	$GLOBALS["db_name"] = "hc21_2";
+	
+	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	
 	ini_set('display_error', 1);
 	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -13,6 +24,8 @@
 	
 	require_once __DIR__ . "/Controllers/IndexController.php";
 	require_once __DIR__ . "/Core/ControllerBase.php";
+	
+	// ALL $_SERVER["PATH_INFO"] MUST BE $_SERVER["REQUEST_URI"] WHEN ON POSEIDON
 	
 	// First break the url request down and split it by "/"
 	$url = isset($_SERVER["PATH_INFO"]) ? explode("/", ltrim($_SERVER["PATH_INFO"], "/")) : "/";
@@ -44,7 +57,7 @@
 			$request_parameters = array_slice($url, 2);
 			
 			// Get the path to the controller file.
-			$controller_path = __DIR__ . "/Controllers/" . $requested_controller . "Controller.php";
+			$controller_path = __DIR__ . "/Controllers/" . ucfirst($requested_controller) . "Controller.php";
 			
 			// Check if the controller exists, otherwise serve a 404.
 			if (file_exists($controller_path))
