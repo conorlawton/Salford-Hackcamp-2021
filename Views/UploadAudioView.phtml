@@ -1,8 +1,20 @@
 <div class="container">
-	<form>
-		<div class="custom-file">
-			<input type="file" class="custom-file-input" id="file-upload">
+	<form enctype="multipart/form-data" method="POST" action="uploadAudio" class="row">
+		<div class="form-floating col-sm-6">
+			<input type="number" class="form-control" name="problem_id" placeholder="Problem ID" id="form-problem-id"
+						 aria-label="Problem ID" aria-describedby="basic-addon1" required>
+			<label for="form-problem-id">Problem ID</label>
+		</div>
+		<div class="custom-file col-sm-6">
+			<input type="file" class="custom-file-input" id="file-upload" name="file" accept="audio/*">
 			<label class="custom-file-label" for="file-upload">Choose file</label>
 		</div>
+		<button class="btn btn-primary" type="submit" name="submit">Upload</button>
 	</form>
+	<?php
+		if (isset($_SESSION["file-upload-message"]))
+		{
+			echo $_SESSION["file-upload-message"];
+		}
+	?>
 </div>

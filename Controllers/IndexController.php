@@ -20,4 +20,9 @@
 		{
 			$this->view->view();
 		}
+		
+		function post(): void
+		{
+		
+		}
 	}

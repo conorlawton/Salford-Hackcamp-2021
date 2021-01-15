@@ -1,44 +1,45 @@
 <div class="container shadow rounded col-8 mt-5 p-1">
-    <div class="w-100 text-center">
-        <h1 class="h3 my-3 fw-normal">Add a Problem</h1>
-    </div>
-    <form class="w-100 col container"action="AddProblem" method="POST">
-        <div class="row mb-2 g-2">
-            <div class="form-floating col-sm-4">
-                <select class="form-select pb-2" name="urgency" id="floatingSelect" required>
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                </select>
-                <label for="floatingUrgency">Problem Urgency</label>
-            </div>
-            <div class="form-floating col-sm-4">
-                <select class="form-select pb-2" name="categorisation_id" id="floatingSelect" required>
-                    <option value="1">Password Queries</option>
-                    <option value="2">Login Issues</option>
-                    <option value="3">Process Queries</option>
-                    <option value="4">Transfers In</option>
-                    <option value="5">Withdrawals</option>
-                    <option value="6">Benefits</option>
-                    <option value="7">New Business Applications</option>
-                    <option value="8">Complaints</option>
-                </select>
-                <label for="floatingCategory">Problem Category</label>
-            </div>
-            <div class="form-floating col-sm-4">
-                <input type="text" class="form-control" name="CustomerID" placeholder="Customer ID"
-                       aria-label="Customer ID" aria-describedby="basic-addon1" required>
-                <label for="form-name">Customer ID</label>
-            </div>
-        </div>
-        <div class="row mb-2 g-2">
-            <div class="form-floating col">
-                <textarea class="form-control" name="description" id="descriptionTextArea" rows="3" style="height: 5em;" required></textarea>
-                <label for="descriptionTextArea" class="form-label">Problem Description</label>
-            </div>
-        </div>
-        <div class="row mb-2 g-2">
-            <button class="btn btn-primary" type="submit" name="submitBTN" value="Submit Problem">Submit</button>
-        </div>
-    </form>
+	<div class="w-100 text-center">
+		<h1 class="h3 my-3 fw-normal">Add a Problem</h1>
+	</div>
+	<form class="w-100 col container" action="AddProblem" method="POST">
+		<div class="row mb-2 g-2">
+			<div class="form-floating col-sm-4">
+				<select class="form-select pb-2" name="urgency" id="floatingSelect" required>
+					<option value="Low">Low</option>
+					<option value="Medium">Medium</option>
+					<option value="High">High</option>
+				</select>
+				<label for="floatingUrgency">Problem Urgency</label>
+			</div>
+			<div class="form-floating col-sm-4">
+				<select class="form-select pb-2" name="categorisation_id" id="floatingSelect" required>
+					<option value="1">Password Queries</option>
+					<option value="2">Login Issues</option>
+					<option value="3">Process Queries</option>
+					<option value="4">Transfers In</option>
+					<option value="5">Withdrawals</option>
+					<option value="6">Benefits</option>
+					<option value="7">New Business Applications</option>
+					<option value="8">Complaints</option>
+				</select>
+				<label for="floatingCategory">Problem Category</label>
+			</div>
+			<div class="form-floating col-sm-4">
+				<input type="text" class="form-control" name="CustomerID" placeholder="Customer ID"
+							 aria-label="Customer ID" aria-describedby="basic-addon1" required>
+				<label for="form-name">Customer ID</label>
+			</div>
+		</div>
+		<div class="row mb-2 g-2">
+			<div class="form-floating col">
+				<textarea class="form-control" name="description" id="descriptionTextArea" rows="3" style="height: 5em;"
+									required></textarea>
+				<label for="descriptionTextArea" class="form-label">Problem Description</label>
+			</div>
+		</div>
+		<div class="row mb-2 g-2">
+			<button class="btn btn-primary" type="submit" name="submitBTN" value="Submit Problem">Submit</button>
+		</div>
+	</form>
 </div>

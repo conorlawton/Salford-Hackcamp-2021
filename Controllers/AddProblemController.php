@@ -1,6 +1,4 @@
 <?php
-	require_once __DIR__ . "/../Models/DatabaseModel.php";
-	require_once __DIR__ . "/../Models/UserModel.php";
 	require_once __DIR__ . "/../Core/ControllerBase.php";
 	require_once __DIR__ . "/../Core/ViewBase.php";
 	require_once __DIR__ . "/../Models/ProblemModel.php";
@@ -20,7 +18,7 @@
 		
 		function post(): void
 		{
-			ProblemModel::add_problem($_POST['urgency'], $_POST['description'], $_POST['categorisation_id'], $_SESSION['user']->id, $_POST['CustomerID']);
+			ProblemModel::add_problem($_POST['urgency'], $_POST['description'], $_POST['categorisation_id'], $this->user->id, $_POST['CustomerID']);
 			
 			header("Location: /AddProblem");
 		}
