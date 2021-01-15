@@ -1,8 +1,9 @@
 <?php
 	
 	require_once 'Models/DatabaseModel.php';
+    require_once 'Core/iWidget.php';
 	
-	class ProblemModel
+	class ProblemModel implements iWidget
 	{
 		protected $id, $urgency, $description, $resolved, $category_id, $staff_uploader, $customer_id, $placeholder, $category;
 		
@@ -47,8 +48,15 @@
 			
 			$add_problem->close();
 		}
-		
-		public function getID()
+
+		public function display()
+        {
+            // TODO: Implement display() method.
+            $problem = $this;
+            require $_SERVER['DOCUMENT_ROOT'].'/Views/Templates/ProblemModelView.phtml';
+        }
+
+        public function getID()
 		{
 			return $this->id;
 		}
