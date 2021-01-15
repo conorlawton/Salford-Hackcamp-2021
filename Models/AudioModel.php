@@ -1,5 +1,6 @@
 <?php
-	
+
+    require_once 'Core/iWidget.php';
 	
 	class AudioModel
 	{
