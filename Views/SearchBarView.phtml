@@ -35,27 +35,95 @@
                 <label for="Check_If_Resolved">Resolved</label>
             </div>
 
+            <!--Select Dropdown-->
+            <select name="urgencyDropdown" id="urgencyID">
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+
         </div>
 
     </form>
 
-    <?php foreach ($view->dataset as $lot) {
-        echo
-            '
-<div id="Query_Post_ID">
+    <?php
 
-    <div id="main_info">
+    switch($_GET['searchRadio'])
+    {
 
-        <h1 id="id">' . $lot->getId() . '</h1>
+        // Customer
+        case "1":
+        {
 
-        <p id="urgency">First Names: ' . $lot->getFirstName() . '</p>
-        <p id="description">Surname: ' . $lot->getLastName() . '</p>
-        <p id="resolved">Email: ' . $lot->getEmail() . '</p>
-        <p id="resolved">Phone Number: ' . $lot->getPhoneNumber() . '</p>
+            foreach ($view->dataset as $lot) {
+                echo
+                    '
+                        <div id="Query_Post_ID">
+                        
+                            <div id="main_info">
+                        
+                                <h1 id="id">' . $lot->getId() . '</h1>
+                        
+                                <p id="urgency">First Names: ' . $lot->getFirstName() . '</p>
+                                <p id="description">Surname: ' . $lot->getLastName() . '</p>
+                                <p id="resolved">Email: ' . $lot->getEmail() . '</p>
+                                <p id="resolved">Phone Number: ' . $lot->getPhoneNumber() . '</p>
+                        
+                            </div>
+                        
+                        </div>
+                    ';
+            }
 
-    </div>
+            break;
 
-</div>
-';  } ?>
+        }
+
+        // Problem
+        case "2":
+        {
+
+            foreach ($view->dataset as $lot) {
+                echo
+                    '
+                    <div id="Query_Post_ID">
+                    
+                        <div id="main_info">
+                    
+                            <h1 id="id">' . $lot->getID() . '</h1>
+                    
+                            <p id="urgency">Urgency: ' . $lot->getUrgency() . '</p>
+                            <p id="description">Description: ' . $lot->getDescription() . '</p>
+                            <p id="resolved">Resolved: ' . $lot->getResolved() . '</p>
+                    
+                        </div>
+                    
+                    </div>
+                    ';
+                }
+
+            break;
+
+        }
+
+        // Category
+        case "3":
+        {
+
+            break;
+
+        }
+
+        // Staff
+        case "4":
+        {
+
+            break;
+
+        }
+
+    }
+
+?>
 
 </div>

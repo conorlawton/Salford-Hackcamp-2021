@@ -1,13 +1,13 @@
 <?php
 
-
-class searchModel
+class CustomerSearchModel
 {
 
     private $id, $firstName, $lastName, $email, $phoneNumber;
 
     function __construct($idParam, $firstNameParam, $lastNameParam, $emailParam, $phoneNumberParam)
     {
+
         $this->view = new ViewBase("Home", "/Views/SearchBarView.phtml");
 
         $this->id = $idParam;
