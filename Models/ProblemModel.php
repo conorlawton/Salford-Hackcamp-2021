@@ -1,7 +1,7 @@
 <?php
 	
 	require_once 'Models/DatabaseModel.php';
-    require_once 'Core/iWidget.php';
+	require_once 'Core/iWidget.php';
 	
 	class ProblemModel implements iWidget
 	{
@@ -27,11 +27,14 @@
 			$add_problem = $db->getDBConnection()->prepare("SELECT * FROM problems JOIN categorisation ON problems.category_id = categorisation.id WHERE resolved = FALSE");
 			$add_problem->bind_result($id, $urgency, $description, $resolved, $category_id, $staff_uploader, $customer_id, $placeholder, $category);
 			$add_problem->execute();
+			
 			$problemSet = [];
+			
 			while ($add_problem->fetch())
 			{
 				array_push($problemSet, new ProblemModel($id, $urgency, $description, $resolved, $category_id, $staff_uploader, $customer_id, $placeholder, $category));
 			}
+			
 			$add_problem->close();
 			
 			return $problemSet;
@@ -44,19 +47,19 @@
 			$add_problem = $db->getDBConnection()->prepare("INSERT INTO problems (urgency, description, category_id, staff_id, customer_id) VALUES (?,?,?,?,?);");
 			$add_problem->bind_param("ssiii", $urgency, $description, $categorisation_id, $staff_id, $customer_id);
 			$add_problem->execute();
-			$add_problem->fetch();
+			
+			$result = $add_problem->fetch();
 			
 			$add_problem->close();
 		}
-
+		
 		public function display()
-        {
-            // TODO: Implement display() method.
-            $problem = $this;
-            require $_SERVER['DOCUMENT_ROOT'].'/Views/Templates/ProblemModelView.phtml';
-        }
-
-        public function getID()
+		{
+			$problem = $this;
+			require $_SERVER['DOCUMENT_ROOT'] . '/Views/Templates/ProblemModelView.phtml';
+		}
+		
+		public function getID()
 		{
 			return $this->id;
 		}
