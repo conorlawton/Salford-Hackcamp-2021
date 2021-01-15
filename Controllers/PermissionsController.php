@@ -13,6 +13,16 @@ class PermissionsController
             return false;
         }
     }
+
+    static function checkTeamLeader($user)
+    {
+        if($user->getPermissions & 2) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
 
 
