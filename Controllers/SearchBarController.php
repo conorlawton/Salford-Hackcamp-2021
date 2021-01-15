@@ -48,7 +48,7 @@
 			
 			// Default initialisation.
 			$searchResolvedStatus = 0;
-			
+
 			// Checkbox
 			if (isset($_GET['searchCheckbox']))
 			{
@@ -56,10 +56,20 @@
 			}
 			else
 			{
-				$searchResolvedStatus = "1";
+				$searchResolvedStatus = "0";
 			}
-			
-			$searchQueryModel = new SearchQueryModel($searchResolvedStatus, $searchRequest, $searchLine);
+
+            // Dropdown - Urgency
+            if (isset($_GET['urgencyDropdown']))
+            {
+                $searchUrgencySelection = $_GET['urgencyDropdown'];
+            }
+            else
+            {
+                $searchUrgencySelection = "high";
+            }
+
+			$searchQueryModel = new SearchQueryModel($searchResolvedStatus, $searchRequest, $searchLine, $searchUrgencySelection);
 			$searchQueryModel->searchBarQuery();
 			
 			// The model used with the search bar is called, see the model
