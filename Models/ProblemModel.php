@@ -53,6 +53,21 @@
 			$add_problem->close();
 		}
 		
+		public static function check_if_exists($id) {
+			
+			$db = DatabaseModel::getInstance();
+			
+			$check_exists = $db->getDBConnection()->prepare("SELECT 1 FROM problems WHERE id = ?;");
+			$check_exists->bind_param("i", $id);
+			$check_exists->execute();
+			
+			$result = $check_exists->fetch();
+			
+			$check_exists->close();
+			
+			return $result;
+		}
+		
 		public function display()
 		{
 			$problem = $this;
