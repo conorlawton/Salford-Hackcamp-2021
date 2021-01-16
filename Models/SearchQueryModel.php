@@ -3,10 +3,7 @@
 // Grab the database basic model.
 	require_once __DIR__ . "/DatabaseModel.php";
 	require_once __DIR__ . "/SearchObjects/CustomerSearchModel.php";
-    require_once __DIR__ . "/SearchObjects/ProblemSearchModel.php";
-    require_once __DIR__ . "/SearchObjects/CategorySearchModel.php";
-    require_once __DIR__ . "/SearchObjects/StaffSearchModel.php";
-    require_once __DIR__ . "/SearchObjects/CustomerSearchModel.php";
+    require_once __DIR__ . "/SearchObjects/GeneralProblemSearchModel.php";
 	
 	class SearchQueryModel
 	{
@@ -75,29 +72,29 @@
 			switch ($this->searchRequest)
 			{
 				
-				// ======(Search for specific Customer and their associated queries.)===================================
+				// ======(Search for specific Customers)================================================================
 				case "1":
                 {
 
                     // Prepares the SQL statement and puts it into the variable $sqlQuery.
-                    $sqlQuery = $database->getDBConnection()->prepare("SELECT * 
-                                                                             FROM problems, customers, staff, categorisation
-                                                                             WHERE problems.customer_id = customers.id
-                                                                             AND staff.id = problems.staff_id
-                                                                             AND categorisation.id = problems.category_id
-                                                                             AND customers.firstName LIKE ?
-                                                                             AND customers.lastName LIKE ?");
+                    $sqlQuery = $database->getDBConnection()->prepare("SELECT c.id, c.firstName, c.lastName, c.email, c.phoneNumber,
+                                                                             coalesce(p.queryCount, 0) as queryCount
+                                                                             FROM customers c
+                                                                               LEFT OUTER JOIN 
+                                                                                  (SELECT problems.customer_id, 
+                                                                                   COUNT(problems.id) as queryCount 
+                                                                                   FROM problems 
+                                                                                   GROUP BY problems.id) p
+                                                                               ON c.id = p.customer_id
+                                                                             WHERE c.firstName LIKE ?
+                                                                             AND c.lastName LIKE ?;");
 
                     // Adds the % symbols to aid the SQL LIKE keyword.
                     $chopFirstName = "%" . $chopFirstName . "%";
                     $chopLastName = "%" . $chopLastName . "%";
 
                     // Binds the result, every attribute coming back from the database must be stated here, even if it is not used.
-                    $sqlQuery->bind_result(
-                        $problemID, $urgency, $description, $resolved, $categoryFK, $staffFK, $customerFK, $addedTime,
-                        $customerID, $CustomerFirstName, $CustomerLastName, $CustomerEmail, $CustomerPhoneNumber,
-                        $staffID, $staffName, $password, $staffEmail, $permissions,
-                        $categoryID, $category);
+                    $sqlQuery->bind_result($customerID, $CustomerFirstName, $CustomerLastName, $CustomerEmail, $CustomerPhoneNumber, $queryCount);
 
                     // Here both of the variables used in the SQL statement are defined, represented in the statement as '?'.
                     $sqlQuery->bind_param("ss", $chopFirstName, $chopLastName);
@@ -109,10 +106,7 @@
                     while ($sqlQuery->fetch())
                     {
 
-                        array_push($this->dataset, new CustomerSearchModel($problemID, $urgency, $description, $resolved, $categoryFK, $staffFK, $customerFK, $addedTime,
-                        $customerID, $CustomerFirstName, $CustomerLastName, $CustomerEmail, $CustomerPhoneNumber,
-                        $staffID, $staffName, $staffEmail,
-                        $categoryID, $category));
+                        array_push($this->dataset, new CustomerSearchModel($customerID, $CustomerFirstName, $CustomerLastName, $CustomerEmail, $CustomerPhoneNumber, $queryCount));
 
                     }
 
@@ -127,23 +121,37 @@
 				case "2":
                 {
 
-                    // Actual Construction;
-                    $sqlQuery = $database->getDBConnection()->prepare("SELECT * FROM problems WHERE description LIKE ? AND urgency LIKE ? AND resolved = ?;");
+                    // Prepares the SQL statement and puts it into the variable $sqlQuery.
+                    $sqlQuery = $database->getDBConnection()->prepare("SELECT problems.id, categorisation.category, problems.description, problems.urgency, problems.time_when_added, problems.resolved, staff.name
+                                                                             FROM problems, categorisation, staff
+                                                                             WHERE problems.staff_id = staff.id
+                                                                             AND problems.category_id = categorisation.id
+                                                                             AND problems.description LIKE ?
+                                                                             AND problems.urgency LIKE ?
+                                                                             AND problems.resolved = ?;");
 
-                    $searchLine = "%$this->searchLine%";
-                    $urgency = "%$this->urgency%";
+                    // Adds the % symbols to aid the SQL LIKE keyword.
+                    $searchLine = "%" . $this->searchLine . "%";
+                    $urgency = "%" . $this->urgency . "%";
 
-                    $sqlQuery->bind_result($id, $urgency, $description, $resolved, $categoryID, $staffUploader, $userID);
+                    // Binds the result, every attribute coming back from the database must be stated here, even if it is not used.
+                    $sqlQuery->bind_result($problemID, $category, $description, $urgency, $addedTime, $resolved, $staffName);
+
+                    // Here both of the variables used in the SQL statement are defined, represented in the statement as '?'.
                     $sqlQuery->bind_param("ssi", $searchLine, $urgency, $this->searchResolvedStatus);
+
+                    // The statement is executed.
                     $sqlQuery->execute();
 
+                    // Here each row is fetched and the desired attributes are fed into an object that represents this search.
                     while ($sqlQuery->fetch())
                     {
 
-                        array_push($this->dataset, new ProblemSearchModel($id, $urgency, $description, $resolved, $categoryID, $staffUploader, $userID));
+                        array_push($this->dataset, new GeneralProblemSearchModel($problemID, $category, $description, $urgency, $addedTime, $resolved, $staffName));
 
                     }
 
+                    // The SQL query is cleared.
                     $sqlQuery->close();
 
                     break;
@@ -154,7 +162,37 @@
 				case "3":
                 {
 
-                    //
+                    // Prepares the SQL statement and puts it into the variable $sqlQuery.
+                    $sqlQuery = $database->getDBConnection()->prepare("SELECT problems.id, categorisation.category, problems.description, problems.urgency, problems.time_when_added, problems.resolved, staff.name
+                                                                             FROM problems, categorisation, staff
+                                                                             WHERE problems.staff_id = staff.id
+                                                                             AND problems.category_id = categorisation.id
+                                                                             AND categorisation.category LIKE ?;");
+
+                    // Adds the % symbols to aid the SQL LIKE keyword.
+                    $searchLine = "%" . $this->searchLine . "%";
+
+                    // Binds the result, every attribute coming back from the database must be stated here, even if it is not used.
+                    $sqlQuery->bind_result($problemID, $category, $description, $urgency, $addedTime, $resolved, $staffName);
+
+                    // Here both of the variables used in the SQL statement are defined, represented in the statement as '?'.
+                    $sqlQuery->bind_param("s", $searchLine);
+
+                    // The statement is executed.
+                    $sqlQuery->execute();
+
+                    // Here each row is fetched and the desired attributes are fed into an object that represents this search.
+                    while ($sqlQuery->fetch())
+                    {
+
+                        array_push($this->dataset, new GeneralProblemSearchModel($problemID, $category, $description, $urgency, $addedTime, $resolved, $staffName));
+
+                    }
+
+                    // The SQL query is cleared.
+                    $sqlQuery->close();
+
+                    break;
 
                 }
 				
@@ -162,7 +200,37 @@
 				case "4":
                 {
 
-                    //
+                    // Prepares the SQL statement and puts it into the variable $sqlQuery.
+                    $sqlQuery = $database->getDBConnection()->prepare("SELECT problems.id, categorisation.category, problems.description, problems.urgency, problems.time_when_added, problems.resolved, staff.name
+                                                                             FROM problems, categorisation, staff
+                                                                             WHERE problems.staff_id = staff.id
+                                                                             AND problems.category_id = categorisation.id
+                                                                             AND staff.name LIKE ?;");
+
+                    // Adds the % symbols to aid the SQL LIKE keyword.
+                    $searchLine = "%" . $this->searchLine . "%";
+
+                    // Binds the result, every attribute coming back from the database must be stated here, even if it is not used.
+                    $sqlQuery->bind_result($problemID, $category, $description, $urgency, $addedTime, $resolved, $staffName);
+
+                    // Here both of the variables used in the SQL statement are defined, represented in the statement as '?'.
+                    $sqlQuery->bind_param("s", $searchLine);
+
+                    // The statement is executed.
+                    $sqlQuery->execute();
+
+                    // Here each row is fetched and the desired attributes are fed into an object that represents this search.
+                    while ($sqlQuery->fetch())
+                    {
+
+                        array_push($this->dataset, new GeneralProblemSearchModel($problemID, $category, $description, $urgency, $addedTime, $resolved, $staffName));
+
+                    }
+
+                    // The SQL query is cleared.
+                    $sqlQuery->close();
+
+                    break;
 
                 }
 				

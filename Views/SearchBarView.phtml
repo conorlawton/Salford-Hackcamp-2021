@@ -1,3 +1,29 @@
+<script>
+
+    function disableCheck()
+    {
+
+        var radioValue = document.getElementById('searchRadio').value;
+
+        if(radioValue === "Radio_Customer" || radioValue === "Radio_Category" || radioValue === "Radio_Staff")
+        {
+
+            document.getElementById("flexSwitchCheckChecked").disabled = true;
+            document.getElementById("urgencyID").disabled = true;
+
+        }
+        else if (radioValue === "Radio_Problem")
+        {
+
+            document.getElementById("flexSwitchCheckChecked").disabled = false;
+            document.getElementById("urgencyID").disabled = false;
+
+        }
+
+    }
+
+</script>
+
 <div id="searchSection">
     <form action="SearchBar" method="GET">
 
@@ -13,19 +39,19 @@
 
             <div id="radioButtons">
                 <!--Radio Button - Customer-->
-                <input id="Radio_Customer" type="radio" name="searchRadio" value="1" checked="checked">
+                <input class="Radio" id="Radio_Customer" type="radio" name="searchRadio" value="1" onchange="disableCheck()" checked="checked">
                 <label for="Radio_Customer">Customer</label>
 
                 <!--Radio Button - Problem-->
-                <input id="Radio_Problem" type="radio" name="searchRadio" value="2">
+                <input class="Radio" id="Radio_Problem" type="radio" name="searchRadio" value="2" onchange="disableCheck()">
                 <label for="Radio_Problem">Problem</label>
 
                 <!--Radio Button - Category-->
-                <input id="Radio_Category" type="radio" name="searchRadio" value="3">
+                <input class="Radio" id="Radio_Category" type="radio" name="searchRadio" value="3" onchange="disableCheck()">
                 <label for="Radio_Category">Category</label>
 
                 <!--Radio Button - Staff-->
-                <input id="Radio_Staff" type="radio" name="searchRadio" value="4">
+                <input class="Radio" id="Radio_Staff" type="radio" name="searchRadio" value="4" onchange="disableCheck()">
                 <label for="Radio_Staff">Colleague</label>
             </div>
 
@@ -37,9 +63,10 @@
 
             <!--Select Dropdown-->
             <select name="urgencyDropdown" id="urgencyID">
-                <option value="high">High</option>
-                <option value="medium">Medium</option>
-                <option value="low">Low</option>
+                <option value="">All</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
             </select>
 
         </div>
@@ -55,27 +82,26 @@
         case "1":
         {
 
-            echo'
+            // Post what the user has just searched for.
+            if (($_GET['searchBar']) != "")
+            {
 
-                <div id="Customer_Info">
-                
-                    <h2 id="">Customer</h2>
-                    
-                    <p id="">First Name: ' . $view->dataset[0]->getFirstName() . '</p>
-                    <p id="">Surname: ' . $view->dataset[0]->getLastName() . '</p>
-                    <p id="">Email: ' . $view->dataset[0]->getCustomerEmail() . '</p>
-                    <p id="">Phone Number: ' . $view->dataset[0]->getCustomerPhoneNumber() . '</p>
-                
-                </div>
-                
-                ';
+                echo "<h1>" . '"' . $_GET['searchBar'] . '"' . "</h1>";
+
+            }
+            else
+            {
+
+                echo "<h1>All Customers</h1>";
+
+            }
 
             foreach ($view->dataset as $lot) {
 
                 echo
                 '
 
-                <div id="Customer_Info">
+                <div id="Query_Post_Customer">
                 
                     <h2 id="">Customer</h2>
                     
@@ -83,37 +109,7 @@
                     <p id="">Surname: ' . $lot->getLastName() . '</p>
                     <p id="">Email: ' . $lot->getCustomerEmail() . '</p>
                     <p id="">Phone Number: ' . $lot->getCustomerPhoneNumber() . '</p>
-                
-                </div>
-
-                <div id="Problem_Info">
-                
-                    <div id="Problem_Info">
-                    
-                        <h2>Query</h2>
-                    
-                        <p id="">Problem ID: ' . $lot->getProblemID() . '</p>
-                        <p id="">Urgency: ' . $lot->getUrgency() . '</p>
-                        <p id="">Description: ' . $lot->getDescription() . '</p>
-                        <p id="">Resolved Status: ' . $lot->getResolved() . '</p>
-                        <p id="">Time Added: ' . $lot->getTimeAdded() . '</p>
-                    
-                    </div>
-                    
-                    <div id="Category_Info">
-                    
-                        <p id="">Category: ' . $lot->getCategory() . '</p>
-                    
-                    </div>
-
-                    <div id="Staff_Info">
-                    
-                        <h2>Staff Member</h2>
-                    
-                        <p id="">Name: ' . $lot->getStaffName() . '</p>
-                        <p id="">Email: ' . $lot->getStaffEmail() . '</p>
-                    
-                    </div>
+                    <p id="">Queries Pending: ' . $lot->getQueryCount() . '</p>
                 
                 </div>
                 
@@ -129,23 +125,40 @@
         case "2":
         {
 
+            // Post what the user has just searched for.
+            if (($_GET['searchBar']) != "")
+            {
+
+                echo "<h1>" . '"' . $_GET['searchBar'] . '"' . "</h1>";
+
+            }
+            else
+            {
+
+                echo "<h1>All Queries</h1>";
+
+            }
+
             foreach ($view->dataset as $lot) {
+
                 echo
-                    '
-                    <div id="Query_Post_ID">
-                    
-                        <div id="main_info">
-                    
-                            <h1 id="id">' . $lot->getID() . '</h1>
-                    
-                            <p id="urgency">Urgency: ' . $lot->getUrgency() . '</p>
-                            <p id="description">Description: ' . $lot->getDescription() . '</p>
-                            <p id="resolved">Resolved: ' . $lot->getResolved() . '</p>
-                    
-                        </div>
-                    
-                    </div>
-                    ';
+                '
+
+                <div id="Query_Post_Problem">
+
+                    <h1 id="id">' . $lot->getProblemID() . '</h1>
+            
+                    <p id="category">Category: ' . $lot->getCategory() . '</p>
+                    <p id="description">Description: ' . $lot->getDescription() . '</p>
+                    <p id="urgency">Urgency: ' . $lot->getUrgency() . '</p>
+                    <p id="added">Added: ' . $lot->getAddedTime() . '</p>
+                    <p id="resolved">Resolved: ' . $lot->getResolved() . '</p>
+                    <p id="staff">Colleague: ' . $lot->getStaffName() . '</p>
+            
+                </div>
+                
+                ';
+
                 }
 
             break;
@@ -156,6 +169,42 @@
         case "3":
         {
 
+            // Post what the user has just searched for.
+            if (($_GET['searchBar']) != "")
+            {
+
+                echo "<h1>" . '"' . $_GET['searchBar'] . '"' . "</h1>";
+
+            }
+            else
+            {
+
+                echo "<h1>All Queries</h1>";
+
+            }
+
+            foreach ($view->dataset as $lot) {
+
+                echo
+                '
+
+                <div id="Query_Post_Category">
+
+                    <h1 id="id">' . $lot->getProblemID() . '</h1>
+            
+                    <p id="category">Category: ' . $lot->getCategory() . '</p>
+                    <p id="description">Description: ' . $lot->getDescription() . '</p>
+                    <p id="urgency">Urgency: ' . $lot->getUrgency() . '</p>
+                    <p id="added">Added: ' . $lot->getAddedTime() . '</p>
+                    <p id="resolved">Resolved: ' . $lot->getResolved() . '</p>
+                    <p id="staff">Colleague: ' . $lot->getStaffName() . '</p>
+            
+                </div>
+                
+                ';
+
+            }
+
             break;
 
         }
@@ -163,6 +212,42 @@
         // Staff
         case "4":
         {
+
+            // Post what the user has just searched for.
+            if (($_GET['searchBar']) != "")
+            {
+
+                echo "<h1>" . '"' . $_GET['searchBar'] . '"' . "</h1>";
+
+            }
+            else
+            {
+
+                echo "<h1>All Queries</h1>";
+
+            }
+
+            foreach ($view->dataset as $lot) {
+
+                echo
+                '
+
+                <div id="Query_Post_Staff">
+
+                    <h1 id="id">' . $lot->getProblemID() . '</h1>
+            
+                    <p id="category">Category: ' . $lot->getCategory() . '</p>
+                    <p id="description">Description: ' . $lot->getDescription() . '</p>
+                    <p id="urgency">Urgency: ' . $lot->getUrgency() . '</p>
+                    <p id="added">Added: ' . $lot->getAddedTime() . '</p>
+                    <p id="resolved">Resolved: ' . $lot->getResolved() . '</p>
+                    <p id="staff">Colleague: ' . $lot->getStaffName() . '</p>
+            
+                </div>
+                
+                ';
+
+            }
 
             break;
 

@@ -79,9 +79,10 @@
 			// ==========(Posting Queries)=====================================|
 			
 			// Grabs the controller that packages the search responses ready for viewing by the user.
-			
-			$queryPostController = new QueryPostController($searchQueryModel->getDataset(), $searchRequest);
-			$queryPostController->queryPostController();
+
+			// TODO: THESE might not be needed.
+			//$queryPostController = new QueryPostController($searchQueryModel->getDataset(), $searchRequest);
+			//$queryPostController->queryPostController();
 			
 			$view = new stdClass();
 			$view->dataset = $searchQueryModel->getDataset();
