@@ -6,6 +6,7 @@
     require_once __DIR__ . "/SearchObjects/ProblemSearchModel.php";
     require_once __DIR__ . "/SearchObjects/CategorySearchModel.php";
     require_once __DIR__ . "/SearchObjects/StaffSearchModel.php";
+    require_once __DIR__ . "/SearchObjects/CustomerSearchModel.php";
 	
 	class SearchQueryModel
 	{
@@ -78,19 +79,44 @@
 				case "1":
                 {
 
-                    $sqlQuery = $database->getDBConnection()->prepare("SELECT * FROM customers WHERE firstName LIKE ? AND lastName LIKE ?");
+                    // Prepares the SQL statement and puts it into the variable $sqlQuery.
+                    $sqlQuery = $database->getDBConnection()->prepare("SELECT * 
+                                                                             FROM problems, customers, staff, categorisation
+                                                                             WHERE problems.customer_id = customers.id
+                                                                             AND staff.id = problems.staff_id
+                                                                             AND categorisation.id = problems.category_id
+                                                                             AND customers.firstName LIKE ?
+                                                                             AND customers.lastName LIKE ?");
 
-                    $sqlQuery->bind_result($id, $firstName, $lastName, $email, $phoneNumber);
+                    // Adds the % symbols to aid the SQL LIKE keyword.
+                    $chopFirstName = "%" . $chopFirstName . "%";
+                    $chopLastName = "%" . $chopLastName . "%";
+
+                    // Binds the result, every attribute coming back from the database must be stated here, even if it is not used.
+                    $sqlQuery->bind_result(
+                        $problemID, $urgency, $description, $resolved, $categoryFK, $staffFK, $customerFK, $addedTime,
+                        $customerID, $CustomerFirstName, $CustomerLastName, $CustomerEmail, $CustomerPhoneNumber,
+                        $staffID, $staffName, $password, $staffEmail, $permissions,
+                        $categoryID, $category);
+
+                    // Here both of the variables used in the SQL statement are defined, represented in the statement as '?'.
                     $sqlQuery->bind_param("ss", $chopFirstName, $chopLastName);
+
+                    // The statement is executed.
                     $sqlQuery->execute();
 
+                    // Here each row is fetched and the desired attributes are fed into an object that represents this search.
                     while ($sqlQuery->fetch())
                     {
 
-                        array_push($this->dataset, new CustomerSearchModel($id, $firstName, $lastName, $email, $phoneNumber));
+                        array_push($this->dataset, new CustomerSearchModel($problemID, $urgency, $description, $resolved, $categoryFK, $staffFK, $customerFK, $addedTime,
+                        $customerID, $CustomerFirstName, $CustomerLastName, $CustomerEmail, $CustomerPhoneNumber,
+                        $staffID, $staffName, $staffEmail,
+                        $categoryID, $category));
 
                     }
 
+                    // The SQL query is cleared.
                     $sqlQuery->close();
 
                     break;

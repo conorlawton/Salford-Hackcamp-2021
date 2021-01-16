@@ -32,15 +32,31 @@ class QueryPostController
                 foreach ($this->dataset as $row)
                 {
 
-                    $id = $row->getID();
-                    $firstName = $row->getFirstName();
-                    $lastName = $row->getLastName();
-                    $email = $row->getEmail();
-                    $phoneNumber = $row->getPhoneNumber();
+                    // Problem
+                    $problemID = $row->getProblemID();
+                    $urgency = $row->getUrgency();
+                    $description = $row->getDescription();
+                    $resolved = $row->getResolved();
+                    $categoryFK = $row->getCategoryFK();
+                    $staffFK = $row->getStaffFK();
+                    $customerFK = $row->getCustomerFK();
+                    $addedTime = $row->getTimeAdded();
 
-                    //include __DIR__ . '/../Views/SearchResultsViews/CustomerResultView.php';
+                    // Customer
+                    $customerID = $row->getCustomerID();
+                    $CustomerFirstName = $row->getFirstName();
+                    $CustomerLastName = $row->getLastName();
+                    $CustomerEmail = $row->getCustomerEmail();
+                    $CustomerPhoneNumber = $row->getCustomerPhoneNumber();
 
-                    // Here the raw HTML output is assembled with the database retrieved data into a lot item, ready for display.
+                    // Staff
+                    $staffID = $row->getStaffID();
+                    $staffName = $row->getStaffName();
+                    $staffEmail = $row->getStaffEmail();
+
+                    // Category
+                    $categoryID = $row->getCategoryID();
+                    $category = $row->getCategory();
 
                 }
 

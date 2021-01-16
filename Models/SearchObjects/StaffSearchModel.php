@@ -19,7 +19,7 @@ class StaffSearchModel
     /**
      * @return mixed
      */
-    public function getId()
+    public function getStaffId()
     {
         return $this->id;
     }
@@ -27,7 +27,7 @@ class StaffSearchModel
     /**
      * @return mixed
      */
-    public function getName()
+    public function getStaffName()
     {
         return $this->name;
     }
@@ -35,7 +35,7 @@ class StaffSearchModel
     /**
      * @return mixed
      */
-    public function getEmail()
+    public function getStaffEmail()
     {
         return $this->email;
     }

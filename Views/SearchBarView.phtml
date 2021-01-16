@@ -55,24 +55,70 @@
         case "1":
         {
 
+            echo'
+
+                <div id="Customer_Info">
+                
+                    <h2 id="">Customer</h2>
+                    
+                    <p id="">First Name: ' . $view->dataset[0]->getFirstName() . '</p>
+                    <p id="">Surname: ' . $view->dataset[0]->getLastName() . '</p>
+                    <p id="">Email: ' . $view->dataset[0]->getCustomerEmail() . '</p>
+                    <p id="">Phone Number: ' . $view->dataset[0]->getCustomerPhoneNumber() . '</p>
+                
+                </div>
+                
+                ';
+
             foreach ($view->dataset as $lot) {
+
                 echo
-                    '
-                        <div id="Query_Post_ID">
-                        
-                            <div id="main_info">
-                        
-                                <h1 id="id">' . $lot->getId() . '</h1>
-                        
-                                <p id="urgency">First Names: ' . $lot->getFirstName() . '</p>
-                                <p id="description">Surname: ' . $lot->getLastName() . '</p>
-                                <p id="resolved">Email: ' . $lot->getEmail() . '</p>
-                                <p id="resolved">Phone Number: ' . $lot->getPhoneNumber() . '</p>
-                        
-                            </div>
-                        
-                        </div>
-                    ';
+                '
+
+                <div id="Customer_Info">
+                
+                    <h2 id="">Customer</h2>
+                    
+                    <p id="">First Name: ' . $lot->getFirstName() . '</p>
+                    <p id="">Surname: ' . $lot->getLastName() . '</p>
+                    <p id="">Email: ' . $lot->getCustomerEmail() . '</p>
+                    <p id="">Phone Number: ' . $lot->getCustomerPhoneNumber() . '</p>
+                
+                </div>
+
+                <div id="Problem_Info">
+                
+                    <div id="Problem_Info">
+                    
+                        <h2>Query</h2>
+                    
+                        <p id="">Problem ID: ' . $lot->getProblemID() . '</p>
+                        <p id="">Urgency: ' . $lot->getUrgency() . '</p>
+                        <p id="">Description: ' . $lot->getDescription() . '</p>
+                        <p id="">Resolved Status: ' . $lot->getResolved() . '</p>
+                        <p id="">Time Added: ' . $lot->getTimeAdded() . '</p>
+                    
+                    </div>
+                    
+                    <div id="Category_Info">
+                    
+                        <p id="">Category: ' . $lot->getCategory() . '</p>
+                    
+                    </div>
+
+                    <div id="Staff_Info">
+                    
+                        <h2>Staff Member</h2>
+                    
+                        <p id="">Name: ' . $lot->getStaffName() . '</p>
+                        <p id="">Email: ' . $lot->getStaffEmail() . '</p>
+                    
+                    </div>
+                
+                </div>
+                
+                ';
+
             }
 
             break;
