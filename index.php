@@ -86,7 +86,7 @@
 				// Send a 404 header and serve the 404 page.
 				require_once __DIR__ . "/Controllers/Error404Controller.php";
 				$error_controller = new Error404Controller();
-				$error_controller->$request_action();
+				call_user_func(array($error_controller, $request_action));
 			}
 		}
 	}
@@ -96,6 +96,6 @@
 		require_once __DIR__ . "/Controllers/LoginController.php";
 		
 		$login_controller = new LoginController();
-		$login_controller->$request_action();
+		call_user_func(array($login_controller, $request_action));
 	}
 	
