@@ -1,17 +1,19 @@
 <div class="container d-flex justify-content-center">
-	<div class="container col-6">
+	<div class="container col-8">
 		<div class="card shadow rounded mt-5 mb-3 p-1">
-			<form enctype="multipart/form-data" method="POST" action="uploadAudio">
+			<form class="row" enctype="multipart/form-data" method="POST" action="uploadAudio">
 				<div class="form-floating col-sm-6">
 					<input type="number" class="form-control" name="problem_id" placeholder="Problem ID" id="form-problem-id"
 								 aria-label="Problem ID" aria-describedby="basic-addon1" required>
 					<label for="form-problem-id">Problem ID</label>
 				</div>
 				<div class="custom-file col-sm-6">
-					<input type="file" class="custom-file-input" id="file-upload" name="file" accept="audio/*">
-					<label class="custom-file-label" for="file-upload">Choose file</label>
+					<label class="form-label" for="file-upload">Choose audio file to upload.</label>
+					<input type="file" class="form-control" id="file-upload" name="file" accept="audio/*" lang="en">
 				</div>
-				<button class="btn btn-primary" type="submit" name="submit">Upload</button>
+				<div class="col-4 d-flex justify-content-center ">
+					<button class="btn btn-primary" type="submit" name="submit">Upload</button>
+				</div>
 			</form>
 			<?php
 				if (isset($_SESSION["file-upload-message"]))
