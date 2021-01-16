@@ -1,9 +1,7 @@
 <?php
 
 require_once __DIR__ . "/../Models/SearchObjects/CustomerSearchModel.php";
-require_once __DIR__ . "/../Models/SearchObjects/ProblemSearchModel.php";
-require_once __DIR__ . "/../Models/SearchObjects/CategorySearchModel.php";
-require_once __DIR__ . "/../Models/SearchObjects/StaffSearchModel.php";
+require_once __DIR__ . "/../Models/SearchObjects/GeneralProblemSearchModel.php";
 
 class QueryPostController
 {
