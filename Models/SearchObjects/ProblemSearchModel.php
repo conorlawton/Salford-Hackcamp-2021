@@ -3,9 +3,9 @@
 class ProblemSearchModel
 {
 
-    private $id, $urgency, $description, $resolved, $categoryID, $staffUploader, $userID;
+    private $id, $urgency, $description, $resolved, $categoryID, $staffUploader, $userID, $timeAdded;
 
-    function __construct($idParam, $urgencyParam, $descriptionParam, $resolvedParam, $categoryIDParam, $staffUploaderParam, $userIDParam)
+    function __construct($idParam, $urgencyParam, $descriptionParam, $resolvedParam, $categoryIDParam, $staffUploaderParam, $userIDParam, $timeAddedParam)
     {
 
         $this->view = new ViewBase("Home", "/Views/SearchBarView.phtml");
@@ -17,13 +17,16 @@ class ProblemSearchModel
         $this->categoryID = $categoryIDParam;
         $this->staffUploader = $staffUploaderParam;
         $this->userID = $userIDParam;
+        $this->timeAdded = $timeAddedParam;
 
     }
+
+    // ##########(PROBLEM ATTRIBUTES)##################################################################
 
     /**
      * @return mixed
      */
-    public function getId()
+    public function getProblemID()
     {
         return $this->id;
     }
@@ -55,7 +58,7 @@ class ProblemSearchModel
     /**
      * @return mixed
      */
-    public function getCategoryID()
+    public function getCategoryFK()
     {
         return $this->categoryID;
     }
@@ -63,7 +66,7 @@ class ProblemSearchModel
     /**
      * @return mixed
      */
-    public function getStaffUploader()
+    public function getStaffFK()
     {
         return $this->staffUploader;
     }
@@ -71,9 +74,17 @@ class ProblemSearchModel
     /**
      * @return mixed
      */
-    public function getUserID()
+    public function getCustomerFK()
     {
         return $this->userID;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTimeAdded()
+    {
+        return $this->timeAdded;
     }
 
 }

@@ -18,7 +18,7 @@ class CategorySearchModel
     /**
      * @return mixed
      */
-    public function getId()
+    public function getCategoryId()
     {
         return $this->id;
     }
