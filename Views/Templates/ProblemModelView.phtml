@@ -1,7 +1,63 @@
 <?php
-echo '<p class="fw-bolder fs-3">Category: ' . $problem->getCategory() . '</p>
-<p>Urgency: ' . $problem->getUrgency() . '</p>
-<p>Description: ' . $problem->getDescription() . '</p>
-<p>Resolved: ' . $problem->getResolved() . '</p>
-<p>Created by: ' . $problem->getStaffUploader() . '</p>';
+	/** @var ProblemModel $problem */
+	
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/Core/ProblemCategories.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/Models/AudioModel.php";
+	
+	$urgency_badge_colour = "";
+	$resolved_badge_text = "";
+	$resolved_badge_colour = "";
+	
+	switch ($problem->urgency) {
+		case "High":
+			$urgency_badge_colour = "#dc3545";
+			break;
+		case "Medium":
+			$urgency_badge_colour = "#fd7e14";
+			break;
+		case "Low":
+			$urgency_badge_colour = "#198754";
+			break;
+	}
+	
+	switch ($problem->resolved) {
+		case 0:
+			$resolved_badge_colour = "#dc3545";
+			$resolved_badge_text = "Not resolved";
+			break;
+		case 1:
+			$resolved_badge_colour = "#198754";
+			$resolved_badge_text = "Resolved";
+			break;
+	}
+
 ?>
+<div class="card shadow justify-content-left m-3">
+	<div class="card-header d-flex pe-1">
+		<h5 class="mb-0"><?php echo ProblemCategories::get_category_name_by_id($problem->category_id); ?></h5>
+		<div class="d-flex justify-content-end flex-fill">
+			<div class="badge align-self-center mx-1" style="background-color: <?php echo $urgency_badge_colour; ?>;"><?php echo $problem->urgency; ?></div>
+			<div class="badge align-self-center mx-1" style="background-color: <?php echo $resolved_badge_colour; ?>;"><?php echo $resolved_badge_text; ?></div>
+		</div>
+	</div>
+	<div class="card-body">
+		<h6>Description</h6>
+		<p><?php echo $problem->description; ?></p>
+		<?php
+			/** @var AudioModel $audio_models */
+			$audio_models = AudioModel::fetch_by_id_and_active($problem->id);
+			
+			if (!empty($audio_models)) {
+				echo "<hr/>";
+				foreach ($audio_models as $audio_model) {
+					$audio_model->display();
+				}
+			}
+		?>
+	</div>
+	<div class="card-footer d-flex justify-content-end">
+		<p class="text-muted mb-0 me-2">Staff ID: <?php echo $problem->staff_id; ?>,</p>
+		<p class="text-muted mb-0 me-2">Customer ID: <?php echo $problem->customer_id; ?>,</p>
+		<p class="text-muted mb-0"><?php echo $problem->time_when_added->format("Y-m-d H:i:s"); ?></p>
+	</div>
+</div>

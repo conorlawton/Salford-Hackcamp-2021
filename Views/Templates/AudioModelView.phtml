@@ -1,3 +1,27 @@
-<div class="container">
+<?php
+	/** @var AudioModel $audio_model */
+	/** @var string $file_extension */
+	/** @var string $path */
+	/** @var bool $file_exists */
+	
+	if ($file_exists) {
+		$mime_type = mime_content_type($_SERVER["DOCUMENT_ROOT"] . $path);
+	}
+?>
 
+<div class="card mb-3 <?php if (!$file_exists) { echo "border-danger"; } ?>">
+	<h5 class="card-header text-truncate"><?php echo $audio_model->file_name; ?></h5>
+	<div class="card-body">
+		<div>
+			<?php if($file_exists): ?>
+			<audio class="w-100" controls>
+				<source src="<?php echo $path ?>" type="<?php echo $mime_type; ?>">
+			</audio>
+			<?php else: ?>
+				<div class="d-flex justify-content-center">
+					<p class="text-danger fw-bold mb-0">File does not exist.</p>
+				</div>
+			<?php endif; ?>
+		</div>
+	</div>
 </div>

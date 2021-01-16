@@ -49,7 +49,7 @@
 			
 			$_SESSION["file-upload-message"] = "File successfully uploaded.";
 			
-			return new AudioModel($hash, $problem_id, $file["name"]);
+			return new AudioModel($hash, $problem_id, $file["name"], new DateTime("now"));
 		}
 	}
 	

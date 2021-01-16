@@ -13,11 +13,12 @@
 		{
 			$this->user = $user;
 			$this->view = new ViewBase("Home", "/Views/IndexView.phtml");
-			$this->view->problemDataSet = ProblemModel::fetchActiveProblems();
 		}
 		
 		function get(): void
 		{
+			
+			$this->view->problem_data_set = ProblemModel::fetchActiveProblems();
 			$this->view->view();
 		}
 		

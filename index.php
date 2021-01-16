@@ -1,15 +1,11 @@
 <?php
 	// phpinfo();
 	
-	//	error_reporting(-1);
-	//	ini_set('display_errors', 'On');
 	
 	$GLOBALS["db_host"] = "poseidon.salford.ac.uk";
 	$GLOBALS["db_username"] = "hc21-2";
 	$GLOBALS["db_password"] = "9mXhS1VccjTU9uo";
 	$GLOBALS["db_name"] = "hc21_2";
-	
-	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	
 	ini_set('display_error', 1);
 	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
