@@ -1,20 +1,45 @@
-<div class="container">
-	<form enctype="multipart/form-data" method="POST" action="uploadAudio" class="row">
-		<div class="form-floating col-sm-6">
-			<input type="number" class="form-control" name="problem_id" placeholder="Problem ID" id="form-problem-id"
-						 aria-label="Problem ID" aria-describedby="basic-addon1" required>
-			<label for="form-problem-id">Problem ID</label>
+<div class="container d-flex justify-content-center">
+	<div class="container col-6">
+		<div class="card shadow rounded mt-5 mb-3 p-1">
+			<form enctype="multipart/form-data" method="POST" action="uploadAudio">
+				<div class="form-floating col-sm-6">
+					<input type="number" class="form-control" name="problem_id" placeholder="Problem ID" id="form-problem-id"
+								 aria-label="Problem ID" aria-describedby="basic-addon1" required>
+					<label for="form-problem-id">Problem ID</label>
+				</div>
+				<div class="custom-file col-sm-6">
+					<input type="file" class="custom-file-input" id="file-upload" name="file" accept="audio/*">
+					<label class="custom-file-label" for="file-upload">Choose file</label>
+				</div>
+				<button class="btn btn-primary" type="submit" name="submit">Upload</button>
+			</form>
+			<?php
+				if (isset($_SESSION["file-upload-message"]))
+				{
+					echo $_SESSION["file-upload-message"];
+					unset($_SESSION["file-upload-message"]);
+				}
+			?>
 		</div>
-		<div class="custom-file col-sm-6">
-			<input type="file" class="custom-file-input" id="file-upload" name="file" accept="audio/*">
-			<label class="custom-file-label" for="file-upload">Choose file</label>
+		<div class="card shadow rounded mb-3 p-1">
+			<?php
+				$audio_files = AudioModel::fetch_all_from_db();
+				
+				// Sort by most recently added.
+				
+				/**
+				 * @var AudioModel $a
+				 * @var AudioModel $b
+				 */
+				usort($audio_files, function($a, $b) {
+					return $a->time_stamp < $b->time_stamp;
+				});
+				
+				foreach ($audio_files as $audio_file)
+				{
+					$audio_file->display();
+				}
+			?>
 		</div>
-		<button class="btn btn-primary" type="submit" name="submit">Upload</button>
-	</form>
-	<?php
-		if (isset($_SESSION["file-upload-message"]))
-		{
-			echo $_SESSION["file-upload-message"];
-		}
-	?>
+	</div>
 </div>
