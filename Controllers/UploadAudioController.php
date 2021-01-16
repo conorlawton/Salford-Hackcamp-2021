@@ -21,14 +21,19 @@
 		{
 			if (isset($_POST["submit"]))
 			{
-				var_dump($_POST);
-				$problem_id = $_POST["problem_id"];
 				
-				if (ProblemModel::check_if_exists($problem_id)) {
-					$new_audio_file_model = UploadAudioController::upload_audio_file($problem_id);
-					$new_audio_file_model->insert_this_into_db();
+				if (is_uploaded_file($_FILES["file"]["tmp_name"])) {
+					
+					$problem_id = $_POST["problem_id"];
+					
+					if (ProblemModel::check_if_exists($problem_id)) {
+						$new_audio_file_model = UploadAudioController::upload_audio_file($problem_id);
+						$new_audio_file_model->insert_this_into_db();
+					} else {
+						$_SESSION["file-upload-message"] = "Invalid problem ID.";
+					}
 				} else {
-					$_SESSION["file-upload-message"] = "Invalid problem ID";
+					$_SESSION["file-upload-message"] = "No file selected.";
 				}
 			}
 			
