@@ -32,32 +32,12 @@ class QueryPostController
                 foreach ($this->dataset as $row)
                 {
 
-                    // Problem
-                    $problemID = $row->getProblemID();
-                    $urgency = $row->getUrgency();
-                    $description = $row->getDescription();
-                    $resolved = $row->getResolved();
-                    $categoryFK = $row->getCategoryFK();
-                    $staffFK = $row->getStaffFK();
-                    $customerFK = $row->getCustomerFK();
-                    $addedTime = $row->getTimeAdded();
-
                     // Customer
-                    $customerID = $row->getCustomerID();
+                    $customerID = $row->getID();
                     $CustomerFirstName = $row->getFirstName();
                     $CustomerLastName = $row->getLastName();
                     $CustomerEmail = $row->getCustomerEmail();
                     $CustomerPhoneNumber = $row->getCustomerPhoneNumber();
-
-                    // Staff
-                    $staffID = $row->getStaffID();
-                    $staffName = $row->getStaffName();
-                    $staffEmail = $row->getStaffEmail();
-
-                    // Category
-                    $categoryID = $row->getCategoryID();
-                    $category = $row->getCategory();
-
                 }
 
                 break;

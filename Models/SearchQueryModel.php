@@ -29,7 +29,7 @@
 			
 		}
 		
-		function view(): void
+		function get(): void
 		{
 			$this->view->view();
 		}
@@ -47,27 +47,7 @@
 			// Initialise a database basic model object.
 			$database = DatabaseModel::getInstance();
 
-			// These IF ELSE statements handle the string needed for the customer search section,
-            // here the string is split up to be useable for the database.
-			$nameArray = explode(" ", $this->searchLine);
-			
-			if (isset($nameArray[0]))
-			{
-				$chopFirstName = $nameArray[0];
-			}
-			else
-			{
-				$chopFirstName = "";
-			}
-			
-			if (isset($nameArray[1]))
-			{
-				$chopLastName = $nameArray[1];
-			}
-			else
-			{
-				$chopLastName = "";
-			}
+
 			
 			// The switch statement initially checks for which radio button filter has been selected,
 			// then it decided if the 'resolved' status is true or false,
@@ -79,13 +59,32 @@
 				case "1":
                 {
 
+                    // These IF ELSE statements handle the string needed for the customer search section,
+                    // here the string is split up to be useable for the database.
+                    $nameArray = explode(" ", $this->searchLine);
+
+                    if (isset($nameArray[0]))
+                    {
+                        $chopFirstName = $nameArray[0];
+                    }
+                    else
+                    {
+                        $chopFirstName = "";
+                    }
+
+                    if (isset($nameArray[1]))
+                    {
+                        $chopLastName = $nameArray[1];
+                    }
+                    else
+                    {
+                        $chopLastName = "";
+                    }
+
                     // Prepares the SQL statement and puts it into the variable $sqlQuery.
                     $sqlQuery = $database->getDBConnection()->prepare("SELECT * 
-                                                                             FROM problems, customers, staff, categorisation
-                                                                             WHERE problems.customer_id = customers.id
-                                                                             AND staff.id = problems.staff_id
-                                                                             AND categorisation.id = problems.category_id
-                                                                             AND customers.firstName LIKE ?
+                                                                             FROM customers
+                                                                             WHERE customers.firstName LIKE ?
                                                                              AND customers.lastName LIKE ?");
 
                     // Adds the % symbols to aid the SQL LIKE keyword.
@@ -93,11 +92,7 @@
                     $chopLastName = "%" . $chopLastName . "%";
 
                     // Binds the result, every attribute coming back from the database must be stated here, even if it is not used.
-                    $sqlQuery->bind_result(
-                        $problemID, $urgency, $description, $resolved, $categoryFK, $staffFK, $customerFK, $addedTime,
-                        $customerID, $CustomerFirstName, $CustomerLastName, $CustomerEmail, $CustomerPhoneNumber,
-                        $staffID, $staffName, $password, $staffEmail, $permissions,
-                        $categoryID, $category);
+                    $sqlQuery->bind_result($customerID, $CustomerFirstName, $CustomerLastName, $CustomerEmail, $CustomerPhoneNumber);
 
                     // Here both of the variables used in the SQL statement are defined, represented in the statement as '?'.
                     $sqlQuery->bind_param("ss", $chopFirstName, $chopLastName);
@@ -109,10 +104,7 @@
                     while ($sqlQuery->fetch())
                     {
 
-                        array_push($this->dataset, new CustomerSearchModel($problemID, $urgency, $description, $resolved, $categoryFK, $staffFK, $customerFK, $addedTime,
-                        $customerID, $CustomerFirstName, $CustomerLastName, $CustomerEmail, $CustomerPhoneNumber,
-                        $staffID, $staffName, $staffEmail,
-                        $categoryID, $category));
+                        array_push($this->dataset, new CustomerSearchModel($customerID, $CustomerFirstName, $CustomerLastName, $CustomerEmail, $CustomerPhoneNumber));
 
                     }
 
