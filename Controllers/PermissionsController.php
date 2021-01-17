@@ -6,22 +6,13 @@ class PermissionsController
 {
     static function checkAdmin($user)
     {
-        if($user->getPermissions & 1) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return !!($user->getPermissions() & 1);
     }
+
 
     static function checkTeamLeader($user)
     {
-        if($user->getPermissions & 2) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return !!($user->getPermissions() & 2);
     }
 }
 
