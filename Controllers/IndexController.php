@@ -18,7 +18,7 @@
 		function get(): void
 		{
 			
-			$this->view->problem_data_set = ProblemModel::fetchActiveProblems();
+			$this->view->problem_data_set = ProblemModel::fetch_active_problems();
 			$this->view->view();
 		}
 		

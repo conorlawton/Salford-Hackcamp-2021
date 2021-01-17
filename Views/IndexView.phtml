@@ -1,35 +1,36 @@
 <?php
-	/** @var IWidget[] $problem_data_set */
+	/** @var Widget[] $problem_data_set */
 	/** @var object $view */
 ?>
 
 <div class="container">
-    <div class="row">
-        <div class="container shadow rounded col-5 mt-5 p-2">
-            <div class="w-100 text-center">
-                <h1 class="h3 my-3 fw-normal">Your Activity</h1>
-            </div>
-        </div>
-        <div class="container shadow rounded col-5 mt-5 p-2">
-            <div class="w-100 text-center">
-                <h1 class="h3 my-3 fw-normal">Team Activity</h1>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="container shadow rounded col-11 mt-5 p-2">
-            <div class="w-100 text-center">
-                <h1 class="h3 my-3 fw-normal">Reminders</h1>
-            </div>
-        </div>
-    </div>
+	<div class="row">
+		<div class="container shadow rounded col-5 mt-5 p-2">
+			<div class="w-100 text-center">
+				<h1 class="h3 my-3 fw-normal">Your Activity</h1>
+			</div>
+		</div>
+		<div class="container shadow rounded col-5 mt-5 p-2">
+			<div class="w-100 text-center">
+				<h1 class="h3 my-3 fw-normal">Team Activity</h1>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="container shadow rounded col-11 mt-5 p-2">
+			<div class="w-100 text-center">
+				<h1 class="h3 my-3 fw-normal">Reminders</h1>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="container shadow rounded col-8 mt-5 p-1">
 	<?php
-		/** @var IWidget $active_problems */
-		foreach ($view->problem_data_set as $active_problems) {
-			$active_problems ->display();
+		/** @var Widget $active_problems */
+		foreach ($view->problem_data_set as $active_problems)
+		{
+			$active_problems->display();
 		}
 	?>
 </div>
