@@ -1,13 +1,27 @@
 <?php
+	// phpinfo();
+	
+	
+	$GLOBALS["db_host"] = "poseidon.salford.ac.uk";
+	$GLOBALS["db_username"] = "hc21-2";
+	$GLOBALS["db_password"] = "9mXhS1VccjTU9uo";
+	$GLOBALS["db_name"] = "hc21_2";
+	
+	ini_set('display_error', 1);
+	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+	
 	// Check if the request URI matches a file ending in any of:
-	if (preg_match('/\.(?:php|png|jpg|jpeg|gif|ico|css|js)\??.*$/',
+	if (preg_match('/\.(?:php|png|jpg|jpeg|gif|ico|css|js|mp3|ogg|wav)\??.*$/',
 		$_SERVER["REQUEST_URI"]))
 	{
 		return false; // Serve the requested resource as-is.
 	}
 	
+	
 	require_once __DIR__ . "/Controllers/IndexController.php";
 	require_once __DIR__ . "/Core/ControllerBase.php";
+	
+	// ALL $_SERVER["PATH_INFO"] MUST BE $_SERVER["REQUEST_URI"] WHEN ON POSEIDON
 	
 	// First break the url request down and split it by "/"
 	$url = isset($_SERVER["PATH_INFO"]) ? explode("/", ltrim($_SERVER["PATH_INFO"], "/")) : "/";
@@ -35,12 +49,11 @@
 			// Get the page the user wants to access.
 			$requested_controller = $url[0];
 			
-			
 			// Get the rest of the url parts.
 			$request_parameters = array_slice($url, 2);
 			
 			// Get the path to the controller file.
-			$controller_path = __DIR__ . "/Controllers/" . $requested_controller . "Controller.php";
+			$controller_path = __DIR__ . "/Controllers/" . ucfirst($requested_controller) . "Controller.php";
 			
 			// Check if the controller exists, otherwise serve a 404.
 			if (file_exists($controller_path))
@@ -60,21 +73,20 @@
 						$controller = new $controller_name($user);
 						break;
 					default:
-						$controller = new $controller_name();
+						$controller = new $controller_name;
 						break;
 				}
 				
-				$controller->$request_action();
+				//$controller->$request_action();
 				
-				// Die.
-				die();
+				$result = call_user_func(array($controller, $request_action));
 			}
 			else
 			{
 				// Send a 404 header and serve the 404 page.
 				require_once __DIR__ . "/Controllers/Error404Controller.php";
 				$error_controller = new Error404Controller();
-				$error_controller->$request_action();
+				call_user_func(array($error_controller, $request_action));
 			}
 		}
 	}
@@ -84,6 +96,6 @@
 		require_once __DIR__ . "/Controllers/LoginController.php";
 		
 		$login_controller = new LoginController();
-		$login_controller->$request_action();
+		call_user_func(array($login_controller, $request_action));
 	}
 	

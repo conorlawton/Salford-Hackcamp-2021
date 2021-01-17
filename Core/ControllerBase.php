@@ -9,5 +9,5 @@
 		public $view;
 		
 		public abstract function get(): void;
-		public function post(): void {}
+		public abstract function post(): void;
 	}
