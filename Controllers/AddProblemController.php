@@ -24,7 +24,10 @@
 			$exists = CustomerModel::check_if_exists($_POST['CustomerID']);
 			if ($exists === true)
 			{
-				ProblemModel::insert_problem($_POST['urgency'], $_POST['description'], $_POST['categorisation_id'], $this->user->id, $_POST['CustomerID']);
+				$escaped_text = htmlspecialchars($_POST['description'], ENT_QUOTES | ENT_HTML5);
+				
+				// TODO: Perform more advanced checks against all input fields
+				ProblemModel::insert_problem($_POST['urgency'], $escaped_text, $_POST['categorisation_id'], $this->user->id, $_POST['CustomerID']);
 			}
 			elseif ($exists === false)
 			{
