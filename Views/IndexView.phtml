@@ -1,13 +1,35 @@
+<?php
+	/** @var IWidget[] $problem_data_set */
+	/** @var object $view */
+?>
+
+<div class="container">
+    <div class="row">
+        <div class="container shadow rounded col-5 mt-5 p-2">
+            <div class="w-100 text-center">
+                <h1 class="h3 my-3 fw-normal">Your Activity</h1>
+            </div>
+        </div>
+        <div class="container shadow rounded col-5 mt-5 p-2">
+            <div class="w-100 text-center">
+                <h1 class="h3 my-3 fw-normal">Team Activity</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container shadow rounded col-11 mt-5 p-2">
+            <div class="w-100 text-center">
+                <h1 class="h3 my-3 fw-normal">Reminders</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container shadow rounded col-8 mt-5 p-1">
-	<div class="justify-content-left mb-5">
-		<?php /** @var ProblemModel $active_problems */
-			foreach ($view->problemDataSet as $active_problems)
-			{
-				echo '<p class="fw-bolder fs-3">Category: ' . $active_problems->getCategory() . '</p>
-        <p>Urgency: ' . $active_problems->getUrgency() . '</p>
-        <p>Description: ' . $active_problems->getDescription() . '</p>
-        <p>Resolved: ' . $active_problems->getResolved() . '</p>
-        <p>Created by: ' . $active_problems->getStaffUploader() . '</p>';
-			} ?>
-	</div>
+	<?php
+		/** @var IWidget $active_problems */
+		foreach ($view->problem_data_set as $active_problems) {
+			$active_problems ->display();
+		}
+	?>
 </div>
