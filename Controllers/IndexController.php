@@ -13,11 +13,17 @@
 		{
 			$this->user = $user;
 			$this->view = new ViewBase("Home", "/Views/IndexView.phtml");
-			$this->view->problemDataSet = ProblemModel::fetchActiveProblems();
 		}
 		
 		function get(): void
 		{
+			
+			$this->view->problem_data_set = ProblemModel::fetch_active_problems();
+			
+			usort($this->view->problem_data_set, function($a, $b) {
+				return $a < $b;
+			});
+			
 			$this->view->view();
 		}
 		
