@@ -1,12 +1,11 @@
 <?php
 
-
 class CustomerDisplayModel
 {
     private $customerID ,$customerFirstName, $customerLastName, $customerEmail, $customerPhoneNumber, $database;
 
     private $dataset = [];
-
+    private $datasetOfProblems = [];
 
     function __construct($ID)
     {
@@ -37,6 +36,42 @@ class CustomerDisplayModel
         $this->customerLastName = $this->dataset[2];
         $this->customerEmail = $this->dataset[3];
         $this->customerPhoneNumber = $this->dataset[4];
+    }
+
+    function getProblems($ID)
+    {
+
+        $this->database = DatabaseModel::getInstance();
+
+        // Prepares the SQL statement and puts it into the variable $sqlQuery.
+        $sqlQuery = $this->database->getDBConnection()->prepare("SELECT problems.id, categorisation.category, problems.description, problems.urgency, problems.time_when_added, problems.resolved, staff.name
+                                                                             FROM problems, categorisation, staff
+                                                                             WHERE problems.staff_id = staff.id
+                                                                             AND problems.category_id = categorisation.id
+                                                                             AND problems.customer_id = ?;");
+
+        // Binds the result, every attribute coming back from the database must be stated here, even if it is not used.
+        $sqlQuery->bind_result($problemID, $category, $description, $urgency, $addedTime, $resolved, $staffName);
+
+        // Here both of the variables used in the SQL statement are defined, represented in the statement as '?'.
+        $sqlQuery->bind_param("i", $ID);
+
+        // The statement is executed.
+        $sqlQuery->execute();
+
+        // Here each row is fetched and the desired attributes are fed into an object that represents this search.
+        while ($sqlQuery->fetch())
+        {
+
+            array_push($this->datasetOfProblems, new GeneralProblemSearchModel($problemID, $category, $description, $urgency, $addedTime, $resolved, $staffName));
+
+        }
+
+        // The SQL query is cleared.
+        $sqlQuery->close();
+
+        return $this->datasetOfProblems;
+
     }
 
     /**

@@ -87,7 +87,8 @@
                                                                          LEFT JOIN problems ON customers.id = problems.customer_id
                                                                          WHERE customers.firstName LIKE ?
                                                                          AND customers.lastName LIKE ?
-                                                                         GROUP BY customers.id, customers.firstName;");
+                                                                         GROUP BY customers.id, customers.firstName
+                                                                         ORDER BY customers.id ASC;");
 
                     // Adds the % symbols to aid the SQL LIKE keyword.
                     $chopFirstName = "%" . $chopFirstName . "%";
@@ -128,7 +129,8 @@
                                                                              AND problems.category_id = categorisation.id
                                                                              AND problems.description LIKE ?
                                                                              AND problems.urgency LIKE ?
-                                                                             AND problems.resolved = ?;");
+                                                                             AND problems.resolved = ?
+                                                                             ORDER BY problems.id ASC;");
 
                     // Adds the % symbols to aid the SQL LIKE keyword.
                     $searchLine = "%" . $this->searchLine . "%";
@@ -167,7 +169,8 @@
                                                                              FROM problems, categorisation, staff
                                                                              WHERE problems.staff_id = staff.id
                                                                              AND problems.category_id = categorisation.id
-                                                                             AND categorisation.category LIKE ?;");
+                                                                             AND categorisation.category LIKE ?
+                                                                             ORDER BY problems.id ASC;");
 
                     // Adds the % symbols to aid the SQL LIKE keyword.
                     $searchLine = "%" . $this->searchLine . "%";
@@ -205,7 +208,8 @@
                                                                              FROM problems, categorisation, staff
                                                                              WHERE problems.staff_id = staff.id
                                                                              AND problems.category_id = categorisation.id
-                                                                             AND staff.name LIKE ?;");
+                                                                             AND staff.name LIKE ?
+                                                                             ORDER BY problems.id ASC;");
 
                     // Adds the % symbols to aid the SQL LIKE keyword.
                     $searchLine = "%" . $this->searchLine . "%";
