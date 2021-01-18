@@ -1,3 +1,46 @@
-<?php echo('<p>'.$view->customer->getCustomerID().'</p>');?>
+<?php
+
+echo('
+    
+    <div id="Customer_Panel">
+        
+        <div id="Customer_Name">
+            <h1>'.$view->customer->getCustomerFirstName().'</h1>
+            <h2>'.$view->customer->getCustomerLastName().'</h2>
+        </div>
+        
+        <div id="Customer_Info">
+            <p>'.$view->customer->getCustomerID().'</p>
+            <p>'.$view->customer->getCustomerPhoneNumber().'</p>
+            <p>'.$view->customer->getCustomerEmail().'</p>
+        </div>
+    
+    </div>
+
+    ');
+
+foreach ($view->datasetOfProblems as $lot) {
+
+    echo
+        '
+
+                <div id="Query_Post_Problem">
+
+                    <h1 id="id">' . $lot->getProblemID() . '</h1>
+            
+                    <p id="category">Category: ' . $lot->getCategory() . '</p>
+                    <p id="description">Description: ' . $lot->getDescription() . '</p>
+                    <p id="urgency">Urgency: ' . $lot->getUrgency() . '</p>
+                    <p id="added">Added: ' . $lot->getAddedTime() . '</p>
+                    <p id="resolved">Resolved: ' . $lot->getResolved() . '</p>
+                    <p id="staff">Colleague: ' . $lot->getStaffName() . '</p>
+            
+                </div>
+                
+                ';
+
+}
+
+?>
 
 

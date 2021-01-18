@@ -1,4 +1,35 @@
+<?php
 
+$radioValue = "1";
+$dropValue = "nothing";
+
+if(isset($_GET['searchRadio']))
+{
+
+    $this->radioValue = $_GET['searchRadio'];
+
+}
+else
+{
+
+    $this->radioValue = "1";
+
+}
+
+if(isset($_GET['urgencyDropdown']))
+{
+
+    $this->dropValue = $_GET['urgencyDropdown'];
+
+}
+else
+{
+
+    $this->dropValue = "nothing";
+
+}
+
+?>
 <div class="container shadow rounded col-8 mt-5 p-1">
 <div id="searchSection" class = "justify-content-center">
         <form class = "" action="SearchBar" method="GET">
@@ -22,35 +53,35 @@
 
                 <div id="radioButtons">
                     <!--Radio Button - Customer-->
-                    <input class="Radio" id="Radio_Customer" type="radio" name="searchRadio" value="1" onchange="disableCheck()" checked="checked">
+                    <input class="Radio" id="Radio_Customer" type="radio" name="searchRadio" value="1" <?php if ($this->radioValue === "1") {echo' checked="checked"';} ?>>
                     <label for="Radio_Customer">Customer</label>
 
                     <!--Radio Button - Problem-->
-                    <input class="Radio" id="Radio_Problem" type="radio" name="searchRadio" value="2" onchange="disableCheck()">
+                    <input class="Radio" id="Radio_Problem" type="radio" name="searchRadio" value="2" <?php if ($this->radioValue === "2") {echo' checked="checked"';} ?>">
                     <label for="Radio_Problem">Problem</label>
 
                     <!--Radio Button - Category-->
-                    <input class="Radio" id="Radio_Category" type="radio" name="searchRadio" value="3" onchange="disableCheck()">
+                    <input class="Radio" id="Radio_Category" type="radio" name="searchRadio" value="3" <?php if ($this->radioValue === "3") {echo' checked="checked"';} ?>">
                     <label for="Radio_Category">Category</label>
 
                     <!--Radio Button - Staff-->
-                    <input class="Radio" id="Radio_Staff" type="radio" name="searchRadio" value="4" onchange="disableCheck()">
+                    <input class="Radio" id="Radio_Staff" type="radio" name="searchRadio" value="4" <?php if ($this->radioValue === "4") {echo' checked="checked"';} ?>">
                     <label for="Radio_Staff">Colleague</label>
                 </div>
 
                 <!--Checkbox-->
                 <div class="form-check form-switch" id="switch">
                     <input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox" name="searchCheckbox"
-                           value="1">
+                           value="1" <?php if (isset($_GET['searchCheckbox'])) {echo' checked="checked"';}?>>
                     <label for="Check_If_Resolved">Resolved</label>
                 </div>
 
                 <!--Select Dropdown-->
                 <select name="urgencyDropdown" id="urgencyID">
-                    <option value="">All</option>
-                    <option value="High">High</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Low">Low</option>
+                    <option value=""        <?php if ($this->dropValue === "") {echo' selected="selected"';}?>>All</option>
+                    <option value="High"    <?php if ($this->dropValue === "High") {echo' selected="selected"';}?>>High</option>
+                    <option value="Medium"  <?php if ($this->dropValue === "Medium") {echo' selected="selected"';}?>>Medium</option>
+                    <option value="Low"     <?php if ($this->dropValue === "Low") {echo' selected="selected"';}?>>Low</option>
                 </select>
 
         </div>
@@ -68,14 +99,10 @@
         {
 
             // Post what the user has just searched for.
-            if ($view->searchRequest === "")
+            if ($view->searchLine != "")
             {
 
-                foreach ($view->dataset as $lot) {
-
-                    echo"<h1>\"".$view->searchLine."\"</h1>";
-
-                }
+                echo"<h1>\"".$view->searchLine."\"</h1>";
 
             }
             else
@@ -112,16 +139,16 @@
         {
 
             // Post what the user has just searched for.
-            if ($view->searchRequest === "")
+            if ($view->searchLine != "")
             {
 
-                echo "<h1>" . '"' . $view->searchLine . '"' . "</h1>";
+                echo"<h1>\"".$view->searchLine."\"</h1>";
 
             }
             else
             {
 
-                echo "<h1>All Queries</h1>";
+                echo "<h1>All Problems</h1>";
 
             }
 
@@ -156,16 +183,16 @@
         {
 
             // Post what the user has just searched for.
-            if ($view->searchRequest === "")
+            if ($view->searchLine != "")
             {
 
-                echo "<h1>" . '"' . $view->searchLine . '"' . "</h1>";
+                echo"<h1>\"".$view->searchLine."\"</h1>";
 
             }
             else
             {
 
-                echo "<h1>All Queries</h1>";
+                echo "<h1>All Problems</h1>";
 
             }
 
@@ -200,16 +227,16 @@
         {
 
             // Post what the user has just searched for.
-            if ($view->searchRequest === "")
+            if ($view->searchLine != "")
             {
 
-                echo "<h1>" . '"' . $view->searchLine . '"' . "</h1>";
+                echo"<h1>\"".$view->searchLine."\"</h1>";
 
             }
             else
             {
 
-                echo "<h1>All Queries</h1>";
+                echo "<h1>All Problems</h1>";
 
             }
 
