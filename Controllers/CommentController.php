@@ -13,26 +13,31 @@
 				if (isset($_GET["new_comments"]) && isset($_GET["now"]))
 				{
 					$problem_exists = ProblemModel::check_if_exists($_GET["problem_id"]);
-					if ($problem_exists === true) {
-						
+					if ($problem_exists === true)
+					{
 						$comments = CommentModel::get_comments_after(DateTime::createFromFormat("Y-m-d H:i:s", $_GET["now"]), $_GET["problem_id"]);
 						
-						if(empty($comments)) {
-							
+						if (empty($comments))
+						{
 							http_response_code(204);
 							die();
 						}
 						
 						ob_start();
 						
-						foreach ($comments as $comment) {
+						foreach ($comments as $comment)
+						{
 							$comment->display();
 						}
 						
-						echo ob_get_clean();
+						$flush = ob_get_clean();
+						
+						echo $flush;
 						
 						http_response_code(200);
-					} else {
+					}
+					else
+					{
 						http_response_code(400);
 					}
 				}

@@ -88,11 +88,13 @@
 			
 			$time_stamp_formatted = $time_stamp->format("Y-m-d H:i:s");
 			
-			$get_comments_after = $db->getDBConnection()->prepare("SELECT * FROM comments WHERE id = ? AND time_stamp BETWEEN ? AND CURRENT_TIMESTAMP();");
+			$get_comments_after = $db->getDBConnection()->prepare("SELECT * FROM comments WHERE problem_id = ? AND time_stamp > ?;");
 			$get_comments_after->bind_param("is", $_problem_id, $time_stamp_formatted);
 			$get_comments_after->bind_result($id, $staff_id, $text, $problem_id, $time_stamp);
 			
 			$comments = [];
+			
+			$get_comments_after->execute();
 			
 			while ($get_comments_after->fetch())
 			{

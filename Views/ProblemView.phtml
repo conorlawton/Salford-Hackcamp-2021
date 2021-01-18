@@ -55,15 +55,6 @@
 	let text_area = document.getElementById("comment-textarea");
 	let comments_container = document.getElementById("comments");
 
-	function pad(num) {
-		return ('00'+num).slice(-2);
-	}
-	
-	function now() {
-		let date = new Date();
-		return `${date.getUTCFullYear()}-${pad(date.getUTCMonth())}-${pad(date.getUTCDate())} ${pad(date.getUTCHours())}:${pad(date.getUTCMinutes())}:${pad(date.getUTCSeconds())}`;
-	}
-	
 	let post_comment = new XMLHttpRequest();
 	
 	post_comment.onload = function () {
@@ -94,7 +85,7 @@
 	
 	get_new_comments.onload = function () {
 		if (get_new_comments.status === 200) {
-			comments_container.insertAdjacentHTML("afterend", comments_container.responseText);
+			comments_container.insertAdjacentHTML("beforeend", get_new_comments.responseText);
 		} else if (post_comment.status === 400) {
 			alert("2")
 		} else if (post_comment.status === 204) {
@@ -105,7 +96,10 @@
 	}
 	
 	setInterval(function () {
-		get_new_comments.open("GET", `/Comment?new_comments=true&problem_id=<?php echo $view->problem->id; ?>&now=${encodeURIComponent(now())}`);
+		
+		let time_stamp = document.querySelector(".comment:last-child").getAttribute("data-time-stamp");
+		
+		get_new_comments.open("GET", `/Comment?new_comments=true&problem_id=<?php echo $view->problem->id; ?>&now=${time_stamp}`);
 
 		get_new_comments.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		
