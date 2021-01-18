@@ -1,7 +1,8 @@
 <?php
 	
-	require_once __DIR__ . "/../Core/ControllerBase.php";
-	require_once __DIR__ . "/../Core/ViewBase.php";
+	require_once "Core/ControllerBase.php";
+	require_once "Core/ViewBase.php";
+	require_once "Models/CommentModel.php";
 	
 	class ProblemController extends ControllerBase
 	{
@@ -21,6 +22,7 @@
 				if (!is_null($problem))
 				{
 					$this->view->problem = $problem;
+					$this->view->current_comments = CommentModel::get_all_on_problem($id);
 					$this->view->view();
 				}
 				else

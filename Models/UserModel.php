@@ -1,9 +1,10 @@
 <?php
+	
 	class UserModel
 	{
-		public $id;
-		public $name;
-		public $email;
+		public int $id;
+		public string $name;
+		public string $email;
 		
 		function __construct($id, $name, $email) {
 			$this->id = $id;

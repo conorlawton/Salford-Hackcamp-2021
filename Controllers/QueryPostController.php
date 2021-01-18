@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../Models/SearchModel.php';
+require_once 'Models/SearchModel.php';
 
 class QueryPostController
 {

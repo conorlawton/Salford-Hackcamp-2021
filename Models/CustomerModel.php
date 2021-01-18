@@ -1,6 +1,5 @@
 <?php
 	
-	
 	class CustomerModel
 	{
 		public int $id;

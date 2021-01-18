@@ -1,8 +1,8 @@
 <?php
 
 // Grab the database basic model.
-	require_once __DIR__ . "/DatabaseModel.php";
-	require_once __DIR__ . "/SearchModel.php";
+	require_once "Models/DatabaseModel.php";
+	require_once "Models/SearchModel.php";
 	
 	class SearchQueryModel
 	{
@@ -71,7 +71,7 @@
 				case "1":
 					{
 						
-						$sqlQuery = $database->getDBConnection()->prepare("SELECT * FROM salfordhackcamp2020.customers WHERE firstName LIKE ? AND lastName LIKE ?");
+						$sqlQuery = $database->getDBConnection()->prepare("SELECT * FROM customers WHERE firstName LIKE ? AND lastName LIKE ?");
 						$sqlQuery->bind_result($id, $firstName, $lastName, $email, $phoneNumber);
 						$sqlQuery->bind_param("ss", $chopFirstName, $chopLastName);
 						$sqlQuery->execute();
