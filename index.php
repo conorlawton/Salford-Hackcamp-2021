@@ -1,15 +1,11 @@
 <?php
 	// phpinfo();
 	
-	//	error_reporting(-1);
-	//	ini_set('display_errors', 'On');
 	
 	$GLOBALS["db_host"] = "poseidon.salford.ac.uk";
 	$GLOBALS["db_username"] = "hc21-2";
 	$GLOBALS["db_password"] = "9mXhS1VccjTU9uo";
 	$GLOBALS["db_name"] = "hc21_2";
-	
-	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	
 	ini_set('display_error', 1);
 	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -84,14 +80,13 @@
 				//$controller->$request_action();
 				
 				$result = call_user_func(array($controller, $request_action));
-
 			}
 			else
 			{
 				// Send a 404 header and serve the 404 page.
 				require_once __DIR__ . "/Controllers/Error404Controller.php";
 				$error_controller = new Error404Controller();
-				$error_controller->$request_action();
+				call_user_func(array($error_controller, $request_action));
 			}
 		}
 	}
@@ -101,6 +96,6 @@
 		require_once __DIR__ . "/Controllers/LoginController.php";
 		
 		$login_controller = new LoginController();
-		$login_controller->$request_action();
+		call_user_func(array($login_controller, $request_action));
 	}
 	
