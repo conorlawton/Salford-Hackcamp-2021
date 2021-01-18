@@ -13,7 +13,11 @@
 			$this->view = new ViewBase("Home", "/Views/SearchBarView.phtml");
 			
 		}
-		
+		public function post(): void
+		{
+
+		}
+
 		function get(): void
 		{
 			// SEARCH BAR RE-REQUEST
@@ -88,13 +92,7 @@
 			$view->dataset = $searchQueryModel->getDataset();
 			
 			$this->view->dataset = $searchQueryModel->getDataset();
-			
 			$this->view->view();
-		}
-		
-		function post(): void
-		{
-		
 		}
 
 	}
