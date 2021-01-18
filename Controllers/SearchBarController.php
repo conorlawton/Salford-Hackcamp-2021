@@ -33,21 +33,21 @@
 			// User String Input.
 			if (isset($_GET['searchBar']))
 			{
-				$searchLine = $_GET['searchBar'];
+				$this->view->searchLine = $_GET['searchBar'];
 			}
 			else
 			{
-				$searchLine = "";
+				$this->view->searchLine = "";
 			}
 			
 			// Radio Button Input
 			if (isset($_GET['searchRadio']))
 			{
-				$searchRequest = $_GET['searchRadio'];
+				$this->view->searchRequest = $_GET['searchRadio'];
 			}
 			else
 			{
-				$searchRequest = "1";
+				$this->view->searchRequest = "1";
 			}
 			
 			// Default initialisation.
@@ -73,7 +73,7 @@
                 $searchUrgencySelection = "high";
             }
 
-			$searchQueryModel = new SearchQueryModel($searchResolvedStatus, $searchRequest, $searchLine, $searchUrgencySelection);
+			$searchQueryModel = new SearchQueryModel($searchResolvedStatus, $this->view->searchRequest, $this->view->searchLine, $searchUrgencySelection);
 			$searchQueryModel->searchBarQuery();
 			
 			// The model used with the search bar is called, see the model

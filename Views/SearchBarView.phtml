@@ -50,19 +50,19 @@
 
     <?php
 
-    switch ($_GET['searchRadio']) {
+    switch ($view->searchRequest) {
 
         // Customer
         case "1":
         {
 
             // Post what the user has just searched for.
-            if (($_GET['searchBar']) != "")
+            if ($view->searchRequest === "")
             {
 
                 foreach ($view->dataset as $lot) {
 
-                    echo"<h1>\"".$_GET['searchBar']."\"</h1>";
+                    echo"<h1>\"".$view->searchLine."\"</h1>";
 
                 }
 
@@ -79,18 +79,12 @@
                 echo
                 '
 
-                <div id="Query_Post_Customer">
-                
-                    <h2 id="">Customer</h2>
-                    
                 <div id="Customer_Info">
-                
-                    <h2 id="">Customer</h2>
-                    
+
                     <p id="">First Name: ' . $lot->getFirstName() . '</p>
                     <p id="">Surname: ' . $lot->getLastName() . '</p>
                     <p id="">Queries Pending: ' . $lot->getQueryCount() . '</p>
-                    <p><a class = "btn btn-outline-danger" href="/ViewCustomer?customerID='.$lot->getID().'">link</a></p>
+                    <p><a class = "btn btn-outline-danger" href="/ViewCustomer?customerID='.$lot->getCustomerID().'">link</a></p>
                 
                 </div>
                 
@@ -107,10 +101,10 @@
         {
 
             // Post what the user has just searched for.
-            if (($_GET['searchBar']) != "")
+            if ($view->searchRequest === "")
             {
 
-                echo "<h1>" . '"' . $_GET['searchBar'] . '"' . "</h1>";
+                echo "<h1>" . '"' . $view->searchLine . '"' . "</h1>";
 
             }
             else
@@ -151,10 +145,10 @@
         {
 
             // Post what the user has just searched for.
-            if (($_GET['searchBar']) != "")
+            if ($view->searchRequest === "")
             {
 
-                echo "<h1>" . '"' . $_GET['searchBar'] . '"' . "</h1>";
+                echo "<h1>" . '"' . $view->searchLine . '"' . "</h1>";
 
             }
             else
@@ -195,10 +189,10 @@
         {
 
             // Post what the user has just searched for.
-            if (($_GET['searchBar']) != "")
+            if ($view->searchRequest === "")
             {
 
-                echo "<h1>" . '"' . $_GET['searchBar'] . '"' . "</h1>";
+                echo "<h1>" . '"' . $view->searchLine . '"' . "</h1>";
 
             }
             else

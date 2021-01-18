@@ -3,9 +3,6 @@
 // Grab the database basic model.
 	require_once __DIR__ . "/DatabaseModel.php";
 	require_once __DIR__ . "/SearchObjects/CustomerSearchModel.php";
-    require_once __DIR__ . "/SearchObjects/ProblemSearchModel.php";
-    require_once __DIR__ . "/SearchObjects/CategorySearchModel.php";
-    require_once __DIR__ . "/SearchObjects/StaffSearchModel.php";
     require_once __DIR__ . "/SearchObjects/CustomerSearchModel.php";
 	
 	class SearchQueryModel
@@ -82,17 +79,15 @@
                     }
 
                     // Prepares the SQL statement and puts it into the variable $sqlQuery.
-                    $sqlQuery = $database->getDBConnection()->prepare("SELECT c.id, c.firstName, c.lastName, c.email, c.phoneNumber,
-                                                                             coalesce(p.queryCount, 0) as queryCount
-                                                                             FROM customers c
-                                                                               LEFT OUTER JOIN 
-                                                                                  (SELECT problems.customer_id, 
-                                                                                   COUNT(problems.id) as queryCount 
-                                                                                   FROM problems 
-                                                                                   GROUP BY problems.id) p
-                                                                               ON c.id = p.customer_id
-                                                                             WHERE c.firstName LIKE ?
-                                                                             AND c.lastName LIKE ?;");
+                    $sqlQuery = $database->getDBConnection()->prepare("SELECT 
+                                                                             customers.*,
+                                                                             COUNT(problems.id) as problem_count
+                                                                         FROM
+                                                                             customers
+                                                                         LEFT JOIN problems ON customers.id = problems.customer_id
+                                                                         WHERE customers.firstName LIKE ?
+                                                                         AND customers.lastName LIKE ?
+                                                                         GROUP BY customers.id, customers.firstName;");
 
                     // Adds the % symbols to aid the SQL LIKE keyword.
                     $chopFirstName = "%" . $chopFirstName . "%";
