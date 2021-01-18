@@ -1,29 +1,3 @@
-<script>
-
-    function disableCheck()
-    {
-
-        var radioValue = document.getElementById('searchRadio').value;
-
-        if(radioValue === "Radio_Customer" || radioValue === "Radio_Category" || radioValue === "Radio_Staff")
-        {
-
-            document.getElementById("flexSwitchCheckChecked").disabled = true;
-            document.getElementById("urgencyID").disabled = true;
-
-        }
-        else if (radioValue === "Radio_Problem")
-        {
-
-            document.getElementById("flexSwitchCheckChecked").disabled = false;
-            document.getElementById("urgencyID").disabled = false;
-
-        }
-
-    }
-
-</script>
-
 <div id="searchSection">
     <form action="SearchBar" method="GET">
 
@@ -57,7 +31,8 @@
 
             <!--Checkbox-->
             <div class="form-check form-switch" id="switch">
-                <input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox" name="searchCheckbox" value="1">
+                <input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox" name="searchCheckbox"
+                       value="1">
                 <label for="Check_If_Resolved">Resolved</label>
             </div>
 
@@ -75,8 +50,7 @@
 
     <?php
 
-    switch($_GET['searchRadio'])
-    {
+    switch ($_GET['searchRadio']) {
 
         // Customer
         case "1":
@@ -86,7 +60,11 @@
             if (($_GET['searchBar']) != "")
             {
 
-                echo "<h1>" . '"' . $_GET['searchBar'] . '"' . "</h1>";
+                foreach ($view->dataset as $lot) {
+
+                    echo"<h1>\"".$_GET['searchBar']."\"</h1>";
+
+                }
 
             }
             else
@@ -105,11 +83,14 @@
                 
                     <h2 id="">Customer</h2>
                     
+                <div id="Customer_Info">
+                
+                    <h2 id="">Customer</h2>
+                    
                     <p id="">First Name: ' . $lot->getFirstName() . '</p>
                     <p id="">Surname: ' . $lot->getLastName() . '</p>
-                    <p id="">Email: ' . $lot->getCustomerEmail() . '</p>
-                    <p id="">Phone Number: ' . $lot->getCustomerPhoneNumber() . '</p>
                     <p id="">Queries Pending: ' . $lot->getQueryCount() . '</p>
+                    <p><a class = "btn btn-outline-danger" href="/ViewCustomer?customerID='.$lot->getID().'">link</a></p>
                 
                 </div>
                 

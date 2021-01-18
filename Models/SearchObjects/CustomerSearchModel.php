@@ -11,7 +11,7 @@ class CustomerSearchModel
     function __construct($customerIDParam, $customerFirstNameParam, $customerLastNameParam, $CustomerEmailParam, $customerPhoneNumberParam, $queryCountParam)
     {
 
-        $this->view = new ViewBase("Home", "/Views/SearchBarView.phtml");
+        //$this->view = new ViewBase("Home", "/Views/SearchBarView.phtml");
 
         $this->customerID = $customerIDParam;
         $this->customerFirstName = $customerFirstNameParam;

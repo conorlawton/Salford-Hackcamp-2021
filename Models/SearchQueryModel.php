@@ -3,7 +3,10 @@
 // Grab the database basic model.
 	require_once __DIR__ . "/DatabaseModel.php";
 	require_once __DIR__ . "/SearchObjects/CustomerSearchModel.php";
-    require_once __DIR__ . "/SearchObjects/GeneralProblemSearchModel.php";
+    require_once __DIR__ . "/SearchObjects/ProblemSearchModel.php";
+    require_once __DIR__ . "/SearchObjects/CategorySearchModel.php";
+    require_once __DIR__ . "/SearchObjects/StaffSearchModel.php";
+    require_once __DIR__ . "/SearchObjects/CustomerSearchModel.php";
 	
 	class SearchQueryModel
 	{
@@ -26,7 +29,7 @@
 			
 		}
 		
-		function view(): void
+		function get(): void
 		{
 			$this->view->view();
 		}
@@ -44,37 +47,39 @@
 			// Initialise a database basic model object.
 			$database = DatabaseModel::getInstance();
 
-			// These IF ELSE statements handle the string needed for the customer search section,
-            // here the string is split up to be useable for the database.
-			$nameArray = explode(" ", $this->searchLine);
-			
-			if (isset($nameArray[0]))
-			{
-				$chopFirstName = $nameArray[0];
-			}
-			else
-			{
-				$chopFirstName = "";
-			}
-			
-			if (isset($nameArray[1]))
-			{
-				$chopLastName = $nameArray[1];
-			}
-			else
-			{
-				$chopLastName = "";
-			}
-			
+
+
 			// The switch statement initially checks for which radio button filter has been selected,
 			// then it decided if the 'resolved' status is true or false,
 			// this determines the SQL statement that is chosen.
 			switch ($this->searchRequest)
 			{
-				
-				// ======(Search for specific Customers)================================================================
+
+				// ======(Search for specific Customer and their associated queries.)===================================
 				case "1":
                 {
+
+                    // These IF ELSE statements handle the string needed for the customer search section,
+                    // here the string is split up to be useable for the database.
+                    $nameArray = explode(" ", $this->searchLine);
+
+                    if (isset($nameArray[0]))
+                    {
+                        $chopFirstName = $nameArray[0];
+                    }
+                    else
+                    {
+                        $chopFirstName = "";
+                    }
+
+                    if (isset($nameArray[1]))
+                    {
+                        $chopLastName = $nameArray[1];
+                    }
+                    else
+                    {
+                        $chopLastName = "";
+                    }
 
                     // Prepares the SQL statement and puts it into the variable $sqlQuery.
                     $sqlQuery = $database->getDBConnection()->prepare("SELECT c.id, c.firstName, c.lastName, c.email, c.phoneNumber,
