@@ -1,52 +1,65 @@
-<div id="searchSection">
-    <form action="SearchBar" method="GET">
 
-        <!--Search Bar-->
-        <div class="input-group input-group-lg" id="searchBar">
-            <input class="input-group-text" id="searchBarProper" type="text" name="searchBar">
-            <input id="searchSubmit" type="submit" name="submitSearchButton">
-        </div>
+<div class="container shadow rounded col-8 mt-5 p-1">
+<div id="searchSection" class = "justify-content-center">
+        <form class = "" action="SearchBar" method="GET">
 
-        <div id="filters">
+            <div class="row">
 
-            <p>Search For:</p>
+                <h1 class="text-center">Search for:</h1>
 
-            <div id="radioButtons">
-                <!--Radio Button - Customer-->
-                <input class="Radio" id="Radio_Customer" type="radio" name="searchRadio" value="1" onchange="disableCheck()" checked="checked">
-                <label for="Radio_Customer">Customer</label>
-
-                <!--Radio Button - Problem-->
-                <input class="Radio" id="Radio_Problem" type="radio" name="searchRadio" value="2" onchange="disableCheck()">
-                <label for="Radio_Problem">Problem</label>
-
-                <!--Radio Button - Category-->
-                <input class="Radio" id="Radio_Category" type="radio" name="searchRadio" value="3" onchange="disableCheck()">
-                <label for="Radio_Category">Category</label>
-
-                <!--Radio Button - Staff-->
-                <input class="Radio" id="Radio_Staff" type="radio" name="searchRadio" value="4" onchange="disableCheck()">
-                <label for="Radio_Staff">Colleague</label>
             </div>
 
-            <!--Checkbox-->
-            <div class="form-check form-switch" id="switch">
-                <input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox" name="searchCheckbox"
-                       value="1">
-                <label for="Check_If_Resolved">Resolved</label>
+            <div class="row justify-content-center">
+            <!--Search Bar-->
+                <div class="col-10" id="searchBar">
+                    <input class="col-12" id="searchBarProper" type="text" name="searchBar">
+
+                </div>
             </div>
+            <div id="filters">
 
-            <!--Select Dropdown-->
-            <select name="urgencyDropdown" id="urgencyID">
-                <option value="">All</option>
-                <option value="High">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
-            </select>
 
+
+                <div id="radioButtons">
+                    <!--Radio Button - Customer-->
+                    <input class="Radio" id="Radio_Customer" type="radio" name="searchRadio" value="1" onchange="disableCheck()" checked="checked">
+                    <label for="Radio_Customer">Customer</label>
+
+                    <!--Radio Button - Problem-->
+                    <input class="Radio" id="Radio_Problem" type="radio" name="searchRadio" value="2" onchange="disableCheck()">
+                    <label for="Radio_Problem">Problem</label>
+
+                    <!--Radio Button - Category-->
+                    <input class="Radio" id="Radio_Category" type="radio" name="searchRadio" value="3" onchange="disableCheck()">
+                    <label for="Radio_Category">Category</label>
+
+                    <!--Radio Button - Staff-->
+                    <input class="Radio" id="Radio_Staff" type="radio" name="searchRadio" value="4" onchange="disableCheck()">
+                    <label for="Radio_Staff">Colleague</label>
+                </div>
+
+                <!--Checkbox-->
+                <div class="form-check form-switch" id="switch">
+                    <input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox" name="searchCheckbox"
+                           value="1">
+                    <label for="Check_If_Resolved">Resolved</label>
+                </div>
+
+                <!--Select Dropdown-->
+                <select name="urgencyDropdown" id="urgencyID">
+                    <option value="">All</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+                <div class="row justify-content-center">
+                    <input class="col-2 btn btn-outline-danger" id="searchSubmit" type="submit" name="submitSearchButton">
+                </div>
         </div>
-
     </form>
+
+</div>
+</div>
 
     <?php
 
