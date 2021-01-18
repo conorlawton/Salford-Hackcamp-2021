@@ -12,6 +12,7 @@ class ViewCustomerController extends ControllerBase
     }
 
     function get(): void {
+
         $this->view->customer = new CustomerDisplayModel($this->view->customerID);
 
         $this->view->view();
