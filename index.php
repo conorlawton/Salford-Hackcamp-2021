@@ -28,7 +28,11 @@
 	
 	// Begin the session in the router so that it doesn't need to start anywhere else.
 	session_start();
-	
+	/*
+	if (!isset($_SESSION["new_comments_check"])) {
+		$_SESSION["new_comments_check"] = [];
+	}
+	*/
 	$request_action = strtolower($_SERVER['REQUEST_METHOD']);
 	
 	// If the user token isn't set re-route to the login page,

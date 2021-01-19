@@ -4,6 +4,8 @@
 	require_once __DIR__ . "/DatabaseModel.php";
 	require_once __DIR__ . "/SearchObjects/CustomerSearchModel.php";
     require_once __DIR__ . "/SearchObjects/CustomerSearchModel.php";
+	require_once "Models/DatabaseModel.php";
+	require_once "Models/SearchModel.php";
 	
 	class SearchQueryModel
 	{
@@ -79,7 +81,7 @@
                     }
 
                     // Prepares the SQL statement and puts it into the variable $sqlQuery.
-                    $sqlQuery = $database->getDBConnection()->prepare("SELECT 
+                    $sqlQuery = $database->getDBConnection()->prepare("SELECT
                                                                              customers.*,
                                                                              COUNT(problems.id) as problem_count
                                                                          FROM

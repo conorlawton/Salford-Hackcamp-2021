@@ -1,8 +1,8 @@
 <?php
 	
-	require_once __DIR__ . "/../Models/DatabaseModel.php";
-	require_once __DIR__ . "/../Core/ControllerBase.php";
-	require_once __DIR__ . "/../Core/ViewBase.php";
+	require_once "Models/DatabaseModel.php";
+	require_once "Core/ControllerBase.php";
+	require_once "Core/ViewBase.php";
 	
 	class LoginController extends ControllerBase
 	{
