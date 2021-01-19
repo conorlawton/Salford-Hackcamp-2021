@@ -5,7 +5,7 @@
 	class CommentModel extends Widget
 	{
 		public int $id;
-		public int $staff_id;
+		public UserModel $staff;
 		public string $text;
 		public int $problem_id;
 		public DateTime $time_stamp;
@@ -13,10 +13,16 @@
 		function __construct($id, $staff_id, $text, $problem_id, $time_stamp)
 		{
 			$this->id = $id;
-			$this->staff_id = $staff_id;
 			$this->text = $text;
 			$this->problem_id = $problem_id;
 			$this->time_stamp = $time_stamp;
+			
+			$staff = UserModel::get_by_id($staff_id);
+			if ($staff === null) {
+				throw new InvalidArgumentException("Staff member with that ID not found.");
+			}
+			
+			$this->staff = $staff;
 		}
 		
 		static function get_by_id($id)
@@ -33,6 +39,8 @@
 			$insert_this->bind_result($id, $staff_id, $text, $problem_id, $time_stamp);
 			$insert_this->execute();
 			
+			$insert_this->store_result();
+			
 			$comments = [];
 			
 			while ($insert_this->fetch())
@@ -42,6 +50,7 @@
 			}
 			
 			$insert_this->close();
+			
 			
 			return $comments;
 		}
@@ -95,6 +104,7 @@
 			$comments = [];
 			
 			$get_comments_after->execute();
+			$get_comments_after->store_result();
 			
 			while ($get_comments_after->fetch())
 			{
@@ -126,13 +136,12 @@
 				$get_number_of_comments->close();
 				return 0;
 			}
-			
 		}
 		
 		public function display(): void
 		{
 			$comment = $this;
-			$staff = $_SESSION["user"];
+			$staff = $this->staff;
 			require $_SERVER["DOCUMENT_ROOT"] . "/Views/Templates/CommentModelView.phtml";
 		}
 	}

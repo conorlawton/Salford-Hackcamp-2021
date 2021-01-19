@@ -3,6 +3,7 @@
 	require_once "Core/ControllerBase.php";
 	require_once "Core/ViewBase.php";
 	require_once "Models/CommentModel.php";
+	require_once "CommentController.php";
 	
 	class ProblemController extends ControllerBase
 	{
@@ -18,6 +19,7 @@
 			{
 				$id = $_GET["id"];
 				$problem = ProblemModel::get_by_id($id);
+				//$_SESSION["new_comments_check"][$id] = true;
 				
 				if (!is_null($problem))
 				{
