@@ -170,16 +170,19 @@
                                                                              WHERE problems.staff_id = staff.id
                                                                              AND problems.category_id = categorisation.id
                                                                              AND categorisation.category LIKE ?
+                                                                             AND problems.urgency LIKE ?
+                                                                             AND problems.resolved = ?
                                                                              ORDER BY problems.id ASC;");
 
                     // Adds the % symbols to aid the SQL LIKE keyword.
                     $searchLine = "%" . $this->searchLine . "%";
+                    $urgency = "%" . $this->urgency . "%";
 
                     // Binds the result, every attribute coming back from the database must be stated here, even if it is not used.
                     $sqlQuery->bind_result($problemID, $category, $description, $urgency, $addedTime, $resolved, $staffName);
 
                     // Here both of the variables used in the SQL statement are defined, represented in the statement as '?'.
-                    $sqlQuery->bind_param("s", $searchLine);
+                    $sqlQuery->bind_param("ssi", $searchLine, $urgency, $this->searchResolvedStatus);
 
                     // The statement is executed.
                     $sqlQuery->execute();
@@ -209,16 +212,19 @@
                                                                              WHERE problems.staff_id = staff.id
                                                                              AND problems.category_id = categorisation.id
                                                                              AND staff.name LIKE ?
+                                                                             AND problems.urgency LIKE ?
+                                                                             AND problems.resolved = ?
                                                                              ORDER BY problems.id ASC;");
 
                     // Adds the % symbols to aid the SQL LIKE keyword.
                     $searchLine = "%" . $this->searchLine . "%";
+                    $urgency = "%" . $this->urgency . "%";
 
                     // Binds the result, every attribute coming back from the database must be stated here, even if it is not used.
                     $sqlQuery->bind_result($problemID, $category, $description, $urgency, $addedTime, $resolved, $staffName);
 
                     // Here both of the variables used in the SQL statement are defined, represented in the statement as '?'.
-                    $sqlQuery->bind_param("s", $searchLine);
+                    $sqlQuery->bind_param("ssi", $searchLine, $urgency, $this->searchResolvedStatus);
 
                     // The statement is executed.
                     $sqlQuery->execute();
