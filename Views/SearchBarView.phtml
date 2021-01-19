@@ -42,16 +42,17 @@ else
 
             <div class="row justify-content-center">
             <!--Search Bar-->
-                <div class="col-8" id="searchBar">
-                    <input class="col-12" id="searchBarProper" type="text" name="searchBar">
-                    <input class="col-2 btn btn-outline-danger" id="searchSubmit" type="submit" name="submitSearchButton">
+                <div class="col-10" id="searchBar">
+                    <input class="inline form-control" id="searchBarProper" type="text" name="searchBar">
+
                 </div>
             </div>
-            <div id="filters">
+
+            <div id="filters" class="row justify-content-center container my-4">
 
 
 
-                <div id="radioButtons">
+                <div id="radioButtons" class="col-4">
                     <!--Radio Button - Customer-->
                     <input class="Radio" id="Radio_Customer" type="radio" name="searchRadio" value="1" <?php if ($this->radioValue === "1") {echo' checked="checked"';} ?>>
                     <label for="Radio_Customer">Customer</label>
@@ -69,21 +70,27 @@ else
                     <label for="Radio_Staff">Colleague</label>
                 </div>
 
-                <!--Checkbox-->
-                <div class="form-check form-switch" id="switch">
-                    <input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox" name="searchCheckbox"
-                           value="1" <?php if (isset($_GET['searchCheckbox'])) {echo' checked="checked"';}?>>
-                    <label for="Check_If_Resolved">Resolved</label>
-                </div>
-
                 <!--Select Dropdown-->
-                <select name="urgencyDropdown" id="urgencyID">
+                <select name="urgencyDropdown" id="urgencyID" class="col-4">
                     <option value=""        <?php if ($this->dropValue === "") {echo' selected="selected"';}?>>All</option>
                     <option value="High"    <?php if ($this->dropValue === "High") {echo' selected="selected"';}?>>High</option>
                     <option value="Medium"  <?php if ($this->dropValue === "Medium") {echo' selected="selected"';}?>>Medium</option>
                     <option value="Low"     <?php if ($this->dropValue === "Low") {echo' selected="selected"';}?>>Low</option>
                 </select>
 
+                <!--Checkbox-->
+                <div class="form-check form-switch col-4 " id="switch">
+                    <input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox" name="searchCheckbox"
+                           value="1" <?php if (isset($_GET['searchCheckbox'])) {echo' checked="checked"';}?>>
+                    <label for="Check_If_Resolved">Resolved</label>
+                </div>
+            </div>
+
+            <div class="row justify-content-center my-4">
+                <div class="col-4 ">
+                    <button class="inline btn btn-outline-danger col-12 display-6" id="searchSubmit" type="submit" name="submitSearchButton" style="height: 2em;font-size: 1.5em;">Submit</button>
+                </div>
+            </div>
         </div>
     </form>
 
