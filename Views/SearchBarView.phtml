@@ -80,16 +80,17 @@ else
                 </select>
 
                 <!--Checkbox-->
-                <div class="form-check form-switch col-4 " id="switch">
-                    <input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox" name="searchCheckbox"
-                           value="1" <?php if (isset($_GET['searchCheckbox'])) {echo' checked="checked"';}?>>
-                    <label for="Check_If_Resolved">Resolved</label>
+                <div class="col-4 justify-content-center">
+                    <div class="form-check form-switch mx-5" id="switch">
+                        <input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox" name="searchCheckbox" value="1" <?php if (isset($_GET['searchCheckbox'])) {echo' checked="checked"';}?>>
+                        <label for="Check_If_Resolved">Resolved</label>
+                    </div>
                 </div>
             </div>
 
             <div class="row justify-content-center my-4">
                 <div class="col-4 ">
-                    <button class="inline btn btn-outline-danger col-12 display-6" id="searchSubmit" type="submit" name="submitSearchButton" style="height: 2em;font-size: 1.5em;">Submit</button>
+                    <button class="inline btn btn-outline-danger col-12 " id="searchSubmit" type="submit" name="submitSearchButton" style="height: 2em;font-size: 1.5em;">Submit</button>
                 </div>
             </div>
         </div>
@@ -110,14 +111,29 @@ else
             if ($view->searchLine != "")
             {
 
-                echo"<h1>\"".$view->searchLine."\"</h1>";
+                echo"
+                    <div class='container shadow rounded col-8 mt-5 p-1'>
+                    
+                        <div class='w-100 text-center'>
+                            <h1 class='h3 my-3 fw-normal'>\"$view->searchLine\"</h1>
+                        </div>
+
+
+
+";
 
             }
             else
             {
 
-                echo "<h1>All Customers</h1>";
+                echo "
 
+                <div class='container shadow rounded col-8 mt-5 p-1'>
+
+                    <div class='w-100 text-center'>
+		                <h1 class='h3 my-3 fw-normal'>All Customers</h1>
+	                </div>
+                    ";
             }
 
             foreach ($view->dataset as $lot) {
@@ -125,13 +141,21 @@ else
                 echo
                 '
 
-                <div id="Customer_Info">
-
-                    <p id="">First Name: ' . $lot->getFirstName() . '</p>
-                    <p id="">Surname: ' . $lot->getLastName() . '</p>
-                    <p id="">Queries Pending: ' . $lot->getQueryCount() . '</p>
-                    <p><a class = "btn btn-outline-danger" href="/ViewCustomer?customerID='.$lot->getCustomerID().'">link</a></p>
+                <div id="Customer_Info" class="container border rounded shadow my-3">
                 
+                <div class="container text-center my-3">
+
+                    <div class="row">
+                            <p class="col-6 h4">First Name: ' . $lot->getFirstName() . '</p>
+                            <p class="col-6 h4">Surname: ' . $lot->getLastName() . '</p>
+                    </div>
+                    <div class="row">
+                    <p class="col-12 h4">Queries Pending: ' . $lot->getQueryCount() . '</p>
+                     </div>
+                     <div class="row justify-content-center">
+                     <p ><a class = "inline btn btn-outline-danger col-4 " href="/ViewCustomer?customerID='.$lot->getCustomerID().'">More info</a></p>
+                   </div>
+                </div>
                 </div>
                 
                 ';
@@ -150,13 +174,21 @@ else
             if ($view->searchLine != "")
             {
 
-                echo"<h1>\"".$view->searchLine."\"</h1>";
+                echo"<div class='container shadow rounded col-8 mt-5 p-1'>
+                    
+                        <div class='w-100 text-center'>
+                            <h1 class='h3 my-3 fw-normal'>\"$view->searchLine\"</h1>
+                        </div>";
 
             }
             else
             {
 
-                echo "<h1>All Problems</h1>";
+                echo "<div class='container shadow rounded col-8 mt-5 p-1'>
+
+                    <div class='w-100 text-center'>
+		                <h1 class='h3 my-3 fw-normal'>All Problems</h1>
+	                </div>";
 
             }
 
@@ -165,7 +197,7 @@ else
                 echo
                 '
 
-                <div id="Query_Post_Problem">
+                <div id="Query_Post_Problem" class="container border rounded shadow my-3">
 
                     <h1 id="id">' . $lot->getProblemID() . '</h1>
             
@@ -177,6 +209,8 @@ else
                     <p id="staff">Colleague: ' . $lot->getStaffName() . '</p>
             
                 </div>
+                
+                
                 
                 ';
 
@@ -194,13 +228,21 @@ else
             if ($view->searchLine != "")
             {
 
-                echo"<h1>\"".$view->searchLine."\"</h1>";
+                echo"<div class='container shadow rounded col-8 mt-5 p-1'>
+                    
+                        <div class='w-100 text-center'>
+                            <h1 class='h3 my-3 fw-normal'>\"$view->searchLine\"</h1>
+                        </div>";
 
             }
             else
             {
 
-                echo "<h1>All Problems</h1>";
+                echo "<div class='container shadow rounded col-8 mt-5 p-1'>
+
+                    <div class='w-100 text-center'>
+		                <h1 class='h3 my-3 fw-normal'>All Problems</h1>
+	                </div>";
 
             }
 
@@ -209,7 +251,7 @@ else
                 echo
                 '
 
-                <div id="Query_Post_Category">
+                <div id="Query_Post_Category" class="container border rounded shadow my-3">
 
                     <h1 id="id">' . $lot->getProblemID() . '</h1>
             
@@ -238,13 +280,21 @@ else
             if ($view->searchLine != "")
             {
 
-                echo"<h1>\"".$view->searchLine."\"</h1>";
+                echo"<div class='container shadow rounded col-8 mt-5 p-1'>
+                    
+                        <div class='w-100 text-center'>
+                            <h1 class='h3 my-3 fw-normal'>\"$view->searchLine\"</h1>
+                        </div>";
 
             }
             else
             {
 
-                echo "<h1>All Problems</h1>";
+                echo "<div class='container shadow rounded col-8 mt-5 p-1'>
+
+                    <div class='w-100 text-center'>
+		                <h1 class='h3 my-3 fw-normal'>All Problems</h1>
+	                </div>";
 
             }
 
@@ -253,7 +303,7 @@ else
                 echo
                 '
 
-                <div id="Query_Post_Staff">
+                <div id="Query_Post_Staff" class="container border rounded shadow my-3">
 
                     <h1 id="id">' . $lot->getProblemID() . '</h1>
             
