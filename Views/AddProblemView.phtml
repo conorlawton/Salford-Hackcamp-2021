@@ -1,5 +1,4 @@
 <?php
-	
 	$customer_id_validation_class = isset($_SESSION["invalid_customer_id"]) && $_SESSION["invalid_customer_id"] ? "is-invalid" : "";
 ?>
 
@@ -7,18 +6,18 @@
 	<div class="w-100 text-center">
 		<h1 class="h3 my-3 fw-normal">Add a Problem</h1>
 	</div>
-	<form class="w-100 col container" action="AddProblem" method="POST">
+	<form class="w-100 col container" action="/AddProblem" method="POST">
 		<div class="row mb-2 g-2">
 			<div class="form-floating col-sm-4">
-				<select class="form-select pb-2" name="urgency" id="floatingSelect" required>
+				<select class="form-select pb-2" name="urgency" id="floating-urgency" required>
 					<option value="Low">Low</option>
 					<option value="Medium">Medium</option>
 					<option value="High">High</option>
 				</select>
-				<label for="floatingUrgency">Problem Urgency</label>
+				<label for="floating-urgency">Problem Urgency</label>
 			</div>
 			<div class="form-floating col-sm-4">
-				<select class="form-select pb-2" name="categorisation_id" id="floatingSelect" required>
+				<select class="form-select pb-2" name="categorisation_id" id="floating-category" required>
 					<option value="1">Password Queries</option>
 					<option value="2">Login Issues</option>
 					<option value="3">Process Queries</option>
@@ -28,7 +27,7 @@
 					<option value="7">New Business Applications</option>
 					<option value="8">Complaints</option>
 				</select>
-				<label for="floatingCategory">Problem Category</label>
+				<label for="floating-category">Problem Category</label>
 			</div>
 			<div class="form-floating col-sm-4">
 				<input type="number" class="form-control <?php echo $customer_id_validation_class; ?>" name="CustomerID" placeholder="Customer ID"

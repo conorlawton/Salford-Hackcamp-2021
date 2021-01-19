@@ -2,6 +2,7 @@
 
 require_once __DIR__ . "/../Models/SearchObjects/CustomerSearchModel.php";
 require_once __DIR__ . "/../Models/SearchObjects/GeneralProblemSearchModel.php";
+require_once 'Models/SearchModel.php';
 
 class QueryPostController
 {

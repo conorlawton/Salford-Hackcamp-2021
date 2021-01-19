@@ -1,9 +1,9 @@
 <?php
 	
-	require_once __DIR__ . "/../Core/ControllerBase.php";
-	require_once __DIR__ . "/../Core/ViewBase.php";
-	require_once __DIR__ . "/../Models/SearchQueryModel.php";
-	require_once __DIR__ . '/QueryPostController.php';
+	require_once "Core/ControllerBase.php";
+	require_once "Core/ViewBase.php";
+	require_once "Models/SearchQueryModel.php";
+	require_once 'QueryPostController.php';
 	
 	class SearchBarController extends ControllerBase
 	{
@@ -26,7 +26,7 @@
 			// ==========(Capture Search Request)=====================================|
 			
 			// USER INPUT CAPTURE AND STORAGE
-			// Each element has to be checked and stored before hand,
+			// Each element has to be checked and stored befornd,
 			// the check is to see if anything has been captured
 			// to avoid errors.
 			
