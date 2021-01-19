@@ -1,0 +1,28 @@
+<?php
+    require_once"Models/AuditModel.php";
+?>
+<form>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Log ID</th>
+            <th>User ID</th>
+            <th>Problem ID</th>
+            <th>Date & Time</th>
+            <th>Comment</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        foreach (AuditModel::FetchAllAudits() as $auditData){
+            echo '<tr> <td>' . $auditData->getAuditID() .
+                '</td> <td>' . $auditData->getUserID() .
+                '</td> <td>' . $auditData->getProblemID() .
+                '</td> <td>' . $auditData->getDate() .
+                '</td> <td>' . $auditData->getMessage().
+                '</td> </tr>';
+        }
+        ?>
+        </tbody>
+    </table>
+</form>
