@@ -33,6 +33,7 @@
 			$add_problem = $db->getDBConnection()->prepare("SELECT * FROM problems WHERE resolved = FALSE");
 			$add_problem->bind_result($id, $urgency, $description, $resolved, $category_id, $staff_id, $customer_id, $time_stamp);
 			$add_problem->execute();
+			$add_problem->store_result();
 			
 			$problemSet = [];
 			
