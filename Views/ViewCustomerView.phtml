@@ -15,8 +15,8 @@ echo('
             
             <div class="row">
             
-                <p class="col-12 h4">Email: ' . $view->customer->getCustomerEmail() . '</p>
-                <p class="col-12 h4">Phone Number: ' . $view->customer->getCustomerPhoneNumber() . '</p>
+                <p class="col-6 h4">Email: ' . $view->customer->getCustomerEmail() . '</p>
+                <p class="col-6 h4">Phone Number: ' . $view->customer->getCustomerPhoneNumber() . '</p>
             
             </div>
            
@@ -50,8 +50,8 @@ foreach ($view->datasetOfProblems as $lot) {
                 
                 <div class="row">
                 
-                    <p class="col-12 h4">Added: ' . $lot->getAddedTime() . '</p>
-                    <p class="col-12 h4">Resolved: ' . $resolvedStatus . '</p>
+                    <p class="col-6 h4">Added: ' . $lot->getAddedTime() . '</p>
+                    <p class="col-6 h4">Resolved: ' . $resolvedStatus . '</p>
                 
                 </div>
                  
