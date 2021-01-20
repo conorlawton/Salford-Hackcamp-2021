@@ -1,11 +1,5 @@
 <?php
 
-// Initialise Variables
-global $id;
-global $urgency;
-global $description;
-global $resolved;
-
 // Here the raw HTML output is assembled with the database retrieved data into a lot item, ready for display.
 echo
     '
