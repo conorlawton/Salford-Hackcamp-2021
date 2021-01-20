@@ -61,16 +61,14 @@
 			$add_problem->close();
 		}
 
-        public static function update_problem($urgency, $description, $categorisation_id, $staff_id, $customer_id)
+        public static function update_problem($urgency, $description, $categorisation_id, $customer_id, $problemID)
         {
+
             $db = DatabaseModel::getInstance();
-
-            $add_problem = $db->getDBConnection()->prepare("UPDATE problems (urgency, description, category_id, staff_id, customer_id) VALUES (?,?,?,?,?);");
-            $add_problem->bind_param("ssiii", $urgency, $description, $categorisation_id, $staff_id, $customer_id);
+            $add_problem = $db->getDBConnection()->prepare("UPDATE problems SET urgency = ?, description = ?, category_id = ?, customer_id = ? WHERE id = ?");
+            $add_problem->bind_param("ssiii", $urgency, $description, $categorisation_id, $customer_id, $problemID);
             $add_problem->execute();
-
             $add_problem->fetch();
-
             $add_problem->close();
         }
 		

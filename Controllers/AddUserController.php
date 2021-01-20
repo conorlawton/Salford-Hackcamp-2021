@@ -7,7 +7,7 @@
     {
         private $user;
 
-        function __construct()
+        function __construct($user)
         {
             $this->user = $user;
             $this->view = new ViewBase("Add User", "/Views/AddUserView.phtml");
