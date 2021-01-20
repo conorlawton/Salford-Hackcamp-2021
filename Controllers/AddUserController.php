@@ -1,13 +1,13 @@
 <?php
-require_once "Core/ControllerBase.php";
-require_once "Core/ViewBase.php";
-require_once "Models/CustomerModel.php";
+    require_once "Core/ControllerBase.php";
+    require_once "Core/ViewBase.php";
+    require_once "Models/UserModel.php";
 
     class AddUserController extends ControllerBase
     {
         private $user;
 
-        function __construct($user)
+        function __construct()
         {
             $this->user = $user;
             $this->view = new ViewBase("Add User", "/Views/AddUserView.phtml");
