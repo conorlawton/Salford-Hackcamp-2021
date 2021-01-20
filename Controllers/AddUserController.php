@@ -10,7 +10,7 @@ require_once "Models/CustomerModel.php";
         function __construct($user)
         {
             $this->user = $user;
-            $this->view = new ViewBase("Add User", "/Views/AddProblemView.phtml");
+            $this->view = new ViewBase("Add User", "/Views/AddUserView.phtml");
         }
 
         function get(): void
@@ -24,7 +24,6 @@ require_once "Models/CustomerModel.php";
 
             UserModel::addNewUser($_POST["Staff_Name"], $_POST["Password"], $escaped_text, $_POST["permissions"]);
 
-            header("Location: /AddProblem");
+            header("Location: /AddUser");
         }
-
     }
