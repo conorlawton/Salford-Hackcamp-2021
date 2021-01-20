@@ -1,8 +1,8 @@
 <?php
-	require_once __DIR__ . "/../Core/ControllerBase.php";
-	require_once __DIR__ . "/../Core/ViewBase.php";
-	require_once __DIR__ . "/../Models/ProblemModel.php";
-	require_once __DIR__ . "/../Models/CustomerModel.php";
+	require_once "Core/ControllerBase.php";
+	require_once "Core/ViewBase.php";
+	require_once "Models/ProblemModel.php";
+	require_once "Models/CustomerModel.php";
 	
 	class AddProblemController extends ControllerBase
 	{

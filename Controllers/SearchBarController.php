@@ -1,9 +1,9 @@
 <?php
 	
-	require_once __DIR__ . "/../Core/ControllerBase.php";
-	require_once __DIR__ . "/../Core/ViewBase.php";
-	require_once __DIR__ . "/../Models/SearchQueryModel.php";
-	require_once __DIR__ . '/QueryPostController.php';
+	require_once "Core/ControllerBase.php";
+	require_once "Core/ViewBase.php";
+	require_once "Models/SearchQueryModel.php";
+	require_once 'QueryPostController.php';
 	
 	class SearchBarController extends ControllerBase
 	{
@@ -13,7 +13,11 @@
 			$this->view = new ViewBase("Home", "/Views/SearchBarView.phtml");
 			
 		}
-		
+		public function post(): void
+		{
+
+		}
+
 		function get(): void
 		{
 			// SEARCH BAR RE-REQUEST
@@ -22,33 +26,33 @@
 			// ==========(Capture Search Request)=====================================|
 			
 			// USER INPUT CAPTURE AND STORAGE
-			// Each element has to be checked and stored before hand,
+			// Each element has to be checked and stored befornd,
 			// the check is to see if anything has been captured
 			// to avoid errors.
 			
 			// User String Input.
 			if (isset($_GET['searchBar']))
 			{
-				$searchLine = $_GET['searchBar'];
+				$this->view->searchLine = $_GET['searchBar'];
 			}
 			else
 			{
-				$searchLine = "";
+				$this->view->searchLine = "";
 			}
 			
 			// Radio Button Input
 			if (isset($_GET['searchRadio']))
 			{
-				$searchRequest = $_GET['searchRadio'];
+				$this->view->searchRequest = $_GET['searchRadio'];
 			}
 			else
 			{
-				$searchRequest = "1";
+				$this->view->searchRequest = "1";
 			}
 			
 			// Default initialisation.
 			$searchResolvedStatus = 0;
-			
+
 			// Checkbox
 			if (isset($_GET['searchCheckbox']))
 			{
@@ -56,10 +60,20 @@
 			}
 			else
 			{
-				$searchResolvedStatus = "1";
+				$searchResolvedStatus = "0";
 			}
-			
-			$searchQueryModel = new SearchQueryModel($searchResolvedStatus, $searchRequest, $searchLine);
+
+            // Dropdown - Urgency
+            if (isset($_GET['urgencyDropdown']))
+            {
+                $searchUrgencySelection = $_GET['urgencyDropdown'];
+            }
+            else
+            {
+                $searchUrgencySelection = "high";
+            }
+
+			$searchQueryModel = new SearchQueryModel($searchResolvedStatus, $this->view->searchRequest, $this->view->searchLine, $searchUrgencySelection);
 			$searchQueryModel->searchBarQuery();
 			
 			// The model used with the search bar is called, see the model
@@ -69,72 +83,18 @@
 			// ==========(Posting Queries)=====================================|
 			
 			// Grabs the controller that packages the search responses ready for viewing by the user.
-			
-			$queryPostController = new QueryPostController($searchQueryModel->getDataset(), $searchRequest);
-			$queryPostController->queryPostController();
+
+			// TODO: THESE might not be needed.
+			//$queryPostController = new QueryPostController($searchQueryModel->getDataset(), $searchRequest);
+			//$queryPostController->queryPostController();
 			
 			$view = new stdClass();
 			$view->dataset = $searchQueryModel->getDataset();
 			
 			$this->view->dataset = $searchQueryModel->getDataset();
-			
 			$this->view->view();
 		}
-		
-		function post(): void
-		{
-		
-		}
+
 	}
-	
-	/*
-	
-	echo "Test";
-	// HEADER
-	require_once ('../Views/Templates/head.phtml');
-	
-	// SEARCH BAR RE-REQUEST
-	require_once ('../Views/search_bar_view.php');
-	
-	// ==========(Capture Search Request)=====================================|
-	
-	// USER INPUT CAPTURE AND STORAGE
-	// Each element has to be checked and stored before hand,
-	// the check is to see if anything has been captured
-	// to avoid errors.
-	
-	// User String Input.
-	if (isset($_POST['searchBar']))
-	{
-	
-			$searchLine = $_POST['searchBar'];
-	
-	}
-	
-	// Radio Button Input
-	if (isset($_POST['searchRadio'])) {
-	
-			$searchRequest = $_POST['searchRadio'];
-	
-	}
-	
-	// Default initialisation.
-	$searchResolvedStatus = 0;
-	
-	// Checkbox
-	if (isset($_POST['searchCheckbox'])) {
-	
-			$searchResolvedStatus = $_POST['searchCheckbox'];
-	
-	}
-	
-	// The model used with the search bar is called, see the model
-	// for further information.
-	require_once __DIR__ . '/../Models/SearchQueryModel.php';
-	
-	// ==========(Posting Queries)=====================================|
-	
-	// Grabs the controller that packages the search responses ready for viewing by the user.
-	require_once __DIR__ . '/QueryPostController.php';
-	
-	*/
+
+?>
