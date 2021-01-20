@@ -76,6 +76,10 @@
 					case "AddProblemController":
 						$controller = new $controller_name($user);
 						break;
+                    case "AddUSeController":
+                        $controller = new $controller_name();
+                        break;
+					default:
 						$controller = new $controller_name;
 						break;
 				}
