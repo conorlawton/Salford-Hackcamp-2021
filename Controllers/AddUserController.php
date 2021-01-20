@@ -5,11 +5,8 @@
 
     class AddUserController extends ControllerBase
     {
-        private $user;
-
         function __construct()
         {
-            $this->user = $user;
             $this->view = new ViewBase("Add User", "/Views/AddUserView.phtml");
         }
 

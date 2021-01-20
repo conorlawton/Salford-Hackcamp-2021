@@ -76,20 +76,9 @@
 					case "AddProblemController":
 						$controller = new $controller_name($user);
 						break;
-					default:
 						$controller = new $controller_name;
 						break;
 				}
-
-                switch ($controller_name)
-                {
-                    case "AddUserController":
-                        $controller = new $controller_name($user);
-                        break;
-                    default:
-                        $controller = new $controller_name;
-                        break;
-                }
 				
 				//$controller->$request_action();
 				
