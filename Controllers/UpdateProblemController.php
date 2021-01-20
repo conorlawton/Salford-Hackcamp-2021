@@ -4,14 +4,14 @@
 	require_once "Models/ProblemModel.php";
 	require_once "Models/CustomerModel.php";
 	
-	class AddProblemController extends ControllerBase
+	class UpdateProblemController extends ControllerBase
 	{
 		private $user;
 		
 		function __construct($user)
 		{
 			$this->user = $user;
-			$this->view = new ViewBase("Add Problem", "/Views/AddProblemView.phtml");
+			$this->view = new ViewBase("Update Problem", "/Views/UpdateProblemView.phtml");
 		}
 		
 		function get(): void
@@ -26,14 +26,14 @@
             }
             elseif ($exists === false)
             {
-                $_SESSION["add_problem_message"] = "Failed to add problem: Unknown error";
+                $_SESSION["update_problem_message"] = "Failed to update problem: Unknown error";
             }
             elseif ($exists === null)
             {
                 $_SESSION["invalid_customer_id"] = true;
             }
 
-            header("Location: /AddProblem");
+            header("Location: /UpdateProblem");
 		}
 		
 		function post(): void
