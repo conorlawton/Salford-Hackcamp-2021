@@ -60,6 +60,19 @@
 			
 			$add_problem->close();
 		}
+
+        public static function update_problem($urgency, $description, $categorisation_id, $staff_id, $customer_id)
+        {
+            $db = DatabaseModel::getInstance();
+
+            $add_problem = $db->getDBConnection()->prepare("UPDATE problems (urgency, description, category_id, staff_id, customer_id) VALUES (?,?,?,?,?);");
+            $add_problem->bind_param("ssiii", $urgency, $description, $categorisation_id, $staff_id, $customer_id);
+            $add_problem->execute();
+
+            $add_problem->fetch();
+
+            $add_problem->close();
+        }
 		
 		public static function check_if_exists($id): ?bool {
 			
