@@ -17,9 +17,9 @@
 
         function post(): void
         {
-            $escaped_text = htmlspecialchars($_POST['description'], ENT_QUOTES | ENT_HTML5);
+            $escaped_text = htmlspecialchars($_POST['email'], ENT_QUOTES | ENT_HTML5);
 
-            UserModel::addNewUser($_POST["Staff_Name"], $_POST["Password"], $escaped_text, $_POST["permissions"]);
+            UserModel::addNewUser($_POST["Staff_Name"], password_hash($_POST["Password"], PASSWORD_DEFAULT), $escaped_text, $_POST["permissions"]);
 
             header("Location: /AddUser");
         }

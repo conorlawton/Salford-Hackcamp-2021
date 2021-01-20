@@ -41,4 +41,17 @@
         {
             return $this->permissions;
         }
+
+        static function addNewUser($name, $password, $email, $permissions)
+        {
+            $db = DatabaseModel::getInstance();
+
+            $add_problem = $db->getDBConnection()->prepare("INSERT INTO staff (name, password, email, permissions) VALUES (?,?,?,?);");
+            $add_problem->bind_param("ssss", $name, $password, $email, $permissions);
+            $add_problem->execute();
+
+            $add_problem->fetch();
+
+            $add_problem->close();
+        }
 	}
