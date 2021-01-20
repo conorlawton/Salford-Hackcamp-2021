@@ -1,43 +1,71 @@
 <?php
 
 echo('
+
+    <div id="Customer_Info" class="container border rounded shadow my-3">
+                
+        <div class="container text-center my-3">
     
-    <div id="Customer_Panel">
-        
-        <div id="Customer_Name">
-            <h1>'.$view->customer->getCustomerFirstName().'</h1>
-            <h2>'.$view->customer->getCustomerLastName().'</h2>
+            <div class="row">
+            
+                <p class="col-6 h4">First Name: ' . $view->customer->getCustomerFirstName() . '</p>
+                <p class="col-6 h4">Surname: ' . $view->customer->getCustomerLastName() . '</p>
+                    
+            </div>
+            
+            <div class="row">
+            
+                <p class="col-6 h4">Email: ' . $view->customer->getCustomerEmail() . '</p>
+                <p class="col-6 h4">Phone Number: ' . $view->customer->getCustomerPhoneNumber() . '</p>
+            
+            </div>
+           
         </div>
-        
-        <div id="Customer_Info">
-            <p>'.$view->customer->getCustomerID().'</p>
-            <p>'.$view->customer->getCustomerPhoneNumber().'</p>
-            <p>'.$view->customer->getCustomerEmail().'</p>
-        </div>
-    
+	
     </div>
 
-    ');
+');
 
 foreach ($view->datasetOfProblems as $lot) {
+
+    // Purely for the view, the boolean 0 or 1 is changed to "Yes" or "No" before display.
+    if($lot->getResolved() === "0")
+    {$resolvedStatus = "Yes";}
+    else
+    {$resolvedStatus = "No";}
 
     echo
         '
 
-                <div id="Query_Post_Problem">
-
-                    <h1 id="id">' . $lot->getProblemID() . '</h1>
-            
-                    <p id="category">Category: ' . $lot->getCategory() . '</p>
-                    <p id="description">Description: ' . $lot->getDescription() . '</p>
-                    <p id="urgency">Urgency: ' . $lot->getUrgency() . '</p>
-                    <p id="added">Added: ' . $lot->getAddedTime() . '</p>
-                    <p id="resolved">Resolved: ' . $lot->getResolved() . '</p>
-                    <p id="staff">Colleague: ' . $lot->getStaffName() . '</p>
-            
+        <div id="Query_Post_Problem" class="container border rounded shadow my-3">
+                
+            <div class="container text-center my-3">
+        
+                <div class="row">
+                
+                    <p class="col-6 h4">Category: ' . $lot->getCategory() . '</p>
+                    <p class="col-6 h4">Urgency: ' . $lot->getUrgency() . '</p>
+                        
                 </div>
                 
-                ';
+                <div class="row">
+                
+                    <p class="col-6 h4">Added: ' . $lot->getAddedTime() . '</p>
+                    <p class="col-6 h4">Resolved: ' . $resolvedStatus . '</p>
+                
+                </div>
+                 
+                <div class="row justify-content-center">
+                 
+                    <p><a class = "inline btn btn-outline-danger col-4 " href="/Problem?id=' . $lot->getProblemID() . '">More info</a></p>
+                 
+                </div>
+               
+            </div>
+                        
+        </div>
+                
+    ';
 
 }
 
