@@ -1,14 +1,18 @@
 <?php
 	// phpinfo();
 	
-	
-	$GLOBALS["db_host"] = "poseidon.salford.ac.uk";
-	$GLOBALS["db_username"] = "hc21-2";
-	$GLOBALS["db_password"] = "9mXhS1VccjTU9uo";
-	$GLOBALS["db_name"] = "hc21_2";
+	require_once "Models/DatabaseModel.php";
 	
 	ini_set('display_error', 1);
 	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+	
+	$db = DatabaseModel::getInstance()->getDBConnection();
+	
+	$log_request = $db->prepare("INSERT INTO audit (ip, URL, request) SELECT INET6_ATON(?),?,?;");
+	$log_request->bind_param("sss", $_SERVER['REMOTE_ADDR'], $_SERVER["REQUEST_URI"], $_SERVER['REQUEST_METHOD']);
+	$log_request->execute();
+	$log_request->close();
+	
 	
 	// Check if the request URI matches a file ending in any of:
 	if (preg_match('/\.(?:php|png|jpg|jpeg|gif|ico|css|js|mp3|ogg|wav)\??.*$/',
@@ -17,9 +21,8 @@
 		return false; // Serve the requested resource as-is.
 	}
 	
-	
-	require_once __DIR__ . "/Controllers/IndexController.php";
-	require_once __DIR__ . "/Core/ControllerBase.php";
+	require_once "Controllers/IndexController.php";
+	require_once "Core/ControllerBase.php";
 	
 	// ALL $_SERVER["PATH_INFO"] MUST BE $_SERVER["REQUEST_URI"] WHEN ON POSEIDON
 	

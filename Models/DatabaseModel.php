@@ -7,10 +7,10 @@
 		public static function getInstance(): DatabaseModel {
 			
 			if (self::$_dbInstance === null) {
-				$db_host = $GLOBALS["db_host"];
-				$db_username = $GLOBALS["db_username"];
-				$db_password = $GLOBALS["db_password"];
-				$db_name = $GLOBALS["db_name"];
+				$db_host = "poseidon.salford.ac.uk";
+				$db_username = "hc21-2";
+				$db_password = "9mXhS1VccjTU9uo";
+				$db_name = "hc21_2";
 				
 				self::$_dbInstance = new self($db_username, $db_password, $db_host, $db_name);
 			}

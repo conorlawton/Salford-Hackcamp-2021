@@ -18,17 +18,14 @@
 					<li class="nav-item">
 						<a class="nav-link" aria-current="page" href="/uploadAudio">Upload Audio</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" aria-current="page" href="/Searchbar">Search</a>
+					</li>
 				<?php endif ?>
 			</ul>
 			
 			<?php if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"]): ?>
 				<!-- Don't show the search bar if we aren't logged in. -->
-				<form class="d-flex m-0" action="/Searchbar" method="get">
-					<!--
-					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-					-->
-					<button class="btn btn-outline-light me-2" type="submit">Search</button>
-				</form>
 				<form class="d-flex m-0" action="login" method="post">
 					<button class="btn btn-outline-light" type="submit" name="logout">Logout</button>
 				</form>
