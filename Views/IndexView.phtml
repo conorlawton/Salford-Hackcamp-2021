@@ -1,9 +1,9 @@
 <?php
 	/** @var Widget[] $problem_data_set */
 	/** @var object $view */
-
-    require_once "Models/ProblemModel.php";
-    require_once "Core/ProblemCategories.php";
+	
+	require_once "Models/ProblemModel.php";
+	require_once "Core/ProblemCategories.php";
 ?>
 
 <div class="container">
@@ -11,35 +11,36 @@
 		<div class="container shadow rounded col-5 mt-5 p-2">
 			<div class="w-100 text-center">
 				<h1 class="h3 my-3 fw-normal">Latest Problem</h1>
-                <?php
-                /** @var Widget $active_problems */
-                foreach ($view->problem_data_set as $active_problems)
-                {
-                    $active_problems->display();
-                }
-                ?>
+				<?php
+					/** @var Widget $active_problems */
+					foreach ($view->problem_data_set as $active_problems)
+					{
+						$active_problems->display();
+					}
+				?>
 			</div>
 		</div>
 		<div class="container shadow rounded col-5 mt-5 p-2">
 			<div class="w-100 text-center">
 				<h1 class="h3 my-3 fw-normal">Team Activity</h1>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th>No. Tickets</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            for($x = 1; $x<= ProblemCategories::$category_count; $x++) {
-                                echo '<tr> <td>' . ProblemCategories::get_category_name_by_id($x).
-                                    '</td> <td>'. ProblemModel::count_problems($x).
-                                    '</td> </tr>';
-                            }
-                        ?>
-                    </tbody>
-                </table>
+				<table class="table table-striped">
+					<thead>
+					<tr>
+						<th>Category</th>
+						<th>No. Tickets</th>
+					</tr>
+					</thead>
+					<tbody>
+					<?php
+						for ($x = 1; $x <= ProblemCategories::$category_count; $x++)
+						{
+							echo '<tr> <td>' . ProblemCategories::get_category_name_by_id($x) .
+								'</td> <td>' . ProblemModel::count_problems($x) .
+								'</td> </tr>';
+						}
+					?>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
