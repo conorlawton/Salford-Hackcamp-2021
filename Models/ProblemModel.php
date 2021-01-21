@@ -47,6 +47,28 @@
 			
 			return $problemSet;
 		}
+
+		public static function fetch_recent_problems($amount):array{
+		    $db = DatabaseModel::getInstance();
+
+		    $add_problem = $db->getDBConnection()->prepare("SELECT * FROM problems WHERE resolved = FALSE limit ?");
+
+            $add_problem->bind_result($id, $urgency, $description, $resolved, $category_id, $staff_id, $customer_id, $time_stamp);
+            $add_problem->bind_param("i", $amount);
+            $add_problem->execute();
+            $add_problem->store_result();
+
+            $problemSet = [];
+
+            while ($add_problem->fetch()){
+                $new_problem = new ProblemModel($id, $urgency, $description, $resolved, $category_id, $staff_id, $customer_id, DateTime::createFromFormat("Y-m-d H:i:s", $time_stamp));
+                array_push($problemSet, $new_problem);
+            }
+
+            $add_problem->close();
+
+            return $problemSet;
+        }
 		
 		public static function insert_problem($urgency, $description, $categorisation_id, $staff_id, $customer_id)
 		{
@@ -60,6 +82,29 @@
 			
 			$add_problem->close();
 		}
+
+        public static function update_problem($urgency, $description, $categorisation_id, $customer_id, $problemID)
+        {
+
+            $db = DatabaseModel::getInstance();
+            $add_problem = $db->getDBConnection()->prepare("UPDATE problems SET urgency = ?, description = ?, category_id = ?, customer_id = ? WHERE id = ?");
+            $add_problem->bind_param("ssiii", $urgency, $description, $categorisation_id, $customer_id, $problemID);
+            $add_problem->execute();
+            $add_problem->fetch();
+            $add_problem->close();
+        }
+
+        public static function resolve($problemID)
+        {
+
+
+            $db = DatabaseModel::getInstance();
+            $add_problem = $db->getDBConnection()->prepare("UPDATE problems SET resolved = 1 WHERE id = ?");
+            $add_problem->bind_param("i", $problemID);
+            $add_problem->execute();
+            $add_problem->fetch();
+            $add_problem->close();
+        }
 		
 		public static function check_if_exists($id): ?bool {
 			
@@ -93,6 +138,44 @@
 				return null;
 			}
 		}
+
+        public static function count_problems($category_id)
+        {
+            $db = DatabaseModel::getInstance();
+
+            $count_problem = $db->getDBConnection()->prepare("SELECT COUNT(id) FROM problems WHERE category_id = ?");
+            $count_problem->bind_param("i", $category_id);
+            $count_problem->bind_result($COUNT);
+            $count_problem->execute();
+            $count_problem->fetch();
+
+            $count_problem->close();
+
+            return $COUNT;
+        }
+
+        public static function fetch_by_category($_id):array{
+
+		    $db = DatabaseModel::getInstance();
+
+		    $fetch_category = $db->getDBConnection()->prepare("SELECT * FROM problems WHERE category_id = ?");
+            $fetch_category->bind_param("i",$_id);
+            $fetch_category->bind_result($id, $urgency, $description, $resolved, $category_id, $staff_id, $customer_id, $time_stamp, $due_date);
+            $fetch_category->execute();
+            $fetch_category->store_result();
+
+            $problemSet = [];
+
+            while ($fetch_category->fetch())
+            {
+                $new_problem = new ProblemModel($id, $urgency, $description, $resolved, $category_id, $staff_id, $customer_id, DateTime::createFromFormat("Y-m-d H:i:s", $time_stamp));
+                array_push($problemSet, $new_problem);
+            }
+
+            $fetch_category->close();
+
+            return $problemSet;
+        }
 		
 		public function display(): void
 		{

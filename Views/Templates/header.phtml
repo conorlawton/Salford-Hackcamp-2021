@@ -11,7 +11,7 @@
 				<li class="nav-item">
 					<a class="nav-link" aria-current="page" href="/">Home</a>
 				</li>
-				<?php if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"]): ?>
+				<?php if (isset($_SESSION["user"]) && isset($_SESSION["logged-in"]) && $_SESSION["logged-in"]): ?>
 					<li class="nav-item">
 						<a class="nav-link" aria-current="page" href="/addProblem">Add Problem</a>
 					</li>
@@ -21,23 +21,25 @@
 					<li class="nav-item">
 						<a class="nav-link" aria-current="page" href="/Searchbar">Search</a>
 					</li>
+					<?php if ($_SESSION["user"]->is_admin()):?>
+						<li class="nav-item">
+							<a class="nav-link" aria-current="page" href="/AuditTrail">Audit Log</a>
+						</li>
+					<?php endif ?>
 				<?php endif ?>
-                <?php if (UserModel::checkAdmin($_SESSION["user"])): ?>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="">Tester</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/uploadAudio">Upload Audio</a>
-                    </li>
-                <?php endif ?>
-                <?php if (UserModel::checkTeamLeader($_SESSION["user"])): ?>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/addProblem">Add Problem</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/uploadAudio">Upload Audio</a>
-                    </li>
-                <?php endif ?>
+				<?php if (isset($_SESSION["user"]) && $_SESSION["user"]->is_admin()): ?>
+					<li class="nav-item">
+						<a class="nav-link" aria-current="page" href="/uploadAudio">Upload Audio</a>
+					</li>
+				<?php endif ?>
+				<?php if (isset($_SESSION["user"]) && $_SESSION["user"]->is_team_leader()): ?>
+					<li class="nav-item">
+						<a class="nav-link" aria-current="page" href="/addProblem">Add Problem</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" aria-current="page" href="/uploadAudio">Upload Audio</a>
+					</li>
+				<?php endif ?>
 			</ul>
 			
 			<?php if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"]): ?>

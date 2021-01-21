@@ -1,0 +1,28 @@
+<?php
+    require_once"Models/AuditModel.php";
+?>
+<form>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Log ID</th>
+            <th>IP</th>
+            <th>URL</th>
+            <th>Timestamp</th>
+            <th>Request</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        foreach (AuditModel::FetchAllAudits() as $auditData){
+            echo '<tr> <td>' . $auditData->getAuditID() .
+                '</td> <td>' . $auditData->getIP() .
+                '</td> <td>' . $auditData->getURL() .
+                '</td> <td>' . $auditData->getTimestamp()->format("Y-m-d H:i:s") .
+                '</td> <td>' . $auditData->getRequest().
+                '</td> </tr>';
+        }
+        ?>
+        </tbody>
+    </table>
+</form>
