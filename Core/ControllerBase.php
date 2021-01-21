@@ -8,6 +8,6 @@
 		 */
 		public $view;
 		
-		public abstract function get(): void;
-		public abstract function post(): void;
+		public abstract function get();
+		public abstract function post();
 	}

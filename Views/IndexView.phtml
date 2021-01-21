@@ -3,34 +3,20 @@
 	/** @var object $view */
 ?>
 
-<div class="container">
-	<div class="row">
-		<div class="container shadow rounded col-5 mt-5 p-2">
-			<div class="w-100 text-center">
-				<h1 class="h3 my-3 fw-normal">Your Activity</h1>
-			</div>
+<div class="container col-8 my-5 p-1">
+	<div class="col-6">
+		<div class="row d-flex justify-content-center flex-fill">
+			<h1 class="text-center mb-0">Problems</h1>
 		</div>
-		<div class="container shadow rounded col-5 mt-5 p-2">
-			<div class="w-100 text-center">
-				<h1 class="h3 my-3 fw-normal">Team Activity</h1>
-			</div>
-		</div>
+		<?php
+			/** @var Widget $active_problems */
+			foreach ($view->problem_data_set as $active_problems)
+			{
+				$active_problems->display();
+			}
+		?>
 	</div>
-	<div class="row">
-		<div class="container shadow rounded col-11 mt-5 p-2">
-			<div class="w-100 text-center">
-				<h1 class="h3 my-3 fw-normal">Reminders</h1>
-			</div>
-		</div>
+	<div class="col-6">
+	
 	</div>
-</div>
-
-<div class="container shadow rounded col-8 mt-5 p-1">
-	<?php
-		/** @var Widget $active_problems */
-		foreach ($view->problem_data_set as $active_problems)
-		{
-			$active_problems->display();
-		}
-	?>
 </div>

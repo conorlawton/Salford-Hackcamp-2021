@@ -1,9 +1,9 @@
 <?php
 	
-	require_once __DIR__ . "/../Core/ControllerBase.php";
-	require_once __DIR__ . "/../Core/ViewBase.php";
-	require_once __DIR__ . "/../Models/AudioModel.php";
-	require_once __DIR__ . "/../Models/ProblemModel.php";
+	require_once "Core/ControllerBase.php";
+	require_once "Core/ViewBase.php";
+	require_once "Models/AudioModel.php";
+	require_once "Models/ProblemModel.php";
 	
 	class UploadAudioController extends ControllerBase
 	{
