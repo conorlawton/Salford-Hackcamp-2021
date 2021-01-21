@@ -61,6 +61,12 @@
 				}
 			}
 		?>
+
+        <a class="btn btn-outline-danger" href="updateProblem?problemID=<?php echo ($problem->id)?>">Edit</a>
+
+
+
+
 	</div>
 	<div class="card-footer d-flex">
 		<p class="mb-0"><a href="/Problem?id=<?php echo $problem->id; ?>"><?php echo CommentModel::get_number_of_comments($problem->id); ?> Comments</a></p>
@@ -71,3 +77,5 @@
 		</div>
 	</div>
 </div>
+
+

@@ -1,0 +1,101 @@
+
+
+<div class="container shadow rounded col-8 mt-5 p-1">
+	<div class="w-100 text-center">
+		<h1 class="h3 my-3 fw-normal">Update a Problem</h1>
+	</div>
+	<form class="w-100 col container" action="/UpdateProblem" method="GET">
+		<div class="row mb-2 g-2">
+			<div class="form-floating col-sm-4">
+				<select class="form-select pb-2" name="urgency" id="floating-urgency" required>
+					<option value="Low"<?php if($view->problem->urgency==="Low"){echo'selected="selected"';}?>>Low</option>
+					<option value="Medium"<?php if($view->problem->urgency==="Medium"){echo'selected="selected"';}?>>Medium</option>
+					<option value="High"<?php if($view->problem->urgency==="High"){echo'selected="selected"';}?>>High</option>
+				</select>
+				<label for="floating-urgency">Problem Urgency</label>
+			</div>
+			<div class="form-floating col-sm-4">
+				<select class="form-select pb-2" name="categorisation_id" id="floating-category" required>
+					<option value="1"<?php if($view->problem->category_id===1){echo'selected="selected"';}?>>Password Queries</option>
+					<option value="2"<?php if($view->problem->category_id===2){echo'selected="selected"';}?>>Login Issues</option>
+					<option value="3"<?php if($view->problem->category_id===3){echo'selected="selected"';}?>>Process Queries</option>
+					<option value="4"<?php if($view->problem->category_id===4){echo'selected="selected"';}?>>Transfers In</option>
+					<option value="5"<?php if($view->problem->category_id===5){echo'selected="selected"';}?>>Withdrawals</option>
+					<option value="6"<?php if($view->problem->category_id===6){echo'selected="selected"';}?>>Benefits</option>
+					<option value="7"<?php if($view->problem->category_id===7){echo'selected="selected"';}?>>New Business Applications</option>
+					<option value="8"<?php if($view->problem->category_id===8){echo'selected="selected"';}?>>Complaints</option>
+				</select>
+				<label for="floating-category">Problem Category</label>
+			</div>
+			<div class="form-floating col-sm-4">
+				<input type="number" class="form-control" name="CustomerID" placeholder="" value="<?php echo($view->problem->customer_id)?>"
+							 aria-label="Customer ID" aria-describedby="basic-addon1" min="0" required>
+				<label for="form-name">Customer ID</label>
+
+
+			</div>
+		</div>
+		<div class="row mb-2 g-2">
+			<div class="form-floating col">
+				<textarea class="form-control" name="description" id="descriptionTextArea" rows="3" style="height: 5em;"
+									required><?php echo($view->problem->description)?></textarea>
+				<label for="descriptionTextArea" class="form-label">Problem Description</label>
+			</div>
+
+
+
+            <input type="hidden" name="problemID" value="<?php echo ($view->ID)?>">
+		</div>
+
+		<div class="row mb-2 g-2">
+            <button class="btn btn-outline-success col-3 mx-1" name="resolveButton" value="Resolve">Resolve</button>
+			<div class="col d-flex justify-content-center">
+				<button class="btn btn-primary col-3" type="submit" name="submitBTN" value="Submit Problem">Submit</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<?php
+
+
+
+if (isset($_GET['description']) && $_GET['description'] && $_GET['description'] != $view->problem->description )
+{
+    $view->problem->description = $_GET['description'];
+
+}
+
+if (  isset($_GET['urgency']) && $_GET['urgency'] != $view->problem->urgency)
+{
+    $view->problem->urgency = $_GET['urgency'];
+
+}
+
+if (isset($_GET['categorisation_id']) && $_GET['categorisation_id'] != $view->problem->category_id )
+{
+    $view->problem->category_id = $_GET['categorisation_id'];
+
+}
+
+if (isset($_GET['CustomerID']) && $_GET['CustomerID'] != $view->problem->customer_id)
+{
+    $view->problem->customer_id = $_GET['CustomerID'];
+}
+
+if (isset($_GET['submitBTN']))
+{
+    ProblemModel::update_problem($view->problem->urgency, $view->problem->description, $view->problem->category_id,$view->problem->customer_id, $view->problem->id );
+
+
+}
+
+if (isset($_GET['resolveButton'])) {
+
+    ProblemModel::resolve($view->problem->id);
+
+}
+
+
+?>
