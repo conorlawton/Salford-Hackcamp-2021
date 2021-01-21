@@ -76,11 +76,11 @@
 				
 				switch ($controller_name)
 				{
-                    case "AuditTrailController":
-                    case "AddProblemController":
+					case "AuditTrailController":
+					case "AddProblemController":
 						$controller = new $controller_name($user);
 						break;
-                    default:
+					default:
 						$controller = new $controller_name;
 						break;
 				}

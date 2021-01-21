@@ -1,26 +1,23 @@
 <div class="container shadow rounded col-8 mt-5 p-1">
     <div class="w-100 text-center">
-        <h1 class="h3 my-3 fw-normal">Add a User</h1>
+        <h1 class="h3 my-3 fw-normal">Add a Customer</h1>
     </div>
-    <form class="w-100 col container" action="/AddUser" method="POST">
+    <form class="w-100 col container" action="/AddCustomer" method="POST">
         <div class="row mb-2 g-2">
             <div class="form-floating col-sm-4">
-                <input type="text" class="form-control" name="Staff_Name" placeholder="Staff Name"
+                <input type="text" class="form-control" name="firstName" placeholder="First Name"
                        aria-label="Staff Name" aria-describedby="basic-addon1" min="0" required>
                 <label for="form-name">Staff Name</label>
             </div>
             <div class="form-floating col-sm-4">
-                <select class="form-select pb-2" name="permissions" id="floating-category" required>
-                    <option value="1">Admin</option>
-                    <option value="2">Team manager</option>
-                    <option value="0">No permissions</option>
-                </select>
-                <label for="floating-category">Staff Permissions</label>
+                <input type="Text" class="form-control" name="lastName" placeholder="Last Name"
+                       aria-label="lastName">
+                <label for="form-name">Last Name</label>
             </div>
             <div class="form-floating col-sm-4">
-                <input type="Text" class="form-control" name="Password" placeholder="Password"
-                       aria-label="Password">
-                <label for="form-name">Password</label>
+                <input type="Text" class="form-control" name="phoneNumber" placeholder="Phone Number"
+                       aria-label="lastName">
+                <label for="form-name">Phone number</label>
             </div>
         </div>
         <div class="row mb-2 g-2">
