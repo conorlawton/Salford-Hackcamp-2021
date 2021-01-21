@@ -78,8 +78,8 @@
 				{
 					case "AuditTrailController":
 					case "AddProblemController":
-						$controller = new $controller_name($user);
-						break;
+                    $controller = new $controller_name($user);
+                    break;
 					default:
 						$controller = new $controller_name;
 						break;
