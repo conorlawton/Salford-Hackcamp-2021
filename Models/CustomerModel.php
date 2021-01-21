@@ -31,5 +31,18 @@
 			
 			return $result;
 		}
+
+        static function addNewCustomer($firstName, $lastName, $email, $phoneNumber)
+        {
+            $db = DatabaseModel::getInstance();
+
+            $add_problem = $db->getDBConnection()->prepare("INSERT INTO customers (firstName, lastName, email, phoneNumber) VALUES (?,?,?,?);");
+            $add_problem->bind_param("ssss", $firstName, $lastName, $email, $phoneNumber);
+            $add_problem->execute();
+
+            $add_problem->fetch();
+
+            $add_problem->close();
+        }
 	}
 	
