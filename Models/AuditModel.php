@@ -5,18 +5,18 @@
 class AuditModel
 {
     public int $auditID;
-    public int $userID;
-    public int $problemID;
-    public DateTime $date;
-    public string $message;
+    public String $ip;
+    public String $URL;
+    public DateTime $timestamp;
+    public String $request;
 
-    function __construct($auditID, $userID, $problemID, $date, $message)
+    function __construct($auditID, $ip, $URL, $timestamp, $request)
     {
         $this->auditID = $auditID;
-        $this->userID = $userID;
-        $this->problemID = $problemID;
-        $this->date = $date;
-        $this->message =$message;
+        $this->ip = $ip;
+        $this->URL = $URL;
+        $this->timestamp = $timestamp;
+        $this->request =$request;
     }
 
     static function FetchAllAudits() {
@@ -26,11 +26,11 @@ class AuditModel
         $db = DatabaseModel::getInstance();
 
         $fetch_all = $db->getDBConnection()->prepare("SELECT * FROM audit");
-        $fetch_all->bind_result($auditID, $userID, $problemID, $date, $message);
+        $fetch_all->bind_result($auditID, $ip, $URL, $timestamp, $request);
         $fetch_all->execute();
 
         while($fetch_all->fetch()){
-            $new_audit_model = new AuditModel($auditID, $userID, $problemID, $date, $message);
+            $new_audit_model = new AuditModel($auditID, $ip, $URL, $timestamp, $request);
             array_push($audits,$new_audit_model);
         }
 
