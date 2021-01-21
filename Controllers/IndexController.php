@@ -19,7 +19,7 @@
 		{
 			
 			$this->view->problem_data_set = ProblemModel::fetch_active_problems();
-			
+
 			usort($this->view->problem_data_set, function($a, $b) {
 				return $a < $b;
 			});
