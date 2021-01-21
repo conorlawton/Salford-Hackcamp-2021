@@ -18,7 +18,7 @@
             echo '<tr> <td>' . $auditData->getAuditID() .
                 '</td> <td>' . $auditData->getIP() .
                 '</td> <td>' . $auditData->getURL() .
-                '</td> <td>' . $auditData->getTimestamp() .
+                '</td> <td>' . $auditData->getTimestamp()->format("Y-m-d H:i:s") .
                 '</td> <td>' . $auditData->getRequest().
                 '</td> </tr>';
         }
