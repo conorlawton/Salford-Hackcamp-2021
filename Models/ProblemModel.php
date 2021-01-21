@@ -71,6 +71,18 @@
             $add_problem->fetch();
             $add_problem->close();
         }
+
+        public static function resolve($problemID)
+        {
+
+
+            $db = DatabaseModel::getInstance();
+            $add_problem = $db->getDBConnection()->prepare("UPDATE problems SET resolved = 1 WHERE id = ?");
+            $add_problem->bind_param("i", $problemID);
+            $add_problem->execute();
+            $add_problem->fetch();
+            $add_problem->close();
+        }
 		
 		public static function check_if_exists($id): ?bool {
 			
