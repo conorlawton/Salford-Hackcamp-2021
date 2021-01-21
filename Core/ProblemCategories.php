@@ -3,6 +3,8 @@
 	
 	class ProblemCategories
 	{
+	    static $category_count = 8;
+
 		static function get_category_name_by_id(int $id): string {
 			switch($id) {
 				case 1:

@@ -93,6 +93,44 @@
 				return null;
 			}
 		}
+
+        public static function count_problems($category_id)
+        {
+            $db = DatabaseModel::getInstance();
+
+            $count_problem = $db->getDBConnection()->prepare("SELECT COUNT(id) FROM problems WHERE category_id = ?");
+            $count_problem->bind_param("i", $category_id);
+            $count_problem->bind_result($COUNT);
+            $count_problem->execute();
+            $count_problem->fetch();
+
+            $count_problem->close();
+
+            return $COUNT;
+        }
+
+        public static function fetch_by_category($_id):array{
+
+		    $db = DatabaseModel::getInstance();
+
+		    $fetch_category = $db->getDBConnection()->prepare("SELECT * FROM problems WHERE category_id = ?");
+            $fetch_category->bind_param("i",$_id);
+            $fetch_category->bind_result($id, $urgency, $description, $resolved, $category_id, $staff_id, $customer_id, $time_stamp, $due_date);
+            $fetch_category->execute();
+            $fetch_category->store_result();
+
+            $problemSet = [];
+
+            while ($fetch_category->fetch())
+            {
+                $new_problem = new ProblemModel($id, $urgency, $description, $resolved, $category_id, $staff_id, $customer_id, DateTime::createFromFormat("Y-m-d H:i:s", $time_stamp));
+                array_push($problemSet, $new_problem);
+            }
+
+            $fetch_category->close();
+
+            return $problemSet;
+        }
 		
 		public function display(): void
 		{
