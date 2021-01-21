@@ -9,10 +9,10 @@ echo
 
         <h1 id="id">' . $this->id . '</h1>
 
-        <p id="urgency">First Names: ' . $this->firstName . '</p>
-        <p id="description">Surname: ' . $this->lastName . '</p>
-        <p id="resolved">Email: ' . $this->email . '</p>
-        <p id="resolved">Phone Number: ' . $this->phoneNumber . '</p>
+        <p id="firstName">First Names: ' . $this->firstName . '</p>
+        <p id="lastName">Surname: ' . $this->lastName . '</p>
+        <p id="email">Email: ' . $this->email . '</p>
+        <p id="phoneNumber">Phone Number: ' . $this->phoneNumber . '</p>
 
     </div>
 

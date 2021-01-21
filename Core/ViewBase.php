@@ -1,6 +1,5 @@
 <?php
 	
-	
 	class ViewBase
 	{
 		public $title, $body;
