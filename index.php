@@ -48,7 +48,7 @@
 		if ($url[0] == "/")
 		{
 			// Create the IndexController, give it the user and serve the page via view().
-			$index_controller = new IndexController($user);
+			$index_controller = new IndexController();
 			$index_controller->$request_action();
 		}
 		else

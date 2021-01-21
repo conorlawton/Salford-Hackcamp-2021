@@ -7,10 +7,10 @@
 ?>
 
 <div class="container">
-	<div class="row">
-		<div class="container shadow rounded col-5 mt-5 p-2">
-			<div class="w-100 text-center">
-				<h1 class="h3 my-3 fw-normal">Latest Problem</h1>
+	<div class="row flex-fill flex-wrap-reverse">
+		<div class="container rounded col-lg-6 mt-5 p-2">
+			<div class="w-100">
+				<h1 class="h3 my-3 text-center">Latest Problem</h1>
 				<?php
 					/** @var Widget $active_problems */
 					foreach ($view->problem_data_set as $active_problems)
@@ -20,27 +20,29 @@
 				?>
 			</div>
 		</div>
-		<div class="container shadow rounded col-5 mt-5 p-2">
-			<div class="w-100 text-center">
-				<h1 class="h3 my-3 fw-normal">Team Activity</h1>
-				<table class="table table-striped">
-					<thead>
-					<tr>
-						<th>Category</th>
-						<th>No. Tickets</th>
-					</tr>
-					</thead>
-					<tbody>
-					<?php
-						for ($x = 1; $x <= ProblemCategories::$category_count; $x++)
-						{
-							echo '<tr> <td>' . ProblemCategories::get_category_name_by_id($x) .
-								'</td> <td>' . ProblemModel::count_problems($x) .
-								'</td> </tr>';
-						}
-					?>
-					</tbody>
-				</table>
+		<div class="container rounded col-lg-6 mt-5 p-2">
+			<div class="w-100">
+				<h1 class="h3 my-3 text-center">Team Activity</h1>
+				<div class="card">
+					<table class="table table-striped mb-0" >
+						<thead>
+							<tr>
+								<th>Category</th>
+								<th>No. Tickets</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								for ($x = 1; $x <= ProblemCategories::$category_count; $x++)
+								{
+									echo '<tr> <td>' . ProblemCategories::get_category_name_by_id($x) .
+										'</td> <td>' . ProblemModel::count_problems($x) .
+										'</td> </tr>';
+								}
+							?>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

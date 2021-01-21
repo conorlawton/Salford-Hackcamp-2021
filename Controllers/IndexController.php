@@ -7,23 +7,16 @@
 	
 	class IndexController extends ControllerBase
 	{
-		private $user;
-		
-		function __construct($user)
+		function __construct()
 		{
-			$this->user = $user;
 			$this->view = new ViewBase("Home", "/Views/IndexView.phtml");
 		}
 		
 		function get(): void
 		{
 			
-			$this->view->problem_data_set = ProblemModel::fetch_recent_problems(1);
+			$this->view->problem_data_set = ProblemModel::fetch_recent_problems(5);
 
-			usort($this->view->problem_data_set, function($a, $b) {
-				return $a < $b;
-			});
-			
 			$this->view->view();
 		}
 		
