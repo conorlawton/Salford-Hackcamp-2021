@@ -10,7 +10,14 @@
 	<div class="row">
 		<div class="container shadow rounded col-5 mt-5 p-2">
 			<div class="w-100 text-center">
-				<h1 class="h3 my-3 fw-normal">Your Activity</h1>
+				<h1 class="h3 my-3 fw-normal">Latest Problem</h1>
+                <?php
+                /** @var Widget $active_problems */
+                foreach ($view->problem_data_set as $active_problems)
+                {
+                    $active_problems->display();
+                }
+                ?>
 			</div>
 		</div>
 		<div class="container shadow rounded col-5 mt-5 p-2">
@@ -35,22 +42,5 @@
                 </table>
 			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="container shadow rounded col-11 mt-5 p-2">
-			<div class="w-100 text-center">
-				<h1 class="h3 my-3 fw-normal">Reminders</h1>
-			</div>
-		</div>
-		<?php
-			/** @var Widget $active_problems */
-			foreach ($view->problem_data_set as $active_problems)
-			{
-				$active_problems->display();
-			}
-		?>
-	</div>
-	<div class="col-6">
-
 	</div>
 </div>

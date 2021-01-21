@@ -47,6 +47,28 @@
 			
 			return $problemSet;
 		}
+
+		public static function fetch_recent_problems($amount):array{
+		    $db = DatabaseModel::getInstance();
+
+		    $add_problem = $db->getDBConnection()->prepare("SELECT * FROM problems WHERE resolved = FALSE limit ?");
+
+            $add_problem->bind_result($id, $urgency, $description, $resolved, $category_id, $staff_id, $customer_id, $time_stamp);
+            $add_problem->bind_param("i", $amount);
+            $add_problem->execute();
+            $add_problem->store_result();
+
+            $problemSet = [];
+
+            while ($add_problem->fetch()){
+                $new_problem = new ProblemModel($id, $urgency, $description, $resolved, $category_id, $staff_id, $customer_id, DateTime::createFromFormat("Y-m-d H:i:s", $time_stamp));
+                array_push($problemSet, $new_problem);
+            }
+
+            $add_problem->close();
+
+            return $problemSet;
+        }
 		
 		public static function insert_problem($urgency, $description, $categorisation_id, $staff_id, $customer_id)
 		{

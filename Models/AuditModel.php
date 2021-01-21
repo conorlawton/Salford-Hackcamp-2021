@@ -25,16 +25,58 @@ class AuditModel
 
         $db = DatabaseModel::getInstance();
 
-        $fetch_all = $db->getDBConnection()->prepare("SELECT id, INET6_NTOA(ip), URL, timestamp, request FROM audit");
+        $fetch_all = $db->getDBConnection()->prepare("SELECT auditID, INET6_NTOA(ip), URL, timestamp, request FROM audit");
         $fetch_all->bind_result($auditID, $ip, $URL, $timestamp, $request);
         $fetch_all->execute();
 
         while($fetch_all->fetch()){
-            $new_audit_model = new AuditModel($auditID, $ip, $URL, $timestamp, $request);
+            $new_audit_model = new AuditModel($auditID, $ip, $URL, DateTime::createFromFormat("Y-m-d H:i:s", $timestamp), $request);
             array_push($audits,$new_audit_model);
         }
 
         $fetch_all->close();
         return $audits;
     }
+
+    /**
+     * @return int
+     */
+    public function getAuditID(): int
+    {
+        return $this->auditID;
+    }
+
+    /**
+     * @return String
+     */
+    public function getIp(): string
+    {
+        return $this->ip;
+    }
+
+    /**
+     * @return String
+     */
+    public function getURL(): string
+    {
+        return $this->URL;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getTimestamp(): DateTime
+    {
+        return $this->timestamp;
+    }
+
+    /**
+     * @return String
+     */
+    public function getRequest(): string
+    {
+        return $this->request;
+    }
+
+
 }
