@@ -54,4 +54,14 @@
 
             $add_problem->close();
         }
+
+        static function checkAdmin($user)
+        {
+            return !!($user->getPermissions() & 1);
+        }
+
+        static function checkTeamLeader($user)
+        {
+            return !!($user->getPermissions() & 2);
+        }
 	}
