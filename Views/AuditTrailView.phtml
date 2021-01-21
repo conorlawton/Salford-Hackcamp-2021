@@ -11,16 +11,16 @@
 	<div class="container d-flex justify-content-center flex-fill">
 		<nav>
 			<ul class="pagination justify-content-center">
-				<li class="page-item <?= $p <= 1 ? "disabled" : ""; ?>">
-					<a class="page-link" href="<?= $p <= 1 ? "#" : "?page=" . ($p - 1); ?>">Previous</a>
+				<li class="page-item <?= $p <= 0 ? "disabled" : ""; ?>">
+					<a class="page-link" href="<?= $p <= 0 ? "#" : "?page=" . ($p - 1); ?>">Previous</a>
 				</li>
 				<?php for ($i = max($p - 2, 0); $i <= min($p + 2, $mp); $i++): ?>
-					<li class="page-item <?= $p === $i ? "active" : ""; ?>">
+					<li class="page-item <?= $p == $i ? "active" : ""; ?>">
 						<a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a>
 					</li>
 				<?php endfor; ?>
 				<li class="page-item<?= $p >= $mp ? "disabled" : ""; ?>">
-					<a class="page-link" href="<?= $p <= $mp ? "#" : "?page=" . ($p + 1); ?>">Next</a>
+					<a class="page-link" href="<?= $p >= $mp ? "#" : "?page=" . ($p + 1); ?>">Next</a>
 				</li>
 			</ul>
 		</nav>
