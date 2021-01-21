@@ -15,6 +15,7 @@
 		
 		public function get(): void
 		{
+
 			if (isset($_GET["id"]) && !empty($_GET["id"]))
 			{
 				$id = $_GET["id"];
@@ -31,6 +32,9 @@
 				{
 					header("Location: /Error404");
 				}
+
+
+
 			}
 			else
 			{

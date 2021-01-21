@@ -42,11 +42,15 @@
 				<label for="descriptionTextArea" class="form-label">Problem Description</label>
 			</div>
 
+
+
             <input type="hidden" name="problemID" value="<?php echo ($view->ID)?>">
 		</div>
+
 		<div class="row mb-2 g-2">
+            <button class="btn btn-outline-success col-3 mx-1" name="resolveButton" value="Resolve">Resolve</button>
 			<div class="col d-flex justify-content-center">
-				<button class="btn btn-primary" type="submit" name="submitBTN" value="Submit Problem">Submit</button>
+				<button class="btn btn-primary col-3" type="submit" name="submitBTN" value="Submit Problem">Submit</button>
 			</div>
 		</div>
 	</form>
@@ -86,5 +90,12 @@ if (isset($_GET['submitBTN']))
 
 
 }
+
+if (isset($_GET['resolveButton'])) {
+
+    ProblemModel::resolve($view->problem->id);
+
+}
+
 
 ?>
