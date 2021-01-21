@@ -32,12 +32,12 @@
 			return $result;
 		}
 
-        static function addNewUser($firstName, $lastName, $email, $phoneNumber)
+        static function addNewCustomer($firstName, $lastName, $email, $phoneNumber)
         {
             $db = DatabaseModel::getInstance();
 
             $add_problem = $db->getDBConnection()->prepare("INSERT INTO customers (firstName, lastName, email, phoneNumber) VALUES (?,?,?,?);");
-            $add_problem->bind_param("ssiii", $firstName, $lastName, $email, $phoneNumber);
+            $add_problem->bind_param("ssss", $firstName, $lastName, $email, $phoneNumber);
             $add_problem->execute();
 
             $add_problem->fetch();

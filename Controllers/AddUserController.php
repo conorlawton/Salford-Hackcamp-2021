@@ -1,16 +1,13 @@
 <?php
-require_once "Core/ControllerBase.php";
-require_once "Core/ViewBase.php";
-require_once "Models/CustomerModel.php";
+    require_once "Core/ControllerBase.php";
+    require_once "Core/ViewBase.php";
+    require_once "Models/UserModel.php";
 
     class AddUserController extends ControllerBase
     {
-        private $user;
-
-        function __construct($user)
+        function __construct()
         {
-            $this->user = $user;
-            $this->view = new ViewBase("Add User", "/Views/AddProblemView.phtml");
+            $this->view = new ViewBase("Add User", "/Views/AddUserView.phtml");
         }
 
         function get(): void
@@ -20,11 +17,10 @@ require_once "Models/CustomerModel.php";
 
         function post(): void
         {
-            $escaped_text = htmlspecialchars($_POST['description'], ENT_QUOTES | ENT_HTML5);
+            $escaped_text = htmlspecialchars($_POST['email'], ENT_QUOTES | ENT_HTML5);
 
-            UserModel::addNewUser($_POST["Staff_Name"], $_POST["Password"], $escaped_text, $_POST["permissions"]);
+            UserModel::addNewUser($_POST["Staff_Name"], password_hash($_POST["Password"], PASSWORD_DEFAULT), $escaped_text, $_POST["permissions"]);
 
-            header("Location: /AddProblem");
+            header("Location: /AddUser");
         }
-
     }
