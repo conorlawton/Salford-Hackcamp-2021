@@ -194,8 +194,9 @@ else
 
             foreach ($view->dataset as $lot) {
 
+
                 // Purely for the view, the boolean 0 or 1 is changed to "Yes" or "No" before display.
-                if($lot->getResolved() === "0")
+                if($lot->getResolved() === 1)
                 {$resolvedStatus = "Yes";}
                 else
                 {$resolvedStatus = "No";}
