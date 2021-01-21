@@ -25,7 +25,7 @@ class AuditModel
 
         $db = DatabaseModel::getInstance();
 
-        $fetch_all = $db->getDBConnection()->prepare("SELECT * FROM audit");
+        $fetch_all = $db->getDBConnection()->prepare("SELECT id, INET6_NTOA(ip), URL, timestamp, request FROM audit");
         $fetch_all->bind_result($auditID, $ip, $URL, $timestamp, $request);
         $fetch_all->execute();
 
