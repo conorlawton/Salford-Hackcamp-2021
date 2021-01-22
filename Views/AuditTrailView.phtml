@@ -1,28 +1,53 @@
 <?php
-    require_once"Models/AuditModel.php";
+	require_once "Models/AuditModel.php";
+	
+	/** @var object $view */
+	$mp = $view->mp;
+	$p = $view->p;
+	$max = $view->max;
 ?>
-<form>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Log ID</th>
-            <th>IP</th>
-            <th>URL</th>
-            <th>Timestamp</th>
-            <th>Request</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        foreach (AuditModel::FetchAllAudits() as $auditData){
-            echo '<tr> <td>' . $auditData->getAuditID() .
-                '</td> <td>' . $auditData->getIP() .
-                '</td> <td>' . $auditData->getURL() .
-                '</td> <td>' . $auditData->getTimestamp()->format("Y-m-d H:i:s") .
-                '</td> <td>' . $auditData->getRequest().
-                '</td> </tr>';
-        }
-        ?>
-        </tbody>
-    </table>
-</form>
+
+<div class="container col-8 my-3">
+	<div class="container d-flex justify-content-center flex-fill">
+		<nav>
+			<ul class="pagination justify-content-center">
+				<li class="page-item <?= $p <= 0 ? "disabled" : ""; ?>">
+					<a class="page-link" href="<?= $p <= 0 ? "#" : "?page=" . ($p - 1); ?>">Previous</a>
+				</li>
+				<?php for ($i = max($p - 2, 0); $i <= min($p + 2, $mp); $i++): ?>
+					<li class="page-item <?= $p == $i ? "active" : ""; ?>">
+						<a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a>
+					</li>
+				<?php endfor; ?>
+				<li class="page-item<?= $p >= $mp ? "disabled" : ""; ?>">
+					<a class="page-link" href="<?= $p >= $mp ? "#" : "?page=" . ($p + 1); ?>">Next</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+	<table class="table table-striped table-sm">
+		<thead>
+		<tr>
+			<th scope="col">Log ID</th>
+			<th scope="col">IP</th>
+			<th scope="col">URL</th>
+			<th scope="col">Timestamp</th>
+			<th scope="col">Request</th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php
+			/** @var AuditModel $audit */
+			foreach ($view->results as $audit)
+			{
+				echo '<tr><th scope="row">' . $audit->getAuditID() .
+					'</th><td>' . $audit->getIP() .
+					'</td><td style="overflow-x: auto;">' . $audit->getURL() .
+					'</td><td>' . $audit->getTimestamp()->format("Y-m-d H:i:s") .
+					'</td><td>' . $audit->getRequest() .
+					'</td></tr>';
+			}
+		?>
+		</tbody>
+	</table>
+</div>

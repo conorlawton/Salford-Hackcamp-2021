@@ -52,12 +52,12 @@
 		
 		function is_admin()
 		{
-			return !!($this->permissions & 1);
+			return (bool)($this->permissions & 1);
 		}
 		
 		function is_team_leader()
 		{
-			return !!($this->permissions & 2);
+			return (bool)($this->permissions & 2);
 		}
 		
 		function getPermissions()
