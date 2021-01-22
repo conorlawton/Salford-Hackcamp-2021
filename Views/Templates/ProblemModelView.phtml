@@ -9,7 +9,8 @@
 	$resolved_badge_text = "";
 	$resolved_badge_colour = "";
 	
-	switch ($problem->urgency) {
+	switch ($problem->urgency)
+	{
 		case "High":
 			$urgency_badge_colour = "#dc3545";
 			break;
@@ -21,7 +22,8 @@
 			break;
 	}
 	
-	switch ($problem->resolved) {
+	switch ($problem->resolved)
+	{
 		case 0:
 			$resolved_badge_colour = "#dc3545";
 			$resolved_badge_text = "Not resolved";
@@ -34,7 +36,7 @@
 
 ?>
 <div class="card justify-content-left m-3 problem">
-	<div class="card-header d-flex pe-1">
+	<div class="card-header d-flex pe-1 flex-wrap">
 		<h5 class="mb-0">
 			<a href="/Problem?id=<?php echo $problem->id; ?>">
 				<?php
@@ -43,8 +45,10 @@
 			</a>
 		</h5>
 		<div class="d-flex justify-content-end flex-fill">
-			<div class="badge align-self-center mx-1" style="background-color: <?php echo $urgency_badge_colour; ?>;"><?php echo $problem->urgency; ?></div>
-			<div class="badge align-self-center mx-1" style="background-color: <?php echo $resolved_badge_colour; ?>;"><?php echo $resolved_badge_text; ?></div>
+			<span class="badge mx-1"
+						style="background-color: <?php echo $urgency_badge_colour; ?>;"><?php echo $problem->urgency; ?></span>
+			<span class="badge mx-1"
+						style="background-color: <?php echo $resolved_badge_colour; ?>;"><?php echo $resolved_badge_text; ?></span>
 		</div>
 	</div>
 	<div class="card-body">
@@ -54,23 +58,22 @@
 			/** @var AudioModel $audio_models */
 			$audio_models = AudioModel::fetch_by_id_and_active($problem->id);
 			
-			if (!empty($audio_models)) {
+			if (!empty($audio_models))
+			{
 				echo "<hr/>";
-				foreach ($audio_models as $audio_model) {
+				foreach ($audio_models as $audio_model)
+				{
 					$audio_model->display();
 				}
 			}
 		?>
-
-        <a class="btn btn-outline-danger" href="updateProblem?problemID=<?php echo ($problem->id)?>">Edit</a>
-
-
-
-
 	</div>
-	<div class="card-footer d-flex">
-		<p class="mb-0"><a href="/Problem?id=<?php echo $problem->id; ?>"><?php echo CommentModel::get_number_of_comments($problem->id); ?> Comments</a></p>
-		<div class="d-flex justify-content-end flex-fill">
+	<div class="card-footer d-flex flex-wrap">
+		<a class="btn btn-outline-danger py-0 me-2" href="/UpdateProblem?problemID=<?php echo $problem->id; ?>">Edit</a>
+		<p class="mb-0"><a
+			href="/Problem?id=<?php echo $problem->id; ?>"><?php echo CommentModel::get_number_of_comments($problem->id); ?>
+			Comments</a></p>
+		<div class="d-flex justify-content-end flex-fill flex-wrap">
 			<p class="text-muted mb-0 me-2">Staff ID: <?php echo $problem->staff_id; ?>,</p>
 			<p class="text-muted mb-0 me-2">Customer ID: <?php echo $problem->customer_id; ?>,</p>
 			<p class="text-muted mb-0"><?php echo $problem->time_stamp->format("Y-m-d H:i:s"); ?></p>
