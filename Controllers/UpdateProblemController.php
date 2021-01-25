@@ -9,19 +9,12 @@
 		function __construct()
 		{
 			$this->view = new ViewBase("Update Problem", "/Views/UpdateProblemView.phtml");
-
-
-			if (isset($_GET['problemID']))
-            {
-                $_SESSION['problemID'] = $_GET['problemID'];
-            }
-
-
-			$this->view->problem = ProblemModel::get_by_id( $_SESSION['problemID']);
 		}
 		
 		function get(): void
 		{
+			$this->view->problem = ProblemModel::get_by_id($_GET['id']);
+			$this->view->id = $_GET["id"];
 			$this->view->view();
 		}
 		
@@ -29,36 +22,20 @@
 		{
 			if (isset($_POST['submitBTN']))
 			{
-			    echo ("Got here");
-
-				ProblemModel::update_problem($this->view->problem->urgency, $this->view->problem->description, $this->view->problem->category_id,$this->view->problem->customer_id, $this->view->problem->id );
-				
-				if (isset($_POST['description']) && $_POST['description'] && $_POST['description'] != $this->view->problem->description )
-				{
-					$this->view->problem->description = $_POST['description'];
-				}
-				
-				if (  isset($_POST['urgency']) && $_POST['urgency'] != $this->view->problem->urgency)
-				{
-					$this->view->problem->urgency = $_GET['urgency'];
-				}
-				
-				if (isset($_POST['categorisation_id']) && $_POST['categorisation_id'] != $this->view->problem->category_id )
-				{
-					$this->view->problem->category_id = $_POST['categorisation_id'];
-				}
-				
-				if (isset($_POST['CustomerID']) && $_POST['CustomerID'] != $this->view->problem->customer_id)
-				{
-					$this->view->problem->customer_id = $_POST['CustomerID'];
-				}
+				ProblemModel::update_problem(
+					$_POST["problem-urgency"],
+					$_POST["problem-description"],
+					$_POST["problem-category-id"],
+					$_POST["problem-customer-id"],
+					$_POST["problem-id"]
+				);
 			}
+			
 			elseif (isset($_POST['resolveButton'])) {
-				ProblemModel::resolve($this->view->problem->id);
+				ProblemModel::resolve($_POST["problem-id"]);
 			}
 
-            header("Location: /UpdateProblem");
-
+			header("Location: /UpdateProblem?id=".$_POST["problem-id"]);
 		}
 	}
 	

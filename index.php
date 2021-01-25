@@ -13,7 +13,6 @@
 	$log_request->execute();
 	$log_request->close();
 	
-	
 	// Check if the request URI matches a file ending in any of:
 	if (preg_match('/\.(?:php|png|jpg|jpeg|gif|ico|css|js|mp3|ogg|wav)\??.*$/',
 		$_SERVER["REQUEST_URI"]))
@@ -31,11 +30,13 @@
 	
 	// Begin the session in the router so that it doesn't need to start anywhere else.
 	session_start();
+	
 	/*
 	if (!isset($_SESSION["new_comments_check"])) {
 		$_SESSION["new_comments_check"] = [];
 	}
 	*/
+	
 	$request_action = strtolower($_SERVER['REQUEST_METHOD']);
 	
 	// If the user token isn't set re-route to the login page,
@@ -78,8 +79,8 @@
 				{
 					case "AuditTrailController":
 					case "AddProblemController":
-                    $controller = new $controller_name($user);
-                    break;
+						$controller = new $controller_name($user);
+						break;
 					default:
 						$controller = new $controller_name;
 						break;
