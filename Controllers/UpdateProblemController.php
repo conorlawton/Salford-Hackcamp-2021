@@ -9,8 +9,15 @@
 		function __construct()
 		{
 			$this->view = new ViewBase("Update Problem", "/Views/UpdateProblemView.phtml");
-			$this->view->ID = $_GET['problemID'];
-			$this->view->problem = ProblemModel::get_by_id($this->view->ID);
+
+
+			if (isset($_GET['problemID']))
+            {
+                $_SESSION['problemID'] = $_GET['problemID'];
+            }
+
+
+			$this->view->problem = ProblemModel::get_by_id( $_SESSION['problemID']);
 		}
 		
 		function get(): void
@@ -20,33 +27,38 @@
 		
 		function post(): void
 		{
-			if (isset($_GET['submitBTN']))
+			if (isset($_POST['submitBTN']))
 			{
-				ProblemModel::update_problem($view->problem->urgency, $view->problem->description, $view->problem->category_id,$view->problem->customer_id, $view->problem->id );
+			    echo ("Got here");
+
+				ProblemModel::update_problem($this->view->problem->urgency, $this->view->problem->description, $this->view->problem->category_id,$this->view->problem->customer_id, $this->view->problem->id );
 				
-				if (isset($_GET['description']) && $_GET['description'] && $_GET['description'] != $view->problem->description )
+				if (isset($_POST['description']) && $_POST['description'] && $_POST['description'] != $this->view->problem->description )
 				{
-					$view->problem->description = $_GET['description'];
+					$this->view->problem->description = $_POST['description'];
 				}
 				
-				if (  isset($_GET['urgency']) && $_GET['urgency'] != $view->problem->urgency)
+				if (  isset($_POST['urgency']) && $_POST['urgency'] != $this->view->problem->urgency)
 				{
-					$view->problem->urgency = $_GET['urgency'];
+					$this->view->problem->urgency = $_GET['urgency'];
 				}
 				
-				if (isset($_GET['categorisation_id']) && $_GET['categorisation_id'] != $view->problem->category_id )
+				if (isset($_POST['categorisation_id']) && $_POST['categorisation_id'] != $this->view->problem->category_id )
 				{
-					$view->problem->category_id = $_GET['categorisation_id'];
+					$this->view->problem->category_id = $_POST['categorisation_id'];
 				}
 				
-				if (isset($_GET['CustomerID']) && $_GET['CustomerID'] != $view->problem->customer_id)
+				if (isset($_POST['CustomerID']) && $_POST['CustomerID'] != $this->view->problem->customer_id)
 				{
-					$view->problem->customer_id = $_GET['CustomerID'];
+					$this->view->problem->customer_id = $_POST['CustomerID'];
 				}
 			}
-			elseif (isset($_GET['resolveButton'])) {
-				ProblemModel::resolve($view->problem->id);
+			elseif (isset($_POST['resolveButton'])) {
+				ProblemModel::resolve($this->view->problem->id);
 			}
+
+            header("Location: /UpdateProblem");
+
 		}
 	}
 	

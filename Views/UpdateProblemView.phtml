@@ -6,7 +6,7 @@
 	<div class="w-100 text-center">
 		<h1 class="h3 my-3 fw-normal">Update a Problem</h1>
 	</div>
-	<form class="w-100 col container" action="/UpdateProblem" method="POST">
+	<form class="w-100 col container" action="/UpdateProblem" method="post">
 		<div class="row mb-2 g-2">
 			<div class="form-floating col-sm-4">
 				<select class="form-select pb-2" name="urgency" id="floating-urgency" required>
@@ -45,7 +45,6 @@
 									required><?php echo $view->problem->description; ?></textarea>
 				<label for="descriptionTextArea" class="form-label">Problem Description</label>
 			</div>
-			<input type="hidden" name="problemID" value="<?php echo $view->ID; ?>">
 		</div>
 
 		<div class="row mb-2 g-2">
@@ -58,3 +57,5 @@
 		</div>
 	</form>
 </div>
+
+<?php echo $_POST['submitBTN']?>
