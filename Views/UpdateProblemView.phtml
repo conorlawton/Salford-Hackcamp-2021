@@ -7,9 +7,10 @@
 		<h1 class="h3 my-3 fw-normal">Update a Problem</h1>
 	</div>
 	<form class="w-100 col container" action="/UpdateProblem" method="post">
+		<input type="hidden" name="problem-id" value="<?= $view->id ?>">
 		<div class="row mb-2 g-2">
 			<div class="form-floating col-sm-4">
-				<select class="form-select pb-2" name="urgency" id="floating-urgency" required>
+				<select class="form-select pb-2" name="problem-urgency" id="floating-urgency" required>
 					<?php
 						foreach (["Low", "Medium", "High"] as $urgency)
 						{
@@ -21,7 +22,7 @@
 				<label for="floating-urgency">Problem Urgency</label>
 			</div>
 			<div class="form-floating col-sm-4">
-				<select class="form-select pb-2" name="categorisation_id" id="floating-category" required>
+				<select class="form-select pb-2" name="problem-category-id" id="floating-category" required>
 					<?php
 						for ($x = 1; $x <= ProblemCategories::$category_count; $x++)
 						{
@@ -33,7 +34,7 @@
 				<label for="floating-category">Problem Category</label>
 			</div>
 			<div class="form-floating col-sm-4">
-				<input type="number" class="form-control" name="CustomerID" placeholder=""
+				<input type="number" class="form-control" name="problem-customer-id" placeholder=""
 							 value="<?php echo $view->problem->customer_id; ?>"
 							 aria-label="Customer ID" aria-describedby="basic-addon1" min="0" required>
 				<label for="form-name">Customer ID</label>
@@ -41,7 +42,7 @@
 		</div>
 		<div class="row mb-2 g-2">
 			<div class="form-floating col">
-				<textarea class="form-control" name="description" id="descriptionTextArea" rows="3" style="height: 5em;"
+				<textarea class="form-control" name="problem-description" id="descriptionTextArea" rows="3" style="height: 5em;"
 									required><?php echo $view->problem->description; ?></textarea>
 				<label for="descriptionTextArea" class="form-label">Problem Description</label>
 			</div>
@@ -57,5 +58,3 @@
 		</div>
 	</form>
 </div>
-
-<?php echo $_POST['submitBTN']?>
