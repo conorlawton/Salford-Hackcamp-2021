@@ -23,10 +23,12 @@
 	require_once "Controllers/IndexController.php";
 	require_once "Core/ControllerBase.php";
 	
+	
 	// ALL $_SERVER["PATH_INFO"] MUST BE $_SERVER["REQUEST_URI"] WHEN ON POSEIDON
+	// The above comment might be fixed
 	
 	// First break the url request down and split it by "/"
-	$url = isset($_SERVER["PATH_INFO"]) ? explode("/", ltrim($_SERVER["PATH_INFO"], "/")) : "/";
+	$url = isset($_SERVER["REQUEST_URI"]) && $_SERVER["REQUEST_URI"] !== "/" ? explode("/", ltrim($_SERVER["REQUEST_URI"], "/")) : "/";
 	
 	// Begin the session in the router so that it doesn't need to start anywhere else.
 	session_start();
@@ -46,7 +48,7 @@
 		$user = $_SESSION["user"];
 		
 		// Accessing the root page of the site, serve the index page.
-		if ($url[0] == "/")
+		if ($url[0] == "/" || empty($url))
 		{
 			// Create the IndexController, give it the user and serve the page via view().
 			$index_controller = new IndexController();
