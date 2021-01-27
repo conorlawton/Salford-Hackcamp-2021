@@ -3,7 +3,7 @@ require_once "Core/ControllerBase.php";
 require_once "Core/ViewBase.php";
 require_once "Models/CustomerModel.php";
 
-class AddCustomerController extends ControllerBase
+class AddCustomerController
 {
     function __construct()
     {

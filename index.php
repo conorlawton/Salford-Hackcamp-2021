@@ -5,30 +5,25 @@
 	
 	ini_set('display_error', 1);
 	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-	
-	$db = DatabaseModel::getInstance()->getDBConnection();
-	
-	$log_request = $db->prepare("INSERT INTO audit (ip, URL, request) SELECT INET6_ATON(?),?,?;");
-	$log_request->bind_param("sss", $_SERVER['REMOTE_ADDR'], $_SERVER["REQUEST_URI"], $_SERVER['REQUEST_METHOD']);
-	$log_request->execute();
-	$log_request->close();
-	
-	
+
+
+
+
 	// Check if the request URI matches a file ending in any of:
 	if (preg_match('/\.(?:php|png|jpg|jpeg|gif|ico|css|js|mp3|ogg|wav)\??.*$/',
 		$_SERVER["REQUEST_URI"]))
 	{
 		return false; // Serve the requested resource as-is.
 	}
-	
+
 	require_once "Controllers/IndexController.php";
 	require_once "Core/ControllerBase.php";
-	
+
 	// ALL $_SERVER["PATH_INFO"] MUST BE $_SERVER["REQUEST_URI"] WHEN ON POSEIDON
-	
+
 	// First break the url request down and split it by "/"
 	$url = isset($_SERVER["PATH_INFO"]) ? explode("/", ltrim($_SERVER["PATH_INFO"], "/")) : "/";
-	
+
 	// Begin the session in the router so that it doesn't need to start anywhere else.
 	session_start();
 	/*
@@ -37,7 +32,23 @@
 	}
 	*/
 	$request_action = strtolower($_SERVER['REQUEST_METHOD']);
-	
+
+    $db = DatabaseModel::getInstance()->getDBConnection();
+
+    if (isset($_SESSION["user"])) {
+        $log_request = $db->prepare("INSERT INTO audit (ip, URL, request, staff_id) SELECT INET6_ATON(?),?,?,?;");
+        $log_request->bind_param("sssi", $_SERVER['REMOTE_ADDR'], $_SERVER["REQUEST_URI"], $_SERVER['REQUEST_METHOD'], $_SESSION["user"]->id);
+        $log_request->execute();
+        $log_request->close();
+    }
+    else {
+        $log_request = $db->prepare("INSERT INTO audit (ip, URL, request) SELECT INET6_ATON(?),?,?;");
+        $log_request->bind_param("sss", $_SERVER['REMOTE_ADDR'], $_SERVER["REQUEST_URI"], $_SERVER['REQUEST_METHOD']);
+        $log_request->execute();
+        $log_request->close();
+    }
+
+
 	// If the user token isn't set re-route to the login page,
 	// Since this is a staff only page we don't need to create a "home page" for anyone else.
 	if (isset($_SESSION["user"]) && $_SESSION["logged-in"])
