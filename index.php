@@ -15,22 +15,28 @@
 	{
 		return false; // Serve the requested resource as-is.
 	}
-
+	
 	require_once "Controllers/IndexController.php";
 	require_once "Core/ControllerBase.php";
 
 	// ALL $_SERVER["PATH_INFO"] MUST BE $_SERVER["REQUEST_URI"] WHEN ON POSEIDON
 
-	// First break the url request down and split it by "/"
-	$url = isset($_SERVER["PATH_INFO"]) ? explode("/", ltrim($_SERVER["PATH_INFO"], "/")) : "/";
+	// The above comment might be fixed
 
+	// First break the url request down and split it by "/"
+	$url = isset($_SERVER["REQUEST_URI"]) && $_SERVER["REQUEST_URI"] !== "/" ? explode("/", ltrim($_SERVER["REQUEST_URI"], "/")) : "/";
+
+	//var_dump($url);
+	
 	// Begin the session in the router so that it doesn't need to start anywhere else.
 	session_start();
+
 	/*
 	if (!isset($_SESSION["new_comments_check"])) {
 		$_SESSION["new_comments_check"] = [];
 	}
 	*/
+
 	$request_action = strtolower($_SERVER['REQUEST_METHOD']);
 
     $db = DatabaseModel::getInstance()->getDBConnection();
@@ -64,6 +70,11 @@
 		}
 		else
 		{
+			$end = end($url);
+
+			$end = explode("?", $end);
+			$url[array_key_last($url)] = $end[0];
+
 			// Get the page the user wants to access.
 			$requested_controller = $url[0];
 			
@@ -89,8 +100,8 @@
 				{
 					case "AuditTrailController":
 					case "AddProblemController":
-                    $controller = new $controller_name($user);
-                    break;
+						$controller = new $controller_name($user);
+						break;
 					default:
 						$controller = new $controller_name;
 						break;
