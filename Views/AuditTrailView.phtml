@@ -30,6 +30,7 @@
 		<tr>
 			<th scope="col">Log ID</th>
 			<th scope="col">IP</th>
+            <th scope="col">ID</th>
 			<th scope="col">URL</th>
 			<th scope="col">Timestamp</th>
 			<th scope="col">Request</th>
@@ -42,6 +43,7 @@
 			{
 				echo '<tr><th scope="row">' . $audit->getAuditID() .
 					'</th><td>' . $audit->getIP() .
+                    '</td><td>' . $audit->getID() .
 					'</td><td style="overflow-x: auto;">' . $audit->getURL() .
 					'</td><td>' . $audit->getTimestamp()->format("Y-m-d H:i:s") .
 					'</td><td>' . $audit->getRequest() .

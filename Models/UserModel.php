@@ -64,4 +64,9 @@
 		{
 			return $this->permissions;
 		}
+
+        function getID()
+        {
+            return $this->id;
+        }
 	}
