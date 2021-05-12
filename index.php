@@ -37,22 +37,26 @@
 	}
 	*/
 
+	
+	
 	$request_action = strtolower($_SERVER['REQUEST_METHOD']);
 
-    $db = DatabaseModel::getInstance()->getDBConnection();
+	$db = DatabaseModel::getInstance()->getDBConnection();
 
-    if (isset($_SESSION["user"])) {
-        $log_request = $db->prepare("INSERT INTO audit (ip, URL, request, staff_id) SELECT INET6_ATON(?),?,?,?;");
-        $log_request->bind_param("sssi", $_SERVER['REMOTE_ADDR'], $_SERVER["REQUEST_URI"], $_SERVER['REQUEST_METHOD'], $_SESSION["user"]->id);
-        $log_request->execute();
-        $log_request->close();
-    }
-    else {
-        $log_request = $db->prepare("INSERT INTO audit (ip, URL, request) SELECT INET6_ATON(?),?,?;");
-        $log_request->bind_param("sss", $_SERVER['REMOTE_ADDR'], $_SERVER["REQUEST_URI"], $_SERVER['REQUEST_METHOD']);
-        $log_request->execute();
-        $log_request->close();
-    }
+	if (isset($_SESSION["user"])) {
+		$log_request = $db->prepare("INSERT INTO audit (ip, URL, request, staff_id) SELECT INET6_ATON(?),?,?,?;");
+		$log_request->bind_param("sssi", $_SERVER['REMOTE_ADDR'], $_SERVER["REQUEST_URI"], $_SERVER['REQUEST_METHOD'], $_SESSION["user"]->id);
+		$log_request->execute();
+		$log_request->fetch();
+		$log_request->close();
+	}
+	else {
+		$log_request = $db->prepare("INSERT INTO audit (ip, URL, request) SELECT INET6_ATON(?),?,?;");
+		$log_request->bind_param("sss", $_SERVER['REMOTE_ADDR'], $_SERVER["REQUEST_URI"], $_SERVER['REQUEST_METHOD']);
+		$log_request->execute();
+		$log_request->fetch();
+		$log_request->close();
+	}
 
 
 	// If the user token isn't set re-route to the login page,
