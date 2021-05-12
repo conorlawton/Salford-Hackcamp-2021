@@ -9,6 +9,10 @@
 			if (self::$_dbInstance === null) {
 				$db_host = "poseidon.salford.ac.uk";
 				$db_username = "hc21-2";
+				
+				// The password has been changed as of 2021-05-12,
+				// in time the database will be removed entirely,
+				// it remains here as legacy.
 				$db_password = "9mXhS1VccjTU9uo";
 				$db_name = "hc21_2";
 				
